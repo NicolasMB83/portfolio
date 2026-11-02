@@ -43,49 +43,20 @@
     });
   }
 
-  /* Contact sheet. Links marked [data-contact] open a native dialog that grows out of the clicked
-     button (View Transitions where supported). Without JS they stay plain links to #contact. */
+  /* Contact sheet. Links marked [data-contact] open a native dialog (focus moves in, Esc closes,
+     focus returns to the button). Without JS they stay plain links to #contact. */
   const sheet = document.getElementById("contact-sheet");
   if (sheet && typeof sheet.showModal === "function") {
-    let trigger = null;
-    const canMorph = () => typeof document.startViewTransition === "function" && !reduceMotion.matches;
-    const open = (from) => {
-      trigger = from;
-      if (menu && menu.matches && menu.matches(":popover-open")) { try { menu.hidePopover(); } catch (_) {} }
-      if (!canMorph() || !from || !from.isConnected || from.offsetParent === null) { sheet.showModal(); return; }
-      sheet.classList.add("is-morphing");
-      from.style.viewTransitionName = "contact";
-      from.classList.add("is-capturing");
-      const t = document.startViewTransition(() => {
-        from.style.viewTransitionName = "";
-        from.classList.remove("is-capturing");
-        sheet.style.viewTransitionName = "contact";
-        sheet.showModal();
-      });
-      t.finished.finally(() => { sheet.style.viewTransitionName = ""; sheet.classList.remove("is-morphing"); });
-    };
-    const close = () => {
-      const back = trigger && trigger.isConnected && trigger.offsetParent !== null ? trigger : null;
-      if (!canMorph() || !back) { sheet.close(); return; }
-      sheet.classList.add("is-morphing");
-      sheet.style.viewTransitionName = "contact";
-      const t = document.startViewTransition(() => {
-        sheet.style.viewTransitionName = "";
-        sheet.close();
-        back.style.viewTransitionName = "contact";
-      });
-      t.finished.finally(() => { back.style.viewTransitionName = ""; sheet.classList.remove("is-morphing"); back.focus({ preventScroll: true }); });
-    };
     document.querySelectorAll("[data-contact]").forEach((link) => {
       link.addEventListener("click", (e) => {
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
         e.preventDefault();
-        open(link.closest(".menu") ? menuToggle : link);
+        if (menu && menu.matches && menu.matches(":popover-open")) { try { menu.hidePopover(); } catch (_) {} }
+        sheet.showModal();
       });
     });
-    sheet.querySelectorAll("[data-close]").forEach((b) => b.addEventListener("click", close));
-    sheet.addEventListener("cancel", (e) => { e.preventDefault(); close(); }); // Esc
-    sheet.addEventListener("click", (e) => { if (e.target === sheet) close(); }); // backdrop
+    sheet.querySelectorAll("[data-close]").forEach((b) => b.addEventListener("click", () => sheet.close()));
+    sheet.addEventListener("click", (e) => { if (e.target === sheet) sheet.close(); }); // backdrop
   }
 
   /* Copy email: the address is always visible; this only saves a step */
@@ -135,13 +106,14 @@
     map.forEach((_, el) => io.observe(el));
   }
 
-  /* 404: a random GIF rises inside the sun. Needs the owner's own GIPHY key (data-giphy-key);
-     without it, the sun stays as it is. GIPHY's terms require the "Powered by GIPHY" credit. */
+  /* 404: a new random GIF (tag in data-giphy-tag) rises inside the sun on every visit.
+     If the API fails or the hourly limit is reached, the sun simply stays as it is.
+     GIPHY's terms require the "Powered by GIPHY" credit. */
   const gifSky = document.querySelector("[data-giphy-key]");
   if (gifSky && gifSky.getAttribute("data-giphy-key")) {
     const key = gifSky.getAttribute("data-giphy-key");
     const tag = gifSky.getAttribute("data-giphy-tag") || "";
-    fetch(`https://api.giphy.com/v1/gifs/random?api_key=${encodeURIComponent(key)}&tag=${encodeURIComponent(tag)}&rating=g`)
+    fetch(`https://api.giphy.com/v1/gifs/random?api_key=${encodeURIComponent(key)}&tag=${encodeURIComponent(tag)}&rating=g`, { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
       .then(({ data }) => {
         const img = data && data.images;

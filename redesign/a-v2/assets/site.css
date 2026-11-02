@@ -47,6 +47,8 @@
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-enter: cubic-bezier(0.05, 0.7, 0.1, 1);   /* emphasized decelerate */
+  --ease-exit: cubic-bezier(0.3, 0, 0.8, 0.15);    /* emphasized accelerate */
   /* Critically damped spring sampled into linear(): physical deceleration, no rebound.
      --spring is used at ~0.5s for interactions, --spring-soft at ~0.75s for larger moves. */
   --spring: linear(0, 0.053, 0.168, 0.302, 0.433, 0.549, 0.647, 0.728, 0.792, 0.843, 0.882, 0.912, 0.935, 0.952, 0.964, 0.974, 0.981, 0.986, 0.99, 0.993, 0.995, 0.996, 0.997, 1);
@@ -56,8 +58,7 @@
   --arch: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 21 13'%3E%3Cpath d='M2.6 10.4A7.8 7.8 0 0 1 18.2 10.4' fill='none' stroke='%23000' stroke-width='5.2' stroke-linecap='round'/%3E%3C/svg%3E");
   /* Tessellation: arches joined into a wave, the dot of the i in the troughs */
   --tess-night: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='48'%3E%3Cg fill='none' stroke='%23f0f2ff' stroke-width='6.4' stroke-linecap='round'%3E%3Cpath d='M0 24A16 16 0 0 1 32 24'/%3E%3Cpath d='M32 24A16 16 0 0 0 64 24'/%3E%3C/g%3E%3Ccircle cx='16' cy='40' r='3.4' fill='%23f0f2ff'/%3E%3Ccircle cx='48' cy='8' r='3.4' fill='%23f0f2ff'/%3E%3C/svg%3E");
-  /* Placeholder fabric: loose arches and dots, the logotype's parts at rest */
-  --fabric: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cg fill='none' stroke='%23f0f2ff' stroke-width='4.4' stroke-linecap='round'%3E%3Cpath d='M5 22A9 9 0 0 1 23 22'/%3E%3Cpath d='M33 50A9 9 0 0 1 51 50'/%3E%3C/g%3E%3Ccircle cx='42' cy='18' r='2.6' fill='%23f0f2ff'/%3E%3Ccircle cx='14' cy='46' r='2.6' fill='%23f0f2ff'/%3E%3C/svg%3E");
+  --tess-ink: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='48'%3E%3Cg fill='none' stroke='%231e1b4b' stroke-width='6.4' stroke-linecap='round'%3E%3Cpath d='M0 24A16 16 0 0 1 32 24'/%3E%3Cpath d='M32 24A16 16 0 0 0 64 24'/%3E%3C/g%3E%3Ccircle cx='16' cy='40' r='3.4' fill='%231e1b4b'/%3E%3Ccircle cx='48' cy='8' r='3.4' fill='%231e1b4b'/%3E%3C/svg%3E");
 
   --z-sticky: 20;
   --z-toast: 30;
@@ -89,6 +90,7 @@ h1, h2, h3 { text-wrap: balance; }
 p, li { text-wrap: pretty; }
 ::selection { background: var(--sun); color: var(--on-sun); }
 :focus-visible { outline: 2px solid var(--sun); outline-offset: 4px; border-radius: 2px; }
+[hidden] { display: none !important; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 .wrap { width: min(var(--wrap), 100% - 2 * var(--gutter)); margin-inline: auto; }
@@ -148,9 +150,7 @@ p, li { text-wrap: pretty; }
   animation: press-dot .65s var(--ease-out) forwards;
 }
 @keyframes press-dot { to { scale: 1; opacity: 0; } }
-/* While the button is captured for the morph, only its orange shape travels (no stretched label) */
-.is-capturing { color: transparent !important; }
-.is-capturing .icon, .is-capturing .press-dot { opacity: 0; }
+
 @media (prefers-reduced-motion: no-preference) {
   .btn:active, .socials a:active, .lang-switch:active, .sheet-close:active { scale: 0.96; transition-duration: .1s, .1s, .1s, .08s; }
 }
@@ -219,11 +219,11 @@ p, li { text-wrap: pretty; }
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
   transition: transform 1.1s var(--ease-out);
 }
-.project-media[data-lottie] { background-image: var(--fabric); background-size: 56px 56px; background-blend-mode: normal; }
-.project-media[data-lottie]::before { /* keep the fabric quiet */
-  content: ""; position: absolute; inset: 0; background: var(--night-2); opacity: 0.94; z-index: 0;
+/* While a cover loads, or if it fails, the tessellation holds its place */
+.project-media::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: var(--tess-night) 0 0 / 64px 48px; opacity: 0.1;
 }
-.project-media[data-ready] { background-image: none; }
 .project-media[data-ready]::before { display: none; }
 .lottie-stage { opacity: 0; z-index: 0; transition: opacity .8s var(--ease-quart), transform 1.1s var(--ease-out); }
 [data-ready] > .lottie-stage { opacity: 1; }
@@ -368,12 +368,27 @@ p, li { text-wrap: pretty; }
 .sheet-actions { display: grid; gap: 10px; margin-top: 16px; }
 .sheet-actions .btn { width: 100%; justify-content: space-between; }
 .sheet .socials { margin-top: 24px; justify-self: start; }
+/* Enter: ~400ms, strong deceleration. Exit: ~200ms, accelerating away (exits are faster than entrances).
+   Inside, the panel speaks the site's grammar: the sun rises, the title surfaces from the line,
+   then the rest follows in 40ms steps. */
 @media (prefers-reduced-motion: no-preference) {
-  .sheet:not(.is-morphing) { transition: translate .5s var(--ease-out), display .5s allow-discrete, overlay .5s allow-discrete; }
-  .sheet[open] { translate: 0 0; }
-  @starting-style { .sheet[open]:not(.is-morphing) { translate: 100% 0; } }
-  .sheet::backdrop { transition: opacity .4s var(--ease-quart), display .4s allow-discrete, overlay .4s allow-discrete; }
+  .sheet { translate: 100% 0; transition: translate .22s var(--ease-exit), display .22s allow-discrete, overlay .22s allow-discrete; }
+  .sheet[open] { translate: 0 0; transition: translate .42s var(--ease-enter), display .42s allow-discrete, overlay .42s allow-discrete; }
+  @starting-style { .sheet[open] { translate: 100% 0; } }
+  .sheet::backdrop { opacity: 0; transition: opacity .22s var(--ease-exit), display .22s allow-discrete, overlay .22s allow-discrete; }
+  .sheet[open]::backdrop { opacity: 1; transition: opacity .3s var(--ease-quart), display .3s allow-discrete, overlay .3s allow-discrete; }
   @starting-style { .sheet[open]::backdrop { opacity: 0; } }
+  .sheet[open] .sun { animation: sunrise .9s var(--ease-out) .18s both; }
+  .sheet[open] .sheet-title { animation: surface .7s var(--ease-out) .14s both; }
+  .sheet[open] .horizon { animation: draw .6s var(--ease-out) .1s both; }
+  .sheet[open] :is(.contact-sub, .email-row, .sheet-actions > *, .socials li) { animation: fade-up .5s var(--ease-out) backwards; } /* nothing lingers after the entrance */
+  .sheet[open] .contact-sub { animation-delay: .26s; }
+  .sheet[open] .email-row { animation-delay: .30s; }
+  .sheet[open] .sheet-actions > :nth-child(1) { animation-delay: .34s; }
+  .sheet[open] .sheet-actions > :nth-child(2) { animation-delay: .38s; }
+  .sheet[open] .socials li:nth-child(1) { animation-delay: .42s; }
+  .sheet[open] .socials li:nth-child(2) { animation-delay: .46s; }
+  .sheet[open] .socials li:nth-child(3) { animation-delay: .50s; }
 }
 
 /* ---------- Language suggestion (never a redirect) ---------- */
@@ -406,7 +421,7 @@ p, li { text-wrap: pretty; }
 .facts > div { padding-top: 16px; }
 .facts dt { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; color: var(--ink-2); }
 .facts dd { margin-top: 6px; font-weight: 500; }
-.reel { margin-top: clamp(48px, 6vw, 88px); background: var(--reel-bg, var(--night)); view-transition-name: cover-iib; }
+.reel { margin-top: clamp(48px, 6vw, 88px); background: var(--reel-bg, var(--night)); }
 .reel video, .reel img { width: min(100%, 900px); margin-inline: auto; aspect-ratio: 720 / 576; object-fit: cover; }
 .case-block { padding-block: var(--section) 0; }
 .case-block .grid { align-items: start; row-gap: 32px; }
@@ -418,8 +433,9 @@ p, li { text-wrap: pretty; }
 .challenges strong { display: block; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 0.8vw, 1.875rem); line-height: 1.1; margin-bottom: 10px; }
 .challenges p { color: var(--ink-2); max-width: 60ch; }
 .gallery { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); margin-top: clamp(40px, 5vw, 72px); }
-.gallery figure { grid-column: span 12; overflow: hidden; border-radius: var(--radius); background: var(--paper-2); }
-.gallery img { width: 100%; height: 100%; object-fit: cover; }
+.gallery figure { position: relative; grid-column: span 12; overflow: hidden; border-radius: var(--radius); background: var(--paper-2); }
+.gallery figure::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: var(--tess-ink) 0 0 / 64px 48px; opacity: 0.07; }
+.gallery img { position: relative; width: 100%; height: 100%; object-fit: cover; }
 .g-5 { grid-column: span 5 !important; } .g-6 { grid-column: span 6 !important; } .g-7 { grid-column: span 7 !important; } .g-4 { grid-column: span 4 !important; }
 .gallery-label { grid-column: 1 / -1; display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-top: clamp(40px, 6vw, 88px); padding-bottom: 8px; border-bottom: var(--line-w) solid var(--line); }
 .gallery-label h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.75rem, 1.2rem + 1.8vw, 2.75rem); line-height: 1.1; letter-spacing: -0.015em; }
@@ -444,47 +460,12 @@ p, li { text-wrap: pretty; }
 .giphy-credit[hidden] { display: none; }
 
 
-/* ==========================================================================
-   Texture alternative B: halation (film). Default is A: tessellation.
-   Halation only blooms the brightest things on dark film: the sun, the orange
-   buttons and the white display type, with a warm red-orange fringe. Shadows and
-   gradients only (no large blur filters), plus a slightly heavier film grain.
-   ========================================================================== */
-[data-texture="halation"] .work::after,
-[data-texture="halation"] .other-work::after {
-  background:
-    radial-gradient(60% 45% at 100% 0%, oklch(0.62 0.2 38 / 0.22), transparent 70%),
-    radial-gradient(45% 40% at 0% 100%, oklch(0.6 0.19 34 / 0.16), transparent 70%);
-  opacity: 1; -webkit-mask-image: none; mask-image: none;
-}
-[data-texture="halation"] .is-night::before { opacity: 0.075; }
-/* let the bloom spread above the horizon but stay cut at the line */
-[data-texture="halation"] :is(.is-night, .sheet) .sky { overflow: visible; clip-path: inset(-260px -260px 0 -260px); }
-[data-texture="halation"] :is(.is-night, .sheet) .sun {
-  overflow: visible;
-  box-shadow:
-    0 0 0 1px oklch(0.7 0.21 40 / 0.55),
-    0 0 18px 4px oklch(0.66 0.22 38 / 0.5),
-    0 0 70px 22px oklch(0.6 0.2 36 / 0.28),
-    0 0 160px 60px oklch(0.55 0.18 34 / 0.14);
-}
-[data-texture="halation"] :is(.is-night, .sheet) :is(.display-2, .contact-title, .clients-title, .project-title, .sheet-title, .view-all > span) {
-  text-shadow: 0 0 1px oklch(0.8 0.12 50 / 0.55), 0 0 14px oklch(0.68 0.19 42 / 0.32), 0 0 34px oklch(0.6 0.18 38 / 0.18);
-}
-[data-texture="halation"] :is(.is-night, .sheet) .btn--sun { box-shadow: 0 0 0 1px oklch(0.7 0.21 40 / 0.5), 0 0 22px 2px oklch(0.66 0.22 38 / 0.45); }
-[data-texture="halation"] .work .project-media { box-shadow: 0 0 0 1px oklch(0.66 0.2 40 / 0.18), 0 0 40px -6px oklch(0.62 0.2 38 / 0.35); }
 
 /* ---------- Motion ---------- */
 @media (prefers-reduced-motion: no-preference) {
-  /* Page-to-page: the header stays put; the Invest in Bogotá cover grows into the case-study reel */
+  /* Page-to-page: a short crossfade, the header stays still */
   @view-transition { navigation: auto; }
-  ::view-transition-group(*) { animation-duration: .6s; animation-timing-function: var(--ease-out); }
-  ::view-transition-group(contact) { animation-duration: .62s; animation-timing-function: var(--ease-out); }
-  ::view-transition-old(contact), ::view-transition-new(contact) { height: 100%; width: 100%; object-fit: cover; }
-  ::view-transition-old(contact) { animation: .2s var(--ease-quart) both vt-out; }
-  ::view-transition-new(contact) { animation: .34s var(--ease-quart) .1s both vt-in; }
-  @keyframes vt-out { to { opacity: 0; } }
-  @keyframes vt-in { from { opacity: 0; } }
+  ::view-transition-group(root) { animation-duration: .28s; }
 
   @keyframes draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
   @keyframes surface { from { translate: 0 105%; } to { translate: 0 0; } }
@@ -497,7 +478,7 @@ p, li { text-wrap: pretty; }
   .hero .rise { animation: surface 1.2s var(--ease-out) .25s both; }
   .hero .sun { animation: sunrise 1.6s var(--ease-out) .45s both; }
   .hero .below > span { animation: drop 1.1s var(--ease-out) .45s both; }
-  .hero-intro { animation: fade-up 1s var(--ease-out) .7s both; }
+  .hero-intro { animation: fade-up 1s var(--ease-out) .7s backwards; }
 
   .case-hero .horizon { animation: draw 1.1s var(--ease-out) both; }
   .case-hero .rise { animation: surface 1.2s var(--ease-out) .25s both; }
@@ -562,7 +543,8 @@ p, li { text-wrap: pretty; }
   .email-row { width: 100%; justify-content: space-between; border-radius: 20px; }
   .sheet { width: 100vw; height: auto; max-height: 92dvh; margin: auto 0 0 0; border-radius: 20px 20px 0 0; }
   @media (prefers-reduced-motion: no-preference) {
-    @starting-style { .sheet[open]:not(.is-morphing) { translate: 0 100%; } }
+    .sheet { translate: 0 100%; }
+    @starting-style { .sheet[open] { translate: 0 100%; } }
   }
   .sheet .sky { --sun-r: 40px; min-height: 40px; }
   .sheet-title { padding-right: 92px; }
