@@ -1,12 +1,17 @@
 <!doctype html>
-<html lang="en-US">
+<html lang="en" data-texture="tessellation">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Nicolas MB - Designer</title>
   <meta name="description" content="Welcome to my online portfolio - a showcase of innovative designs and creative web solutions.">
   <meta name="theme-color" content="#f6f7fd">
+  <link rel="canonical" href="https://nicolasmb83.github.io/portfolio/404.html">
+  <meta name="robots" content="noindex">
+  <link rel="alternate" hreflang="en" href="https://nicolasmb83.github.io/portfolio/404.html">
+  <link rel="alternate" hreflang="x-default" href="https://nicolasmb83.github.io/portfolio/404.html">
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
   <meta property="og:title" content="Nicolas MB - Designer">
   <meta property="og:description" content="Welcome to my online portfolio - a showcase of innovative designs and creative web solutions.">
   <meta name="twitter:card" content="summary_large_image">
@@ -14,6 +19,8 @@
   <meta name="twitter:description" content="Welcome to my online portfolio - a showcase of innovative designs and creative web solutions.">
   <link rel="icon" href="https://framerusercontent.com/images/KYqgF00g4IZ3IWwcvzWm5VnSbQ.png" media="(prefers-color-scheme: light)">
   <link rel="icon" href="https://framerusercontent.com/images/qkWj8OtoeZ8rYN3pJfoDd6GptfE.png" media="(prefers-color-scheme: dark)">
+  <!-- Prototype-only switch to compare textures: ?texture=halation -->
+  <script>if(/[?&]texture=halation\b/.test(location.search))document.documentElement.dataset.texture="halation"</script>
   <link rel="preconnect" href="https://framerusercontent.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,9 +40,13 @@
           <li><a href="./#about">ABOUT</a></li>
           <li><a href="./#experience">EXPERIENCE</a></li>
         </ul>
-        <a class="btn btn--sun" href="./#contact" data-contact>CONTACT <svg class="icon icon--go" aria-hidden="true" focusable="false"><use href="#i-go"/></svg></a>
+        <a class="lang-switch" href="es/" hreflang="es" lang="es" aria-label="Español" data-lang-switch>ES</a>
+        <a class="btn btn--sun" href="./#contact" data-contact>Let’s talk <svg class="icon icon--go" aria-hidden="true" focusable="false"><use href="#i-go"/></svg></a>
       </nav>
-      <button class="menu-toggle" type="button" popovertarget="menu" aria-controls="menu" aria-expanded="false" aria-label="Menu"><svg class="icon " aria-hidden="true" focusable="false"><use href="#i-menu"/></svg></button>
+      <div class="header-tools">
+        <a class="lang-switch" href="es/" hreflang="es" lang="es" aria-label="Español" data-lang-switch>ES</a>
+        <button class="menu-toggle" type="button" popovertarget="menu" aria-controls="menu" aria-expanded="false" aria-label="Menu"><svg class="icon " aria-hidden="true" focusable="false"><use href="#i-menu"/></svg></button>
+      </div>
     </div>
   </header>
 
@@ -45,7 +56,7 @@
       <li><a href="./#about">ABOUT</a></li>
       <li><a href="./#experience">EXPERIENCE</a></li>
     </ul>
-    <a class="btn btn--sun btn--lg" href="./#contact" data-contact>CONTACT <svg class="icon icon--go" aria-hidden="true" focusable="false"><use href="#i-go"/></svg></a>
+    <a class="btn btn--sun btn--lg" href="./#contact" data-contact>Let’s talk <svg class="icon icon--go" aria-hidden="true" focusable="false"><use href="#i-go"/></svg></a>
   </div>
   <dialog id="contact-sheet" class="sheet" aria-labelledby="sheet-title">
     <div class="sheet-inner">
@@ -53,8 +64,8 @@
       <div class="sky"><span class="sun" aria-hidden="true"></span><h2 id="sheet-title" class="rise sheet-title">Let's make magic!</h2></div>
       <span class="horizon horizon--night" style="margin-inline:0" aria-hidden="true"></span>
       <p class="contact-sub">Working together to achieve greatness</p>
-      <div class="email-row ">
-          <!-- PROPUESTA DE TEXTO: dirección visible + "Copy" / "Copied" -->
+      <div class="email-row">
+          <!-- PROPUESTA DE TEXTO: dirección visible + Copy/Copied (aprobado) -->
           <span class="email-address">nicolasbarbosa.us@gmail.com</span>
           <button class="btn copy-btn" type="button" data-copy="nicolasbarbosa.us@gmail.com" aria-label="Copy email address">
             <span class="when-idle"><svg class="icon " aria-hidden="true" focusable="false"><use href="#i-copy"/></svg> Copy</span>
@@ -77,15 +88,33 @@
   <main class="lost">
     <div class="wrap">
       <h1 class="sr-only">404</h1>
-      <div class="sky" aria-hidden="true"><span class="sun"></span><span class="rise lost-code">404</span></div>
+      <!-- PROPUESTA DE TEXTO: punto 3 aprobado (Back to home). GIF aleatorio dentro del sol: pega tu propia clave de GIPHY en data-giphy-key -->
+      <div class="sky" aria-hidden="true" data-giphy-key="" data-giphy-tag=""><span class="sun"></span><span class="rise lost-code">404</span></div>
       <span class="horizon" aria-hidden="true"></span>
-      <div class="lost-body">
+      <div class="lost-body" data-lang-block="en">
         <p>The page you are looking for is not found or has been moved. Please return to the main page.</p>
-        <!-- PROPUESTA DE TEXTO: el sitio está en inglés; "Volver" podría ser "Back to home" -->
-        <a class="btn btn--sun btn--lg" href="./"><svg class="icon " aria-hidden="true" focusable="false"><use href="#i-back"/></svg> Volver</a>
+        <a class="btn btn--sun btn--lg" href="./"><svg class="icon " aria-hidden="true" focusable="false"><use href="#i-back"/></svg> Back to home</a>
+        <a class="giphy-credit" href="https://giphy.com" target="_blank" rel="noopener" data-giphy-credit hidden>Powered by GIPHY</a>
+      </div>
+      <div class="lost-body" data-lang-block="es" lang="es" hidden>
+        <!-- PROPUESTA DE TEXTO: borrador en español, pendiente de aprobación -->
+        <p>La página que buscas no existe o se movió. Vuelve a la página principal.</p>
+        <a class="btn btn--sun btn--lg" href="es/"><svg class="icon " aria-hidden="true" focusable="false"><use href="#i-back"/></svg> Volver al inicio</a>
       </div>
     </div>
   </main>
+  <script>
+    /* One 404 for both languages: show Spanish when the browser prefers it. Same URL, no redirect. */
+    (function () {
+      var prefs = (navigator.languages || [navigator.language || ""]).map(function (l) { return String(l).slice(0, 2).toLowerCase(); });
+      var saved = null; try { saved = localStorage.getItem("nmb-lang"); } catch (e) {}
+      if ((saved || prefs[0]) === "es") {
+        document.documentElement.lang = "es";
+        document.querySelector('[data-lang-block="en"]').hidden = true;
+        document.querySelector('[data-lang-block="es"]').hidden = false;
+      }
+    })();
+  </script>
 
 </body>
 </html>

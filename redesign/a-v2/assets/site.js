@@ -1,7 +1,13 @@
 /* Nicolas MB — portfolio, Option A v2. Progressive enhancement only:
-   every page is complete without this file. */
+   every page is complete and usable without this file. */
 (() => {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const html = document.documentElement;
+  const pageLang = (html.lang || "en").slice(0, 2);
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (_) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (_) {} },
+  };
 
   /* Header hairline once the page has scrolled */
   const header = document.querySelector("[data-header]");
@@ -21,21 +27,65 @@
     menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => menu.hidePopover && menu.hidePopover()));
   }
 
-  /* Contact sheet: links marked [data-contact] open a native dialog instead of jumping to the footer.
-     Without JS (or without <dialog>) they keep working as plain anchors to #contact. */
+  /* Click feedback: the dot of the logotype spreads from the exact point of the click */
+  if (!reduceMotion.matches) {
+    document.addEventListener("pointerdown", (e) => {
+      const el = e.target.closest(".btn, .socials a, .sheet-close");
+      if (!el || e.button !== 0) return;
+      const r = el.getBoundingClientRect();
+      const x = e.clientX - r.left, y = e.clientY - r.top;
+      const size = 2 * Math.hypot(Math.max(x, r.width - x), Math.max(y, r.height - y));
+      const dot = document.createElement("span");
+      dot.className = "press-dot";
+      dot.style.cssText = `left:${x}px;top:${y}px;width:${size}px;height:${size}px`;
+      el.append(dot);
+      dot.addEventListener("animationend", () => dot.remove(), { once: true });
+    });
+  }
+
+  /* Contact sheet. Links marked [data-contact] open a native dialog that grows out of the clicked
+     button (View Transitions where supported). Without JS they stay plain links to #contact. */
   const sheet = document.getElementById("contact-sheet");
   if (sheet && typeof sheet.showModal === "function") {
+    let trigger = null;
+    const canMorph = () => typeof document.startViewTransition === "function" && !reduceMotion.matches;
+    const open = (from) => {
+      trigger = from;
+      if (menu && menu.matches && menu.matches(":popover-open")) { try { menu.hidePopover(); } catch (_) {} }
+      if (!canMorph() || !from || !from.isConnected || from.offsetParent === null) { sheet.showModal(); return; }
+      sheet.classList.add("is-morphing");
+      from.style.viewTransitionName = "contact";
+      from.classList.add("is-capturing");
+      const t = document.startViewTransition(() => {
+        from.style.viewTransitionName = "";
+        from.classList.remove("is-capturing");
+        sheet.style.viewTransitionName = "contact";
+        sheet.showModal();
+      });
+      t.finished.finally(() => { sheet.style.viewTransitionName = ""; sheet.classList.remove("is-morphing"); });
+    };
+    const close = () => {
+      const back = trigger && trigger.isConnected && trigger.offsetParent !== null ? trigger : null;
+      if (!canMorph() || !back) { sheet.close(); return; }
+      sheet.classList.add("is-morphing");
+      sheet.style.viewTransitionName = "contact";
+      const t = document.startViewTransition(() => {
+        sheet.style.viewTransitionName = "";
+        sheet.close();
+        back.style.viewTransitionName = "contact";
+      });
+      t.finished.finally(() => { back.style.viewTransitionName = ""; sheet.classList.remove("is-morphing"); back.focus({ preventScroll: true }); });
+    };
     document.querySelectorAll("[data-contact]").forEach((link) => {
       link.addEventListener("click", (e) => {
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
         e.preventDefault();
-        if (menu && menu.hidePopover) { try { menu.hidePopover(); } catch (_) {} }
-        sheet.showModal();
+        open(link.closest(".menu") ? menuToggle : link);
       });
     });
-    sheet.querySelectorAll("[data-close]").forEach((b) => b.addEventListener("click", () => sheet.close()));
-    // Click on the backdrop closes the sheet
-    sheet.addEventListener("click", (e) => { if (e.target === sheet) sheet.close(); });
+    sheet.querySelectorAll("[data-close]").forEach((b) => b.addEventListener("click", close));
+    sheet.addEventListener("cancel", (e) => { e.preventDefault(); close(); }); // Esc
+    sheet.addEventListener("click", (e) => { if (e.target === sheet) close(); }); // backdrop
   }
 
   /* Copy email: the address is always visible; this only saves a step */
@@ -43,10 +93,8 @@
     const status = btn.parentElement.querySelector("[data-copy-status]");
     let timer;
     btn.addEventListener("click", async () => {
-      const value = btn.getAttribute("data-copy");
       let ok = false;
-      try { await navigator.clipboard.writeText(value); ok = true; } catch (_) {
-        // Fallback: select the address so the visitor can copy it by hand
+      try { await navigator.clipboard.writeText(btn.getAttribute("data-copy")); ok = true; } catch (_) {
         const target = btn.parentElement.querySelector(".email-address");
         if (target) { const r = document.createRange(); r.selectNodeContents(target); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
       }
@@ -57,6 +105,20 @@
       timer = setTimeout(() => { btn.removeAttribute("data-copied"); if (status) status.textContent = ""; }, 2200);
     });
   });
+
+  /* Language. Never redirect (Google Search Central). Suggest once, remember the visitor's choice. */
+  document.querySelectorAll("[data-lang-switch]").forEach((a) => a.addEventListener("click", () => store.set("nmb-lang", a.getAttribute("hreflang"))));
+  const hint = document.querySelector("[data-lang-hint]");
+  if (hint) {
+    const other = hint.getAttribute("data-lang-hint");
+    const chosen = store.get("nmb-lang");
+    const prefs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""]).map((l) => String(l).slice(0, 2).toLowerCase());
+    const prefersOther = prefs.indexOf(other) !== -1 && (prefs.indexOf(pageLang) === -1 || prefs.indexOf(other) < prefs.indexOf(pageLang));
+    if (!chosen && prefersOther) {
+      setTimeout(() => { hint.hidden = false; }, 1200);
+      hint.querySelector("[data-dismiss]").addEventListener("click", () => { hint.hidden = true; store.set("nmb-lang", pageLang); });
+    }
+  }
 
   /* Current section in the nav */
   const navLinks = Array.from(document.querySelectorAll('.nav-links a[href*="#"]'));
@@ -71,6 +133,36 @@
       });
     }, { rootMargin: "-45% 0px -50% 0px" });
     map.forEach((_, el) => io.observe(el));
+  }
+
+  /* 404: a random GIF rises inside the sun. Needs the owner's own GIPHY key (data-giphy-key);
+     without it, the sun stays as it is. GIPHY's terms require the "Powered by GIPHY" credit. */
+  const gifSky = document.querySelector("[data-giphy-key]");
+  if (gifSky && gifSky.getAttribute("data-giphy-key")) {
+    const key = gifSky.getAttribute("data-giphy-key");
+    const tag = gifSky.getAttribute("data-giphy-tag") || "";
+    fetch(`https://api.giphy.com/v1/gifs/random?api_key=${encodeURIComponent(key)}&tag=${encodeURIComponent(tag)}&rating=g`)
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then(({ data }) => {
+        const img = data && data.images;
+        if (!img) return;
+        const sun = gifSky.querySelector(".sun");
+        let media;
+        if (reduceMotion.matches || !img.downsized_small || !img.downsized_small.mp4) {
+          media = new Image();
+          media.src = (img.fixed_height_still || img.original_still || {}).url;
+          media.alt = "";
+        } else {
+          media = document.createElement("video");
+          Object.assign(media, { src: img.downsized_small.mp4, muted: true, loop: true, autoplay: true, playsInline: true });
+          media.setAttribute("aria-hidden", "true");
+        }
+        media.className = "sun-media";
+        const ready = () => { gifSky.classList.add("has-gif"); const credit = document.querySelector("[data-giphy-credit]"); if (credit) credit.hidden = false; };
+        media.addEventListener(media.tagName === "VIDEO" ? "loadeddata" : "load", ready, { once: true });
+        sun.append(media);
+      })
+      .catch(() => {});
   }
 
   /* Lottie covers: load the player only when a cover is about to be seen, pause off-screen */
