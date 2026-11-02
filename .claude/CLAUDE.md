@@ -35,13 +35,19 @@ These rules come from the site owner and apply to every task in this repo.
   - Panel de contacto con entrada desacelerada (sin morph).
   - 404 con GIF aleatorio de gatos (GIPHY) dentro del sol.
   - Email `nicolasbarbosa.us@gmail.com`; título "Visual and AI Designer"; empresa "ReloQuest".
-  - Película del deck aprobada: contacto en negro película con quemadura, polvo y logo con halación, todo en vectores (SVG), sin mapas de bits.
+  - Footer: índigo del sitio (la película negra se retiró porque rompía la estética). Logo grande en blanco cuyas letras suben al entrar en pantalla. La halación queda solo en el logo del encabezado.
   - No depender de Framer: aprobado.
   - Fase 4 aprobada: halación del logo al pasar el cursor + barrido del horizonte entre páginas.
   - Soles: todos levemente desenfocados, con brillo suave y gradiente muy sutil (amarillo cálido arriba, más quemado hacia el horizonte).
   - Le gusta la grilla actual de proyectos. De la alternativa B le gustó la grilla de tres y el revelado a color; la película en proyectos está descartada.
   - Regla de marca: el logo es geométrico y perfecto. Nada orgánico ni dibujado a mano (fue lindo, pero rompe la marca); todo efecto sale del arco, el punto y la línea.
-  - La plantilla por capítulos le gusta, pero necesitaba blanco: ahora alterna secciones índigo y blancas.
+  - Todos los proyectos usan la misma plantilla por capítulos: portada oscura, capítulos claros con números y "Las piezas" en índigo (generador: `case_page` + `spec_*`).
+  - Nada de arcos como ventana de imagen (no le gustan); se usan marcos redondeados.
+  - Tipografía igual a la versión publicada: Clash Display (700 en hero, menú, botones y títulos de proyecto), Albert Sans para el texto, DM Sans para rótulos. Fondo `#eef2ff`; píldora blanca al 82 %.
+  - El hero no se parte: "I LOVE DESIGN" y la segunda línea van juntas sobre el horizonte.
+  - CTA: al pasar el cursor se dibuja el contorno del sol y luego se rellena.
+  - Punto 9 aprobado e integrado en Invest in Bogotá.
+  - Créditos: el dueño decide cuándo parar; no limitar el trabajo por eso.
   - Rescatado de la primera versión (Framer, en la raíz del repo):
     - Encabezado en píldora flotante que se esconde al bajar y aparece al subir.
     - Hover del CTA con círculo y flecha (reinterpretado como el punto que sube desde el horizonte).
@@ -55,10 +61,10 @@ These rules come from the site owner and apply to every task in this repo.
   - Publicación.
 - El español debe ser una traducción fiel del inglés (mismo contenido, palabras nativas de cada idioma).
 - Casos de estudio:
-  - Invest in Bogotá sigue completo en índigo (`body.page-night`).
-  - La plantilla por capítulos es una página clara con secciones `is-night tone-night`.
+  - Todos son páginas claras con secciones `is-night tone-night`.
   - Color del cliente: `--client` (sobre oscuro) y `--client-ink` (sobre blanco).
 - Red del entorno: `framerusercontent.com` y `*.framer.app` están bloqueados. Para descargar las Lottie, el dueño debe permitirlos en Network access.
 - Nada se publica en `main` sin aprobación explícita. El sitio en vivo es `https://nicolasmb.com/` (Netlify, se actualiza desde `main` en minutos).
 - Deck de Figma del dueño (Figma Slides, fileKey `A2FLZyFCZUkYItYyTG2Tgn`, portada nodo `1:2107`): fondo negro tipo película, grano, polvo/rayas, quemadura de película naranja en una esquina y el logotipo con halación (núcleo amarillo, naranja, borde magenta). El conector de Figma solo puede capturar diapositivas cuyo enlace (node-id) comparta el dueño; no puede listar las diapositivas de un deck.
 - Vista previa: `https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v2/index.html`. Puede tardar unos minutos en reflejar un cambio; si dudas, recarga forzada.
+- Lección técnica: un contenedor con `overflow: hidden` se vuelve contenedor de scroll y congela las animaciones `view()` de sus hijos. Usa `overflow: clip`.

@@ -35,14 +35,25 @@ def ic(sid, cls=''):
     return f'<svg class="icon {cls}" aria-hidden="true" focusable="false"><use href="#{sid}"/></svg>'
 
 
-GO = '<span class="go" aria-hidden="true">' + ic('i-go') + '</span>'   # the dot of the "i" rises behind the arrow on hover
+GO = ('<span class="go" aria-hidden="true"><svg class="go-ring" viewBox="0 0 40 40" focusable="false">'
+      '<circle cx="20" cy="20" r="18.6" pathLength="1"/></svg>' + ic('i-go') + '</span>')   # the dot of the "i" rises behind the arrow on hover
 
 
 LOGO = (PARTS / 'frag-logo.svg').read_text().strip()
 LOGO_SYMBOL = '<symbol id="logo-shape" viewBox="0 0 119.912 22">' + re.search(r'<svg[^>]*>(.*)</svg>', LOGO, re.S).group(1) + '</symbol>'
 LOGO_PROSURGE = (PARTS / 'frag-prosurge.svg').read_text().strip()
 LOGO_IIB = (PARTS / 'frag-iib.svg').read_text().strip()
-FILM_BURN = (PARTS / 'film-burn.svg').read_text().strip()
+
+
+def logo_letters():
+    """The logotype split into its letters (sub-paths), left to right, each with its order in --i."""
+    d = re.search(r' d="([^"]+)"', LOGO).group(1)
+    subs = ['M' + x for x in re.split(r'\s*M\s*', d) if x.strip()]
+    left = lambda sp: min(map(float, re.findall(r'-?\d+\.?\d*', sp)[0::2]))
+    return ''.join(f'<path style="--i: {i}" d="{sp}"/>' for i, sp in enumerate(sorted(subs, key=left)))
+
+
+END_LOGO = '<svg class="end-logo" viewBox="0 0 119.912 22" focusable="false">' + logo_letters() + '</svg>'
 SPRITE = '<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">' + ''.join([
     symbol('arrow-up-right', 'i-go'), symbol('arrow-left', 'i-back'), symbol('copy', 'i-copy'), symbol('check', 'i-check'),
     symbol('x', 'i-close'), symbol('envelope-simple', 'i-mail'), symbol('linkedin-logo', 'i-linkedin'),
@@ -103,6 +114,7 @@ T = {
   c_summary='The investment promotion agency for Bogotá&nbsp;– Region.',
   c_year='YEAR', c_ind='INDUSTRY', c_srv='SERVICES', c_year_v='Feb 2025 - Jan 2026', c_ind_v='Investment',
   c_reel='SIGO presentation opener: Una idea que nace en Bogotá',
+  c_aim='IBB aim is to facilitate relevant international investments and attract world-class meetings and events that contribute to the socioeconomic development, competitiveness, and quality of life of Bogotá-Region. I have to develop impactful collateral to create a strong brand presence as well as keep a coherent narrative of the brand.',
   c_obj='Objectives - Challenges',
   c_ch=[('A brand to develop', 'IBB has a new rebranding, making this the perfect environment to develop the brand, through creative implementations in printed, web, and social media assets the challenge is to preserve its brand while developing new ways to communicate'),
         ('Keep sharp graphics', "The biggest challenge is to keep the brand relevant, by researching every day about current trends and styles I'm able to keep the brand cohesion while creating content for web, digital and printed media."),
@@ -187,6 +199,7 @@ T = {
   c_summary='La agencia de promoción de inversión de Bogotá&nbsp;– Región.',
   c_year='AÑO', c_ind='INDUSTRIA', c_srv='SERVICIOS', c_year_v='Feb 2025 - Ene 2026', c_ind_v='Inversión',
   c_reel='Apertura de la presentación de SIGO: Una idea que nace en Bogotá',
+  c_aim='El objetivo de IBB es facilitar inversiones internacionales relevantes y atraer reuniones y eventos de talla mundial que contribuyan al desarrollo socioeconómico, la competitividad y la calidad de vida de Bogotá-Región. Debo desarrollar piezas de impacto para crear una presencia de marca sólida, así como mantener una narrativa coherente de la marca.',
   c_obj='Objetivos - Retos',
   c_ch=[('Una marca por desarrollar', 'IBB tiene un nuevo rebranding, lo que hace de este el entorno perfecto para desarrollar la marca; a través de implementaciones creativas en piezas impresas, web y de redes sociales, el reto es preservar su marca mientras se desarrollan nuevas formas de comunicar'),
         ('Mantener gráficas impecables', 'El mayor reto es mantener la marca vigente; investigando cada día sobre tendencias y estilos actuales, logro mantener la cohesión de la marca mientras creo contenido para medios web, digitales e impresos.'),
@@ -276,8 +289,8 @@ def head(lang, title, desc, alternates):
   <meta name="twitter:description" content="{desc}">
   <link rel="icon" href="@A/img/favicon-light.png" media="(prefers-color-scheme: light)">
   <link rel="icon" href="@A/img/favicon-dark.png" media="(prefers-color-scheme: dark)">
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="@A/fonts/clash-display-600.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="@A/fonts/dm-sans-latin.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="@A/fonts/clash-display-700.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="@A/fonts/albert-sans-400.woff2">
   <link rel="stylesheet" href="@A/site.css?v={ASSET_V}">
   <script src="@A/site.js?v={ASSET_V}" defer></script>
 </head>'''
@@ -371,7 +384,6 @@ def sheet(t):
 def footer(t, other):
     return f'''
   <footer id="contact" class="contact is-night">
-    {FILM_BURN}
     <div class="wrap">
       <div class="sky"><h2 class="rise contact-title">{t['magic']}</h2></div>
       <span class="horizon" aria-hidden="true"></span>
@@ -392,14 +404,7 @@ def footer(t, other):
         </div>
       </div>
     </div>
-    <div class="film-end" aria-hidden="true">
-      <div class="film-logo">
-        <svg class="fl fl-r" viewBox="0 0 119.912 22" focusable="false"><use href="#logo-shape"/></svg>
-        <svg class="fl fl-g" viewBox="0 0 119.912 22" focusable="false"><use href="#logo-shape"/></svg>
-        <svg class="fl fl-y" viewBox="0 0 119.912 22" focusable="false"><use href="#logo-shape"/></svg>
-        <svg class="fl fl-core" viewBox="0 0 119.912 22" focusable="false"><use href="#logo-shape"/></svg>
-      </div>
-    </div>
+    <div class="end-mark" aria-hidden="true" data-reveal>{END_LOGO}</div>
   </footer>'''
 
 
@@ -556,10 +561,9 @@ def home(lang, variant='grid'):
   <main>{note}
     <section class="hero">
       <div class="wrap">
-        <h1 class="hero-title display-1">
-          <span class="sky"><span class="sun" aria-hidden="true"></span><span class="rise">{t['h1a']}</span></span>
+        <h1 class="hero-title">
+          <span class="sky"><span class="sun" aria-hidden="true"></span><span class="rise"><span class="hero-a display-1">{t['h1a']}</span> <span class="hero-b lede">{t['h1b']}</span></span></span>
           <span class="horizon" aria-hidden="true"></span>
-          <span class="below lede"><span>{t['h1b']}</span></span>
         </h1>
         <div class="hero-below">
           <p class="hero-intro body-lg">{t['intro']}</p>
@@ -624,95 +628,7 @@ def home(lang, variant='grid'):
     return page(lang, 0 if lang == 'en' else 1, body, t['title'], t['desc'], alts)
 
 
-# ------------------------------------------------------------------ CASE STUDY: Invest in Bogotá (gallery template)
-def case(lang):
-    t = T[lang]
-    depth = 1 if lang == 'en' else 2
-    h = '@H/' if lang == 'en' else '@H/es/'
-    other = '@H/es/invest-in-bogota/' if lang == 'en' else '@H/invest-in-bogota/'
-    a = t['alts']
-
-    def fig(name, cls, sizes, alt):
-        return f'<figure class="{cls}">{pic(name, sizes, alt)}</figure>'
-    ch = ''.join(f'\n          <li><strong>{hd}</strong><p>{p}</p></li>' for hd, p in t['c_ch'])
-    note = ES_DRAFT if lang == 'es' else ''
-    body = hint(t, other) + header(t, h, other) + sheet(t) + f'''
-
-  <main>{note}
-    <section class="case-hero" style="--client: #EF491F">
-      <div class="wrap">
-        <a class="back-link" href="{h}#work">{ic('i-back')} {t['work']}</a>
-        <h1 class="title-lg">
-          <span class="sky"><span class="sun" aria-hidden="true"></span><span class="rise">Invest in Bogotá</span></span>
-        </h1>
-        <span class="horizon" aria-hidden="true"></span>
-        <p class="case-summary lede">{t['c_summary']}</p>
-        <dl class="facts">
-          <div><dt>{t['c_year']}</dt><dd>{t['c_year_v']}</dd></div>
-          <div><dt>{t['c_ind']}</dt><dd>{t['c_ind_v']}</dd></div>
-          <div><dt>{t['c_srv']}</dt><dd>{t['r_vai']}</dd></div>
-        </dl>
-      </div>
-      <div class="reel parallax" style="--reel-bg: rgb(235 62 27)">
-        <video src="@R/case-studies/invest-in-bogota/presentations/sigo.webm" poster="@A/sigo-poster.jpg" autoplay muted loop playsinline preload="metadata" width="720" height="576" aria-label="{t['c_reel']}"></video>
-      </div>
-    </section>
-    {P.format('punto 9 en espera: el resumen del CMS no se muestra hasta que decidas')}
-
-    <section class="case-block" aria-labelledby="challenges-title">
-      <div class="wrap grid">
-        <div class="case-block-head"><h2 id="challenges-title">{t['c_obj']}</h2></div>
-        <ul class="case-block-body challenges">{ch}
-        </ul>
-      </div>
-    </section>
-
-    <section class="case-block" aria-label="{t['work']}">
-      <div class="wrap">
-        <div class="gallery">
-          {fig('iib-social-grid', '', '(max-width: 760px) 100vw, 1320px', a[0])}
-          {fig('iib-semana-emprendedor', 'g-5', '(max-width: 760px) 100vw, 40vw', a[1])}
-          {fig('iib-web', 'g-7', '(max-width: 760px) 100vw, 58vw', a[2])}
-          {fig('iib-slide-aliado', '', '(max-width: 760px) 100vw, 1320px', a[3])}
-
-          <div class="gallery-label"><h2>{t['c_social']}</h2></div>
-          {fig('iib-mice', 'g-4', '(max-width: 760px) 100vw, 33vw', a[4])}
-          {fig('iib-bogota-proposito', 'g-4', '(max-width: 760px) 100vw, 33vw', a[5])}
-          {fig('iib-convention-bureau', 'g-4', '(max-width: 760px) 100vw, 33vw', a[6])}
-
-          <div class="gallery-label"><h2>{t['c_slides']}</h2></div>
-          {fig('iib-scaleup', 'g-7', '(max-width: 760px) 100vw, 58vw', a[7])}
-          {fig('iib-data-slide', 'g-5', '(max-width: 760px) 100vw, 40vw', a[8])}
-          {fig('iib-abc-guide', 'g-6', '(max-width: 760px) 100vw, 50vw', a[9])}
-          {fig('iib-editorial-spread', 'g-6', '(max-width: 760px) 100vw, 50vw', a[10])}
-
-          <div class="gallery-label">
-            <h2 class="sr-only">Behance</h2>
-            <a class="behance-link" href="https://www.behance.net/gallery/230400817/Invest-in-Bogota" target="_blank" rel="noopener">{ic('i-behance')} Behance {ic('i-go', 'icon--go')}</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="other-work is-night" aria-labelledby="other-title">
-      <div class="wrap">
-        <div class="titled">
-          <div class="sky"><h2 id="other-title" class="rise display-2" style="padding-bottom:.16em">{t['c_other']}</h2></div>
-          <span class="horizon" aria-hidden="true"></span>
-        </div>
-        <ul class="grid projects">''' + \
-        project(t, h, 'vende-digital') + \
-        project(t, h, 'infinited', 'project--narrow project--square', '(max-width: 760px) 100vw, 42vw') + '''
-        </ul>
-      </div>
-    </section>
-  </main>
-''' + footer(t, other)
-    alts = [('en', BASE + 'invest-in-bogota/'), ('es', BASE + 'es/invest-in-bogota/'), ('x-default', BASE + 'invest-in-bogota/')]
-    return page(lang, depth, body, t['c_title'], t['c_desc'], alts, 'page-night')
-
-
-# ------------------------------------------------------------------ CASE STUDY: Radio a Domicilio (chapter template)
+# ------------------------------------------------------------------ CASE STUDIES: one chapter template for every project
 WAVES = '''<svg class="waves" viewBox="0 0 240 120" aria-hidden="true" focusable="false">
             <path class="w w1" d="M96 120a24 24 0 0 1 48 0"/>
             <path class="w w2" d="M66 120a54 54 0 0 1 108 0"/>
@@ -720,6 +636,8 @@ WAVES = '''<svg class="waves" viewBox="0 0 240 120" aria-hidden="true" focusable
             <path class="w w4" d="M6 120a114 114 0 0 1 228 0"/>
           </svg>'''
 BANNERS = [('300x600', 300, 600), ('160x600', 160, 600), ('300x250', 300, 250), ('320x50', 320, 50), ('930x180', 930, 180)]
+BEHANCE = {'radio-a-domicilio': 'https://www.behance.net/gallery/190745145/Radio-a-Domicilio',
+           'invest-in-bogota': 'https://www.behance.net/gallery/230400817/Invest-in-Bogota'}
 
 
 def chapter_head(n, label, hid):
@@ -729,115 +647,150 @@ def chapter_head(n, label, hid):
         </header>'''
 
 
-def case_chapters(lang):
-    t = T[lang]
-    depth = 1 if lang == 'en' else 2
-    h = '@H/' if lang == 'en' else '@H/es/'
-    other = '@H/es/radio-a-domicilio/' if lang == 'en' else '@H/radio-a-domicilio/'
-    ch, ra = t['ch'], t['r_alts']
-    ids = ['ch-context', 'ch-objectives', 'ch-process', 'ch-work', 'ch-results']
-    note = ES_DRAFT if lang == 'es' else ''
-    rail = ''.join(f'\n          <li><a href="#{i}"><span class="cn-no">{n:02d}</span> <span class="cn-label">{lab}</span></a></li>' for n, (i, lab) in enumerate(zip(ids, ch), 1))
-    objectives = ''.join(f'''
-            <li class="objective"><h3>{hd}</h3><p>{p}</p></li>''' for hd, p in t['r_obj'])
-    phases = ''.join(f'''
+def fig(name, cls, sizes, alt):
+    c = f' class="{cls}"' if cls else ''
+    return f'<figure{c}>{pic(name, sizes, alt)}</figure>'
+
+
+def behance_link(slug):
+    return f'<a class="behance-link" href="{BEHANCE[slug]}" target="_blank" rel="noopener">{ic("i-behance")} Behance {ic("i-go", "icon--go")}</a>'
+
+
+def objectives_html(items):
+    return '<ol class="objectives">' + ''.join(f'''
+            <li class="objective"><h3>{hd}</h3><p>{p}</p></li>''' for hd, p in items) + '\n          </ol>'
+
+
+def context_html(lede, figure, extra=None):
+    more = f'\n              <p class="chapter-text">{extra}</p>' if extra else ''
+    return f'''<div class="chapter-body grid">
+            <div class="chapter-intro">
+              <p class="chapter-lede lede">{lede}</p>{more}
+            </div>
+            {figure}
+          </div>'''
+
+
+def spec_rad(t):
+    ra = t['r_alts']
+    phases = '<ol class="phases">' + ''.join(f'''
             <li class="phase">
               <span class="phase-dot" aria-hidden="true"></span>
               <h3 class="phase-title">{ph}</h3>''' + ''.join(f'''
               <h4>{ih}</h4>
               <p>{ip}</p>''' for ih, ip in items) + '''
-            </li>''' for ph, items in t['r_phases'])
-    nxt = ''.join(f'''
-              <li><h4>{hd}</h4><p>{p}</p></li>''' for hd, p in t['r_next'])
+            </li>''' for ph, items in t['r_phases']) + '\n          </ol>'
     banners = ''.join(f'''
               <figure class="banner banner--{k}" style="--bw: {w}; --bh: {hh}">
                 <iframe src="@R/ads/rad/{k}/index.html" width="{w}" height="{hh}" title="{t['r_banner']} {w}×{hh}" loading="lazy" sandbox="allow-scripts" scrolling="no"></iframe>
                 <figcaption>{w} × {hh}</figcaption>
               </figure>''' for k, w, hh in BANNERS)
-    body = hint(t, other) + header(t, h, other) + sheet(t) + f'''
-
-  <main style="--client: #ffc845; --client-ink: #4a3fc8">{note}
-    <!-- PLANTILLA DE CAPÍTULOS (ejemplo). Portada tipo deck + capítulos que se abren sobre el horizonte.
-         Contenido: CMS del sitio. Textos nuevos marcados como PROPUESTA DE TEXTO. -->
-    <section class="case-hero chapter-cover is-night tone-night">
-      <div class="wrap">
-        <a class="back-link" href="{h}#work">{ic('i-back')} {t['work']}</a>
-        <h1 class="title-lg">
-          <span class="sky">{WAVES}<span class="rise">Radio a Domicilio</span></span>
-        </h1>
-        <span class="horizon" aria-hidden="true"></span>
-        <dl class="facts">
-          <div><dt>{t['c_year']}</dt><dd>{t['r_year_v']}</dd></div>
-          <div><dt>{t['c_ind']}</dt><dd>{t['r_ind_v']}</dd></div>
-          <div><dt>{t['c_srv']}</dt><dd>{t['r_art']}</dd></div>
-        </dl>
-      </div>
-      <div class="wrap"><figure class="cover-shot parallax">{pic('rad-brand', '(max-width: 760px) 100vw, 1320px', ra['brand'], eager=True)}</figure></div>
-    </section>
-
-    <div class="chapters">
-      <nav class="chapter-nav" aria-label="{t['chapters_label']}">
-        {P.format('nombres de capítulo: Context y The work son nuevos; Objectives, Process, Results y Next steps vienen del CMS')}
-        <ol class="wrap">{rail}
-        </ol>
-      </nav>
-
-      <section id="{ids[0]}" class="chapter" aria-labelledby="{ids[0]}-t">
-        <div class="wrap">
-          {chapter_head(1, ch[0], ids[0] + '-t')}
-          <div class="chapter-body grid">
-            <p class="chapter-lede lede">{t['r_summary']}</p>
-            <figure class="chapter-figure">{pic('rad-studio', '(max-width: 760px) 100vw, 50vw', ra['studio'])}</figure>
-          </div>
-        </div>
-      </section>
-
-      <section id="{ids[1]}" class="chapter" aria-labelledby="{ids[1]}-t">
-        <div class="wrap">
-          {chapter_head(2, ch[1], ids[1] + '-t')}
-          <ol class="objectives">{objectives}
-          </ol>
-        </div>
-      </section>
-
-      <section id="{ids[2]}" class="chapter" aria-labelledby="{ids[2]}-t">
-        <div class="wrap">
-          {chapter_head(3, ch[2], ids[2] + '-t')}
-          <ol class="phases">{phases}
-          </ol>
-        </div>
-      </section>
-
-      <section id="{ids[3]}" class="chapter is-night tone-night" aria-labelledby="{ids[3]}-t">
-        <div class="wrap">
-          {chapter_head(4, ch[3], ids[3] + '-t')}
-          <div class="gallery">
-            <figure class="g-7">{pic('rad-web', '(max-width: 760px) 100vw, 58vw', ra['web'])}</figure>
-            <figure class="g-5">{pic('rad-headphones', '(max-width: 760px) 100vw, 40vw', ra['headphones'])}</figure>
-            <figure>{pic('rad-campaign', '(max-width: 760px) 100vw, 1320px', ra['campaign'])}</figure>
+    work = f'''<div class="gallery">
+            {fig('rad-web', 'g-7', '(max-width: 760px) 100vw, 58vw', ra['web'])}
+            {fig('rad-headphones', 'g-5', '(max-width: 760px) 100vw, 40vw', ra['headphones'])}
+            {fig('rad-campaign', '', '(max-width: 760px) 100vw, 1320px', ra['campaign'])}
             <div class="gallery-label"><h3>{t['c_social']}</h3></div>
-            <figure>{pic('rad-social', '(max-width: 760px) 100vw, 1320px', ra['social'])}</figure>
+            {fig('rad-social', '', '(max-width: 760px) 100vw, 1320px', ra['social'])}
             <div class="gallery-label">{P.format('“HTML5 banners” es un rótulo nuevo')}<h3>{t['r_banners']}</h3></div>
             <div class="banners">{banners}
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="{ids[4]}" class="chapter chapter--results" aria-labelledby="{ids[4]}-t">
-        <div class="wrap">
-          {chapter_head(5, ch[4], ids[4] + '-t')}
-          <div class="chapter-body grid">
+          </div>'''
+    nxt = ''.join(f'''
+                <li><h4>{hd}</h4><p>{p}</p></li>''' for hd, p in t['r_next'])
+    results = f'''<div class="chapter-body grid">
             <p class="results lede">{t['r_results']}</p>
             <div class="next">
               <h3>{t['r_next_label']}</h3>
               <ul>{nxt}
               </ul>
-              <a class="behance-link" href="https://www.behance.net/gallery/190745145/Radio-a-Domicilio" target="_blank" rel="noopener">{ic('i-behance')} Behance {ic('i-go', 'icon--go')}</a>
+              {behance_link('radio-a-domicilio')}
             </div>
-          </div>
+          </div>'''
+    return dict(slug='radio-a-domicilio', title='Radio a Domicilio', client='#ffc845', client_ink='#4a3fc8', shape=WAVES, shape_cls='',
+                meta=(t['r_title'], t['r_desc']), facts=(t['r_year_v'], t['r_ind_v'], t['r_art']),
+                cover=f'<figure class="cover-shot parallax">{pic("rad-brand", "(max-width: 760px) 100vw, 1320px", ra["brand"], eager=True)}</figure>',
+                chapters=[('context', t['ch'][0], context_html(t['r_summary'], fig('rad-studio', 'chapter-figure', '(max-width: 760px) 100vw, 50vw', ra['studio'])), False),
+                          ('objectives', t['ch'][1], objectives_html(t['r_obj']), False),
+                          ('process', t['ch'][2], phases, False),
+                          ('work', t['ch'][3], work, True),
+                          ('results', t['ch'][4], results, False)],
+                other=[('invest-in-bogota', 'project--narrow', '(max-width: 760px) 100vw, 42vw'), ('pro-surge-ja', '', '(max-width: 760px) 100vw, 58vw')])
+
+
+def spec_iib(t):
+    a = t['alts']
+    work = f'''<div class="gallery">
+            {fig('iib-social-grid', '', '(max-width: 760px) 100vw, 1320px', a[0])}
+            {fig('iib-web', '', '(max-width: 760px) 100vw, 1320px', a[2])}
+            <div class="gallery-label"><h3>{t['c_social']}</h3></div>
+            {fig('iib-mice', 'g-4', '(max-width: 760px) 100vw, 33vw', a[4])}
+            {fig('iib-semana-emprendedor', 'g-4', '(max-width: 760px) 100vw, 33vw', a[1])}
+            {fig('iib-convention-bureau', 'g-4', '(max-width: 760px) 100vw, 33vw', a[6])}
+            <div class="gallery-label"><h3>{t['c_slides']}</h3></div>
+            {fig('iib-slide-aliado', '', '(max-width: 760px) 100vw, 1320px', a[3])}
+            {fig('iib-scaleup', 'g-7', '(max-width: 760px) 100vw, 58vw', a[7])}
+            {fig('iib-data-slide', 'g-5', '(max-width: 760px) 100vw, 40vw', a[8])}
+            {fig('iib-abc-guide', 'g-6', '(max-width: 760px) 100vw, 50vw', a[9])}
+            {fig('iib-editorial-spread', 'g-6', '(max-width: 760px) 100vw, 50vw', a[10])}
+            <div class="gallery-label"><h3 class="sr-only">Behance</h3>{behance_link('invest-in-bogota')}</div>
+          </div>'''
+    reel = f'''<figure class="cover-shot cover-shot--reel parallax" style="--reel-bg: rgb(235 62 27)">
+          <video src="@R/case-studies/invest-in-bogota/presentations/sigo.webm" poster="@A/sigo-poster.jpg" autoplay muted loop playsinline preload="metadata" width="720" height="576" aria-label="{t['c_reel']}"></video>
+        </figure>'''
+    return dict(slug='invest-in-bogota', title='Invest in Bogotá', client='#ef491f', client_ink='#c8361a', shape='<span class="sun" aria-hidden="true"></span>', shape_cls=' chapter-cover--sun',
+                meta=(t['c_title'], t['c_desc']), facts=(t['c_year_v'], t['c_ind_v'], t['r_vai']), cover=reel,
+                chapters=[('context', t['ch'][0], context_html(t['c_summary'], fig('iib-bogota-proposito', 'chapter-figure', '(max-width: 760px) 100vw, 50vw', a[5]), t['c_aim']), False),
+                          ('objectives', t['c_obj'], objectives_html(t['c_ch']), False),
+                          ('work', t['ch'][3], work, True)],
+                other=[('vende-digital', '', '(max-width: 760px) 100vw, 58vw'), ('infinited', 'project--narrow project--square', '(max-width: 760px) 100vw, 42vw')])
+
+
+def case_page(lang, spec_fn):
+    t = T[lang]
+    sp = spec_fn(t)
+    slug = sp['slug']
+    depth = 1 if lang == 'en' else 2
+    h = '@H/' if lang == 'en' else '@H/es/'
+    other = f'@H/es/{slug}/' if lang == 'en' else f'@H/{slug}/'
+    note = ES_DRAFT if lang == 'es' else ''
+    chs = sp['chapters']
+    rail = ''.join(f'\n          <li><a href="#ch-{k}"><span class="cn-no">{n:02d}</span> <span class="cn-label">{lab}</span></a></li>' for n, (k, lab, _, _) in enumerate(chs, 1))
+    sections = ''.join(f'''
+
+      <section id="ch-{k}" class="chapter{' is-night tone-night' if night else ''}{' chapter--last' if n == len(chs) else ''}" aria-labelledby="ch-{k}-t">
+        <div class="wrap">
+          {chapter_head(n, lab, f'ch-{k}-t')}
+          {html}
         </div>
-      </section>
+      </section>''' for n, (k, lab, html, night) in enumerate(chs, 1))
+    others = ''.join(project(t, h, s, c, z) for s, c, z in sp['other'])
+    body = hint(t, other) + header(t, h, other) + sheet(t) + f'''
+
+  <main style="--client: {sp['client']}; --client-ink: {sp['client_ink']}">{note}
+    <!-- PLANTILLA DE CAPÍTULOS: la misma para todos los proyectos. Portada oscura tipo deck, capítulos claros
+         que se abren sobre el horizonte, las piezas en índigo. Contenido: CMS del sitio. -->
+    <section class="case-hero chapter-cover{sp['shape_cls']} is-night tone-night">
+      <div class="wrap">
+        <a class="back-link" href="{h}#work">{ic('i-back')} {t['work']}</a>
+        <h1 class="title-lg">
+          <span class="sky">{sp['shape']}<span class="rise">{sp['title']}</span></span>
+        </h1>
+        <span class="horizon" aria-hidden="true"></span>
+        <dl class="facts">
+          <div><dt>{t['c_year']}</dt><dd>{sp['facts'][0]}</dd></div>
+          <div><dt>{t['c_ind']}</dt><dd>{sp['facts'][1]}</dd></div>
+          <div><dt>{t['c_srv']}</dt><dd>{sp['facts'][2]}</dd></div>
+        </dl>
+      </div>
+      <div class="wrap">{sp['cover']}</div>
+    </section>
+
+    <div class="chapters">
+      <nav class="chapter-nav" aria-label="{t['chapters_label']}">
+        {P.format('nombres de capítulo: Context y The work son nuevos; los demás vienen del CMS')}
+        <ol class="wrap">{rail}
+        </ol>
+      </nav>{sections}
     </div>
 
     <section class="other-work is-night" aria-labelledby="other-title">
@@ -846,16 +799,14 @@ def case_chapters(lang):
           <div class="sky"><h2 id="other-title" class="rise display-2" style="padding-bottom:.16em">{t['c_other']}</h2></div>
           <span class="horizon" aria-hidden="true"></span>
         </div>
-        <ul class="grid projects">''' + \
-        project(t, h, 'invest-in-bogota', 'project--narrow', '(max-width: 760px) 100vw, 42vw') + \
-        project(t, h, 'pro-surge-ja') + '''
+        <ul class="grid projects">{others}
         </ul>
       </div>
     </section>
   </main>
 ''' + footer(t, other)
-    alts = [('en', BASE + 'radio-a-domicilio/'), ('es', BASE + 'es/radio-a-domicilio/'), ('x-default', BASE + 'radio-a-domicilio/')]
-    return page(lang, depth, body, t['r_title'], t['r_desc'], alts, 'page-chapters')
+    alts = [('en', BASE + f'{slug}/'), ('es', BASE + f'es/{slug}/'), ('x-default', BASE + f'{slug}/')]
+    return page(lang, depth, body, sp['meta'][0], sp['meta'][1], alts, 'page-chapters')
 
 
 # ------------------------------------------------------------------ 404 (one file, both languages)
@@ -907,10 +858,10 @@ def write(rel, html):
 
 write('index.html', home('en'))
 write('es/index.html', home('es'))
-write('invest-in-bogota/index.html', case('en'))
-write('es/invest-in-bogota/index.html', case('es'))
-write('radio-a-domicilio/index.html', case_chapters('en'))
-write('es/radio-a-domicilio/index.html', case_chapters('es'))
+write('invest-in-bogota/index.html', case_page('en', spec_iib))
+write('es/invest-in-bogota/index.html', case_page('es', spec_iib))
+write('radio-a-domicilio/index.html', case_page('en', spec_rad))
+write('es/radio-a-domicilio/index.html', case_page('es', spec_rad))
 write('projects-a/index.html', home('en', 'plates'))
 write('projects-b/index.html', home('en', 'sheet'))
 write('projects-c/index.html', home('en', 'tiles'))

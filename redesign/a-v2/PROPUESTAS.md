@@ -15,26 +15,31 @@ Tu respuesta: te gusta la actual. De la B te atrajo la grilla de tres (equilibra
 
 ¿Reemplazamos la grilla actual por esta?
 
-### B. Plantilla por capítulos, evolucionada (Radio a Domicilio)
-Tu respuesta: te gusta, pero le faltaba blanco. Ahora alterna como un día:
-- **Índigo:** la portada (tipo deck) y "Las piezas" (las imágenes resaltan sobre oscuro).
-- **Blanco:** Contexto, Objetivos, Proceso y Resultados.
+### B. Una sola plantilla para todos los proyectos
+Radio a Domicilio e Invest in Bogotá ya usan la misma estructura:
+- Portada oscura con la forma del cliente: las ondas de radio, o el sol rojo de Invest in Bogotá.
+- Imagen inicial con parallax.
+- Capítulos claros con números.
+- "Las piezas" en índigo.
+- "Otros proyectos" al final.
 
-Sobre blanco, los números de capítulo usan el violeta de Radio a Domicilio (el amarillo no se lee sobre blanco); sobre índigo, el amarillo. Si la apruebas, Invest in Bogotá pasa también a esta plantilla.
+Los capítulos aparecen según el contenido que exista. A Invest in Bogotá le faltan "Proceso" y "Resultados": si me los envías, los agrego. También necesito el contenido de Vende Digital, Infinited, Colombia 4.0 y Pro Surge JA.
 
 **Textos nuevos que siguen pendientes de tu sí** (marcados en el HTML con `PROPUESTA DE TEXTO`):
-1. Nombres de capítulo nuevos: "Context / Contexto" y "The work / Las piezas". "Objectives", "Process", "Results" y "Next steps" ya estaban en tu CMS.
+1. Nombres de capítulo nuevos: "Context / Contexto" y "The work / Las piezas".
 2. Rótulo "HTML5 banners / Banners HTML5".
-3. Textos alternativos de las 6 imágenes y los 5 banners (para lectores de pantalla).
-4. La traducción al español de todo el contenido del caso. En español, "Radio at Home" queda como "Radio a Domicilio", que es el nombre original de la marca.
+3. Textos alternativos de las imágenes y los banners (para lectores de pantalla).
+4. Traducción al español del contenido de Radio a Domicilio.
 
-**Observaciones sobre los textos del CMS** (no los cambié):
+**Punto 9 (aprobado e integrado):** el párrafo de Invest in Bogotá está en su capítulo de Contexto, tal como estaba en el CMS. En español quedó: "El objetivo de IBB es facilitar… Debo desarrollar piezas de impacto…".
+
+Propuestas de redacción para el inglés (no aplicadas, dime si sí):
+- "IBB aim is" → "IBB’s aim is" (falta el posesivo).
+- "I have to develop impactful collateral" → "My role is to develop impactful collateral" (suena más profesional).
+
+**Observaciones sobre los textos del CMS de Radio a Domicilio** (no los cambié):
 - "Audience and Style Analysis" repite casi lo mismo que "Market and Style Study".
-- "UI/UX Design", "User Testing" y el resumen terminan sin punto.
-- "Visual engagement" quedó como "Conexión visual".
-
-### C. Punto 9 (en espera, no se muestra)
-> IBB aim is to facilitate relevant international investments and attract world-class meetings and events that contribute to the socioeconomic development, competitiveness, and quality of life of Bogotá-Region. I have to develop impactful collateral to create a strong brand presence as well as keep a coherent narrative of the brand.
+- Hay frases sin punto final.
 
 ### D. Las 3 portadas animadas (Lottie) siguen en Framer
 Radio a Domicilio, Invest in Bogotá y Vende Digital usan animaciones Lottie alojadas en Framer. Probé con tu enlace `orange-point-971308.framer.app`, pero la política de red de este entorno bloquea tanto ese dominio como `framerusercontent.com`.
@@ -60,20 +65,34 @@ Las direcciones canónicas y `hreflang` ya apuntan a `https://nicolasmb.com/`.
 ---
 
 ## ✅ Aplicado en esta ronda
-- **Logo:** se corrigió el brillo negro que aparecía antes de la halación.
-  - Causa: una sombra que arranca desde "sin filtro" se interpola desde el color del texto, que en el logo es índigo oscuro.
-  - Solución: la halación está ya dibujada en una copia debajo del logo, y al pasar el cursor solo cambia su opacidad. Además es más liviano.
-- **Encabezado en píldora** (rescatado de la primera versión):
-  - La píldora flota con el logo, las secciones y el botón.
-  - Se esconde al bajar y reaparece apenas subes un poco. No se esconde cerca del inicio, con el menú abierto, ni si navegas con el teclado dentro de ella.
-  - En celular, el menú se abre como un panel redondeado debajo de la píldora.
-  - En los casos de estudio, la barra de capítulos también es una píldora y sube cuando el encabezado se esconde.
-  - Las secciones del menú usan Clash Display, como en la primera versión.
-- **Botón "Let’s talk":** al pasar el cursor, el punto de la "i" sube desde el borde inferior del botón (su horizonte) detrás de la flecha, y la flecha gira de ↗ a →. Es la idea del original (círculo blanco con flecha), pero contada con el lenguaje del logo y con movimiento de resorte.
-- **Parallax al inicio de cada proyecto** (rescatado de la primera versión):
-  - Radio a Domicilio: el collage de marca, en un marco redondeado, se mueve más lento que la página.
-  - Invest in Bogotá: el video flota dentro de su franja roja.
-  - Se hace con animación ligada al scroll en CSS (sin JavaScript), se apaga con "reducir movimiento" y en navegadores sin soporte se ve la imagen quieta.
+- **Tipografía, medida contra la versión publicada** (a 1440 px):
+
+  | Elemento | Ahora |
+  |---|---|
+  | "I LOVE DESIGN" | 70 px, Clash Display 700 |
+  | Segunda línea del hero | 42 px |
+  | Títulos de sección | 70 px |
+  | Títulos de proyecto | 20 px, Clash 700 |
+  | Servicios y cargos | 24 px |
+  | "Let’s make magic!" | 120 px |
+  | Menú, idioma y botón | Clash Display 700 |
+  | Texto corrido | Albert Sans 16 px (como en la publicada) |
+  | Rótulos pequeños | DM Sans |
+
+- **Fondo:** el azul claro de la versión publicada (`#eef2ff`).
+- **Píldora:** blanca al 82 % sobre ese azul, como la tuya, con un leve desenfoque del fondo.
+- **Hero:** "I LOVE DESIGN and I turn that passion into results" ya no queda partida por la línea. La frase completa está sobre el horizonte y el sol se pone a su lado.
+- **Footer:**
+  - La película negra se quitó: ahora usa el índigo del sitio.
+  - El logo grande en blanco sale del borde inferior; al entrar en pantalla, sus letras suben una tras otra, como el logotipo.
+  - La halación se queda solo en el logo del encabezado.
+- **Arco en las imágenes:** eliminado de todas las secciones; ahora son marcos redondeados.
+- **Botón "Let’s talk":** al pasar el cursor, primero se dibuja el contorno del sol (desde abajo, donde está el horizonte), después se rellena y la flecha gira de ↗ a →.
+- **Parallax:**
+  - **Error corregido:** el marco con `overflow: hidden` congelaba la animación ligada al scroll; con `overflow: clip` ya se mueve. El mismo error impedía el leve zoom de las imágenes de proyectos, que ahora también funciona.
+  - **Movimiento más notorio:** la imagen va unos 15–20 % más lenta que la página.
+  - **Navegadores sin soporte:** se agregó un respaldo en JavaScript.
+- **Invest in Bogotá:** pasó a la plantilla por capítulos (fondo claro, números), igual que Radio a Domicilio.
 
 ## Aplicado antes
 - **Soles** (todos: hero, panel de contacto, caso de estudio, 404, el sol de los proyectos, "View portfolio" y el proceso):
@@ -145,10 +164,12 @@ Lo que hacen las grandes empresas y recomienda Google:
 | 14 | ❌ | Rechazado |
 | Email | ✅ | Se mantiene `nicolasbarbosa.us@gmail.com` |
 | Secciones oscuras | ✅ | Aprobadas |
-| Película (deck) | ✅ | Aprobada; vectorial y por defecto |
+| Película (deck) | ↩️ | Retirada del footer por decisión tuya: rompía la estética. Queda la halación del logo del encabezado |
 | Fase 4 | ✅ | Halación del logo y barrido del horizonte |
 | Película en proyectos (B) | ❌ | Descartada: la película se queda solo en el contacto |
 | Formas orgánicas / a mano | ❌ | No van con la marca: todo debe ser geometría del logo |
+| Arco como ventana de imagen | ❌ | Eliminado de todas las secciones |
+| Punto 9 | ✅ | Integrado en el Contexto de Invest in Bogotá |
 | No depender de Framer | ✅ | Hecho, salvo las 3 animaciones Lottie (punto D) |
 
 ## GIF aleatorio del 404

@@ -168,6 +168,35 @@
       .catch(() => {});
   }
 
+  /* Footer logotype: its letters rise from the bottom edge, one after another, when it comes into view */
+  const endMark = document.querySelector(".end-mark[data-reveal]");
+  if (endMark) {
+    if (reduceMotion.matches || !("IntersectionObserver" in window)) endMark.classList.add("is-in");
+    else {
+      endMark.classList.add("is-armed");
+      new IntersectionObserver(([e], obs) => { if (e.isIntersecting) { endMark.classList.add("is-in"); obs.disconnect(); } }, { threshold: 0.6 }).observe(endMark);
+    }
+  }
+
+  /* Parallax openings: CSS scroll-driven animations do it where supported; elsewhere, the same drift here */
+  const drifting = Array.from(document.querySelectorAll(".cover-shot.parallax > img, .cover-shot.parallax > video"));
+  if (drifting.length && !reduceMotion.matches && !(window.CSS && CSS.supports("animation-timeline: view()"))) {
+    let queued = false;
+    const drift = () => {
+      queued = false;
+      const vh = window.innerHeight;
+      drifting.forEach((el) => {
+        const r = el.parentElement.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) return;
+        const progress = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
+        const amp = el.tagName === "VIDEO" ? 12 : 15;
+        el.style.translate = `0 ${(-amp + 2 * amp * progress).toFixed(2)}%`;
+      });
+    };
+    window.addEventListener("scroll", () => { if (!queued) { queued = true; requestAnimationFrame(drift); } }, { passive: true });
+    drift();
+  }
+
   /* Lottie covers: load the player only when a cover is about to be seen, pause off-screen */
   const covers = Array.from(document.querySelectorAll("[data-lottie]"));
   if (!covers.length || !("IntersectionObserver" in window)) return;
