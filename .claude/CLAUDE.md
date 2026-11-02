@@ -24,10 +24,28 @@ These rules come from the site owner and apply to every task in this repo.
 
 ## Estado actual (para retomar en cualquier sesión)
 - Trabajo vigente: Opción A v2 "Horizonte" en `redesign/a-v2/` (EN) y `redesign/a-v2/es/` (ES), rama `redesign`.
-- Generador: las páginas se escriben a mano en HTML; CSS/JS compartidos en `redesign/a-v2/assets/` (`site.css`, `site.js`), enlazados con `?v=<hash>` para evitar cachés viejas. Si editas CSS/JS, actualiza el hash en todas las páginas.
-- Decisiones tomadas por el dueño: textura = teselación (también como placeholder de imágenes); secciones oscuras aprobadas; panel de contacto con entrada desacelerada (sin morph); 404 con GIF aleatorio de gatos (GIPHY) dentro del sol; email `nicolasbarbosa.us@gmail.com`; título "Visual and AI Designer"; empresa "ReloQuest".
-- Pendiente de aprobación: ver "Pendiente de tu decisión" en `redesign/a-v2/PROPUESTAS.md` (propuesta película `?look=film`, punto 9, dominio) y el plan por fases en `redesign/a-v2/PLAN.md`.
+- Generador: `python3 redesign/tools/build.py` escribe todas las páginas; sus piezas (logo, íconos Phosphor, quemadura SVG, manifiesto de imágenes) están en `redesign/tools/parts/`. No edites el HTML generado a mano: edita el generador.
+  - CSS/JS compartidos: `redesign/a-v2/assets/` (`site.css`, `site.js`). El generador calcula el `?v=<hash>` solo.
+  - Todo es local: imágenes WebP en `assets/img/`, fuentes WOFF2 en `assets/fonts/`, Lottie en `assets/vendor/`. Lo único en Framer son las 3 animaciones Lottie de portada.
+  - Para publicar en la raíz: `REPO_FROM_SITE = ''`, `ABS_ROOT = '/'`, `LINK_INDEX = False`.
+- Páginas: home, `invest-in-bogota/` (galería), `radio-a-domicilio/` (plantilla por capítulos, ejemplo), `404.html` (bilingüe), `projects-a/` y `projects-b/` (alternativas de la sección de proyectos, solo EN, noindex).
+- Decisiones tomadas por el dueño:
+  - Textura = teselación (también como placeholder de imágenes).
+  - Secciones oscuras aprobadas.
+  - Panel de contacto con entrada desacelerada (sin morph).
+  - 404 con GIF aleatorio de gatos (GIPHY) dentro del sol.
+  - Email `nicolasbarbosa.us@gmail.com`; título "Visual and AI Designer"; empresa "ReloQuest".
+  - Película del deck aprobada: contacto en negro película con quemadura, polvo y logo con halación, todo en vectores (SVG), sin mapas de bits.
+  - No depender de Framer: aprobado.
+  - Fase 4 en prueba: halación del logo al pasar el cursor + barrido del horizonte entre páginas.
+- Pendiente de aprobación (ver "Pendiente de tu decisión" en `redesign/a-v2/PROPUESTAS.md`):
+  - Alternativa de proyectos (actual / A / B).
+  - Plantilla por capítulos y sus textos nuevos.
+  - Punto 9.
+  - Archivos Lottie.
+  - Publicación.
 - El español debe ser una traducción fiel del inglés (mismo contenido, palabras nativas de cada idioma).
-- Casos de estudio: fondo índigo (`body.page-night`).
-- Nada se publica en `main` sin aprobación explícita.
+- Casos de estudio: fondo índigo (`body.page-night`); el color del cliente va en `--client`.
+- Nada se publica en `main` sin aprobación explícita. El sitio en vivo es `https://nicolasmb.com/` (Netlify, se actualiza desde `main` en minutos).
 - Deck de Figma del dueño (Figma Slides, fileKey `A2FLZyFCZUkYItYyTG2Tgn`, portada nodo `1:2107`): fondo negro tipo película, grano, polvo/rayas, quemadura de película naranja en una esquina y el logotipo con halación (núcleo amarillo, naranja, borde magenta). El conector de Figma solo puede capturar diapositivas cuyo enlace (node-id) comparta el dueño; no puede listar las diapositivas de un deck.
+- Vista previa: `https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v2/index.html`. Puede tardar unos minutos en reflejar un cambio; si dudas, recarga forzada.

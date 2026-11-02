@@ -48,18 +48,20 @@ El recorrido del sitio se cuenta como un día de luz:
 | Contacto | Noche, como la portada de tu deck: película negra, quemadura y tu logo con halación |
 
 - El sol acompaña el scroll sin secuestrarlo: sale en el hero, baja por el borde de la pantalla y se oculta antes del contacto, donde aparece tu logo encendido.
-- **Necesito de ti:** aprobar la propuesta "película" (`?look=film`).
+- **Estado:** la película está aprobada y aplicada en el contacto (vectorial). Falta el recorrido del sol a lo largo de toda la página.
 
 ### Fase 2: Proyectos sin grilla de tarjetas
 Dos alternativas para comparar, ambas derivadas de tu material:
 - **A. Dirección de arte por proyecto:** cada proyecto en la home con su propio color, su forma (el círculo de IiB, por ejemplo) y su encuadre, en una composición asimétrica que respira distinto en cada uno.
 - **B. Hoja de contactos de película:** los proyectos como fotogramas de una tira de película (continuidad con el deck). Al pasar el cursor, el fotograma se revela a color.
+- **Estado:** ambas construidas para comparar: `projects-a/index.html` y `projects-b/index.html`. Falta que elijas.
 
 ### Fase 3: Plantilla propia de caso de estudio ("capítulos")
 - **Portada tipo deck:** fondo índigo o película, título sobre el horizonte y la forma del cliente.
 - **Capítulos separados por el horizonte:** Contexto, Reto, Decisiones, Piezas, Resultado.
 - **Aplicarla a los 6 proyectos.**
-- **Necesito de ti:** textos, imágenes y resultados (aunque sean cualitativos) de Radio a Domicilio, Vende Digital, Infinited, Colombia 4.0 y Pro Surge JA.
+- **Necesito de ti:** textos, imágenes y resultados (aunque sean cualitativos) de Vende Digital, Infinited, Colombia 4.0 y Pro Surge JA.
+- **Estado:** ejemplo construido con Radio a Domicilio, usando el contenido de tu CMS: `radio-a-domicilio/index.html` (EN) y `es/radio-a-domicilio/index.html` (ES). Si lo apruebas, se aplica a Invest in Bogotá y a los demás.
 
 ### Fase 4: Firma interactiva
 Hecho:
@@ -67,15 +69,16 @@ Hecho:
 - El sol que sale.
 - Los gatos del 404.
 
-Por hacer:
+Hecho en esta ronda:
 - Hover del logo con halación.
-- Una transición entre páginas en la que la línea del horizonte barre la pantalla.
-- Mantener el cursor normal (los cursores personalizados perjudican la accesibilidad).
+- Transición entre páginas en la que la línea del horizonte barre la pantalla. Usa las transiciones de vista entre documentos, que funcionan en Chrome, Edge y Safari 18.2 o superior; en los demás navegadores la página carga normal.
+
+Se mantiene el cursor normal, porque los cursores personalizados perjudican la accesibilidad.
 
 ### Fase 5: Robustez y lanzamiento
-- **Imágenes y fuentes dentro del repositorio:** hoy dependen de Framer y desaparecerían si borras ese proyecto.
+- **Imágenes y fuentes dentro del repositorio:** hecho. Solo quedan en Framer las 3 animaciones Lottie (ver PROPUESTAS, punto D).
 - **Imagen para compartir en LinkedIn y WhatsApp** (Open Graph).
-- **Dominio:** `nicolasmb.com`, si está activo.
+- **Dominio:** `nicolasmb.com` está activo en Netlify. Las direcciones canónicas ya apuntan ahí.
 - **Analítica respetuosa:** Plausible o Umami.
 - **Prueba de 5 segundos con 5 personas** (reclutadores y diseñadores): ¿qué recuerdan, qué entienden, dónde hacen clic?
 - **Publicar en `main`** solo con tu aprobación, con el respaldo ya creado.
@@ -85,6 +88,14 @@ Por hacer:
 2. Construyo la Fase 1 y la alternativa elegida.
 3. Me envías el contenido de los casos y construyo la Fase 3.
 4. Fases 4 y 5, y lanzamiento.
+
+## Fuentes de esta ronda
+- [Chrome for Developers: transiciones de vista entre documentos](https://developer.chrome.com/docs/web-platform/view-transitions/cross-document). Soporte según los resultados de búsqueda: Chrome/Edge 126+ y Safari 18.2+; Firefox aún en desarrollo. Las páginas de Chrome y MDN no se pudieron abrir desde este entorno (dominio bloqueado).
+- [Guía 2026 de CSS View Transitions](https://devtoolbox.dedyn.io/blog/css-view-transitions-complete-guide)
+- [Rendimiento de feTurbulence (Mozilla)](https://bugzilla.mozilla.org/show_bug.cgi?id=422371): el costo crece con `numOctaves`. Por eso se usan pocas octavas, una región de filtro acotada y ningún filtro animado.
+- [GreenSock: feTurbulence en móviles](https://greensock.com/forums/topic/33075-gsap-and-feturbulence-mobile-performance/): animarlo en áreas grandes es lento en iOS. Por eso la quemadura es estática.
+- [Grano SVG y rendimiento](https://loke-dev-lokedevs-projects.vercel.app/blog/svg-grain-textures-performance)
+- Casos de estudio que leen los reclutadores: problema, rol y resultado primero; fáciles de escanear; mostrar el proceso. Fuentes: [UX Planet](https://uxplanet.org/4-tips-for-structuring-case-studies-in-your-design-portfolio-f7436fd460ec), [Hiration](https://www.hiration.com/blog/build-portfolio-for-job-search/) y [Coderhouse, que resume a NN/g](https://www.coderhouse.com/coderlibrary/documentar-caso-de-estudio-ux-para-recruiters). No pude abrir el artículo original de NN/g.
 
 ## Fuentes
 - [Envato: tendencias 2026, grillas rotas y personalidad visual](https://elements.envato.com/learn/web-design-trends)

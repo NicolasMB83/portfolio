@@ -1,0 +1,233 @@
+{
+ "3QCDbMrzc7cop5kYup4CrK1rm2s.png": {
+  "name": "infinited-cover",
+  "w": 701,
+  "h": 701,
+  "sizes": [
+   480,
+   701
+  ]
+ },
+ "msmmZ95c7rSLm1doVr6Y2lLhgf8.png": {
+  "name": "col40-cover",
+  "w": 805,
+  "h": 786,
+  "sizes": [
+   480,
+   805
+  ]
+ },
+ "eURtGk5aXD1X6njJ2eVj80pwG5E.jpg": {
+  "name": "prosurge-cover",
+  "w": 1079,
+  "h": 630,
+  "sizes": [
+   480,
+   960,
+   1079
+  ]
+ },
+ "1nEBOosClQtRTJC6dVy7ax1kLo.png": {
+  "name": "iib-social-grid",
+  "w": 1921,
+  "h": 1129,
+  "sizes": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "fPkuaXO306HQetqORVRkZ9Wx3w.jpg": {
+  "name": "iib-semana-emprendedor",
+  "w": 1081,
+  "h": 1351,
+  "sizes": [
+   480,
+   960,
+   1081
+  ]
+ },
+ "WYk9brMLxApqsayelCs5u4T0tuA.jpg": {
+  "name": "iib-web",
+  "w": 1921,
+  "h": 1410,
+  "sizes": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "HP3fEi0TYwsoBKd5VDUck.jpg": {
+  "name": "iib-slide-aliado",
+  "w": 2880,
+  "h": 1620,
+  "sizes": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "FzYUddy9s97EBRu6JfMDQIkUx6g.jpg": {
+  "name": "iib-mice",
+  "w": 1080,
+  "h": 1440,
+  "sizes": [
+   480,
+   960,
+   1080
+  ]
+ },
+ "lhpg8cBVhJZZGxQvBEjFKuNEVo.jpg": {
+  "name": "iib-bogota-proposito",
+  "w": 1080,
+  "h": 1440,
+  "sizes": [
+   480,
+   960,
+   1080
+  ]
+ },
+ "EIrC6AyaWMl5gcxU4IREbBXhXI.jpg": {
+  "name": "iib-convention-bureau",
+  "w": 1081,
+  "h": 1401,
+  "sizes": [
+   480,
+   960,
+   1081
+  ]
+ },
+ "lb1HMegfV5nbr4FEz5A58SXqk.jpg": {
+  "name": "iib-scaleup",
+  "w": 2880,
+  "h": 1620,
+  "sizes": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "vIdAsAooRSagt93fnXffdDahVLU.jpg": {
+  "name": "iib-data-slide",
+  "w": 720,
+  "h": 405,
+  "sizes": [
+   480,
+   720
+  ]
+ },
+ "BbyK1rR0NAkppBFCJQhNxSPvf8.png": {
+  "name": "iib-abc-guide",
+  "w": 4000,
+  "h": 3000,
+  "sizes": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "TAbJQMb5zVJM9R215P8SMEMVBSA.png": {
+  "name": "iib-editorial-spread",
+  "w": 2300,
+  "h": 1650,
+  "sizes": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "GS8MsqB5R59aFmmL9a3gHl6YY.png": {
+  "name": "rad-studio",
+  "w": 705,
+  "h": 470,
+  "sizes": [
+   480,
+   705
+  ]
+ },
+ "mp9kRZsNWPU3oBF2XpJ69f9J4.png": {
+  "name": "rad-web",
+  "w": 1179,
+  "h": 881,
+  "sizes": [
+   480,
+   960,
+   1179
+  ]
+ },
+ "gXcIXbHSLDiNlghdl75D0GVCc.jpg": {
+  "name": "rad-social",
+  "w": 1200,
+  "h": 750,
+  "sizes": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "meTISniDwHV6hCNq1xkVKmlhjQ.jpg": {
+  "name": "rad-campaign",
+  "w": 1921,
+  "h": 1078,
+  "sizes": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "oKKd4KcSLY9wKbNc7GMKWS9VhmM.jpg": {
+  "name": "rad-brand",
+  "w": 3146,
+  "h": 1835,
+  "sizes": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "EQIBcJ4Z5LSsi3PcGKZTH5Tbz4.png": {
+  "name": "rad-headphones",
+  "w": 600,
+  "h": 365,
+  "sizes": [
+   480,
+   600
+  ]
+ },
+ "e66LEpUAxeLWT7tYdbKPpMBYEr8.svg": {
+  "name": "service-graphic",
+  "file": "service-graphic.svg"
+ },
+ "cJDTsugZBUHp2e7KaNDMkvzUE.svg": {
+  "name": "service-web",
+  "file": "service-web.svg"
+ },
+ "KHk7dI5f4ccTSX18GsvDbq0b4.svg": {
+  "name": "service-ui",
+  "file": "service-ui.svg"
+ },
+ "QUgwzSvv59VdKFZ47y5Md9hNZU.svg": {
+  "name": "service-brand",
+  "file": "service-brand.svg"
+ },
+ "MeBpMyHtUIdbY9sKp8lSlmI9kX8.svg": {
+  "name": "logo-mintic",
+  "file": "logo-mintic.svg"
+ },
+ "aEjoYZmll3q6tIGI3ywBNEyfmE4.svg": {
+  "name": "logo-areandina",
+  "file": "logo-areandina.svg"
+ },
+ "IvEdREjOYFFLpsfpS83P1OHgsU.svg": {
+  "name": "logo-ean",
+  "file": "logo-ean.svg"
+ },
+ "KYqgF00g4IZ3IWwcvzWm5VnSbQ.png": {
+  "name": "favicon-light",
+  "file": "favicon-light.png"
+ },
+ "qkWj8OtoeZ8rYN3pJfoDd6GptfE.png": {
+  "name": "favicon-dark",
+  "file": "favicon-dark.png"
+ }
+}

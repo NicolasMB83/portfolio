@@ -3,6 +3,7 @@
 (() => {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const html = document.documentElement;
+  const here = document.currentScript ? document.currentScript.src : location.href; // assets/ folder, for self-hosted files
   const pageLang = (html.lang || "en").slice(0, 2);
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch (_) { return null; } },
@@ -91,8 +92,8 @@
     }
   }
 
-  /* Current section in the nav */
-  const navLinks = Array.from(document.querySelectorAll('.nav-links a[href*="#"]'));
+  /* Current section in the nav (and the current chapter in a case study's chapter bar) */
+  const navLinks = Array.from(document.querySelectorAll('.nav-links a[href*="#"], .chapter-nav a'));
   if (navLinks.length && "IntersectionObserver" in window) {
     const map = new Map();
     navLinks.forEach((a) => { const id = a.hash.slice(1); const el = id && document.getElementById(id); if (el) map.set(el, a); });
@@ -100,7 +101,11 @@
       entries.forEach((e) => {
         const a = map.get(e.target);
         if (!a) return;
-        if (e.isIntersecting) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current");
+        if (e.isIntersecting) {
+          a.setAttribute("aria-current", "true");
+          const bar = a.closest(".chapter-nav ol"); // on narrow screens the chapter bar scrolls sideways: keep the current one in view
+          if (bar && bar.scrollWidth > bar.clientWidth) bar.scrollTo({ left: a.offsetLeft - 16, behavior: reduceMotion.matches ? "auto" : "smooth" });
+        } else a.removeAttribute("aria-current");
       });
     }, { rootMargin: "-45% 0px -50% 0px" });
     map.forEach((_, el) => io.observe(el));
@@ -144,7 +149,7 @@
   /* Lottie covers: load the player only when a cover is about to be seen, pause off-screen */
   const covers = Array.from(document.querySelectorAll("[data-lottie]"));
   if (!covers.length || !("IntersectionObserver" in window)) return;
-  const LOTTIE_SRC = "https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_light.min.js";
+  const LOTTIE_SRC = new URL("vendor/lottie_light-5.12.2.min.js", here).href; // self-hosted (MIT), no CDN
   let player;
   const loadPlayer = () => player || (player = new Promise((resolve, reject) => {
     const s = document.createElement("script");
