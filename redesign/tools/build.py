@@ -482,6 +482,27 @@ def work_sheet(t, home):
     return '<ol class="contact-sheet">' + ''.join(out) + '\n        </ol>'
 
 
+def work_tiles(t, home):
+    """Alternative C, fusion: the current indigo section with B's balanced grid (three equal frames per row,
+    less scroll) and B's colour reveal. The hand-drawn circle becomes the brand's geometry: each row sits on
+    one continuous horizon; on hover the frame's stretch of it lights up and the sun rises at its end."""
+    out = []
+    for p in PROJECTS:
+        attrs, media = cover(p, '(max-width: 600px) 100vw, (max-width: 1080px) 50vw, 33vw')
+        out.append(f'''
+          <li class="tile">
+            <a class="project-link tile-link" href="{home}{p['slug']}/">
+              <div class="project-media tile-media"{attrs}>{media}<span class="dawn" aria-hidden="true">{ic('i-go')}</span></div>
+              <span class="tile-line" aria-hidden="true"></span>
+              <div class="project-meta tile-meta">
+                <h3 class="project-title">{p['title']}</h3>
+                <p class="project-role">{t[p['role']]}</p>
+              </div>
+            </a>
+          </li>''')
+    return '<ul class="tiles">' + ''.join(out) + '\n        </ul>'
+
+
 def page(lang, depth, body, title, desc, alternates, body_cls='', robots=None, absolute=False):
     up = ABS_ROOT if (absolute and ABS_ROOT) else '../' * depth
     cls = f' class="{body_cls}"' if body_cls else ''
@@ -524,8 +545,9 @@ def home(lang, variant='grid'):
         'grid': ('work is-night', work_grid(t, h)),
         'plates': ('work work--plates is-night', work_plates(t, h)),
         'sheet': ('work work--sheet is-night', work_sheet(t, h)),
+        'tiles': ('work work--tiles is-night', work_tiles(t, h)),
     }[variant]
-    proto = '' if variant == 'grid' else f'\n  <!-- PROTOTIPO: alternativa {"A, dirección de arte por proyecto" if variant == "plates" else "B, hoja de contactos"}. Solo cambia la sección de proyectos. -->'
+    proto = '' if variant == 'grid' else '\n  <!-- PROTOTIPO: alternativa ' + {'plates': 'A, dirección de arte por proyecto', 'sheet': 'B, hoja de contactos', 'tiles': 'C, fusión (grilla de B + marca)'}[variant] + '. Solo cambia la sección de proyectos. -->'
     body = proto + hint(t, other) + header(t, h, other) + sheet(t) + f'''
 
   <main>{note}
@@ -731,10 +753,10 @@ def case_chapters(lang):
               </figure>''' for k, w, hh in BANNERS)
     body = hint(t, other) + header(t, h, other) + sheet(t) + f'''
 
-  <main style="--client: #ffc845">{note}
+  <main style="--client: #ffc845; --client-ink: #4a3fc8">{note}
     <!-- PLANTILLA DE CAPÍTULOS (ejemplo). Portada tipo deck + capítulos que se abren sobre el horizonte.
          Contenido: CMS del sitio. Textos nuevos marcados como PROPUESTA DE TEXTO. -->
-    <section class="case-hero chapter-cover">
+    <section class="case-hero chapter-cover is-night tone-night">
       <div class="wrap">
         <a class="back-link" href="{h}#work">{ic('i-back')} {t['work']}</a>
         <h1 class="title-lg">
@@ -783,7 +805,7 @@ def case_chapters(lang):
         </div>
       </section>
 
-      <section id="{ids[3]}" class="chapter" aria-labelledby="{ids[3]}-t">
+      <section id="{ids[3]}" class="chapter is-night tone-night" aria-labelledby="{ids[3]}-t">
         <div class="wrap">
           {chapter_head(4, ch[3], ids[3] + '-t')}
           <div class="gallery">
@@ -830,7 +852,7 @@ def case_chapters(lang):
   </main>
 ''' + footer(t, other)
     alts = [('en', BASE + 'radio-a-domicilio/'), ('es', BASE + 'es/radio-a-domicilio/'), ('x-default', BASE + 'radio-a-domicilio/')]
-    return page(lang, depth, body, t['r_title'], t['r_desc'], alts, 'page-night page-chapters')
+    return page(lang, depth, body, t['r_title'], t['r_desc'], alts, 'page-chapters')
 
 
 # ------------------------------------------------------------------ 404 (one file, both languages)
@@ -888,5 +910,6 @@ write('radio-a-domicilio/index.html', case_chapters('en'))
 write('es/radio-a-domicilio/index.html', case_chapters('es'))
 write('projects-a/index.html', home('en', 'plates'))
 write('projects-b/index.html', home('en', 'sheet'))
+write('projects-c/index.html', home('en', 'tiles'))
 write('404.html', lost())
 print('built', ASSET_V, sorted(str(p.relative_to(OUT)) for p in OUT.rglob('*.html')))

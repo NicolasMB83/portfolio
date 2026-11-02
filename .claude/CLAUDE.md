@@ -28,7 +28,7 @@ These rules come from the site owner and apply to every task in this repo.
   - CSS/JS compartidos: `redesign/a-v2/assets/` (`site.css`, `site.js`). El generador calcula el `?v=<hash>` solo.
   - Todo es local: imágenes WebP en `assets/img/`, fuentes WOFF2 en `assets/fonts/`, Lottie en `assets/vendor/`. Lo único en Framer son las 3 animaciones Lottie de portada.
   - Para publicar en la raíz: `REPO_FROM_SITE = ''`, `ABS_ROOT = '/'`, `LINK_INDEX = False`.
-- Páginas: home, `invest-in-bogota/` (galería), `radio-a-domicilio/` (plantilla por capítulos, ejemplo), `404.html` (bilingüe), `projects-a/` y `projects-b/` (alternativas de la sección de proyectos, solo EN, noindex).
+- Páginas: home, `invest-in-bogota/` (galería), `radio-a-domicilio/` (plantilla por capítulos, ejemplo), `404.html` (bilingüe), `projects-a/`, `projects-b/` y `projects-c/` (alternativas de la sección de proyectos, solo EN, noindex; C es la fusión vigente).
 - Decisiones tomadas por el dueño:
   - Textura = teselación (también como placeholder de imágenes).
   - Secciones oscuras aprobadas.
@@ -37,15 +37,23 @@ These rules come from the site owner and apply to every task in this repo.
   - Email `nicolasbarbosa.us@gmail.com`; título "Visual and AI Designer"; empresa "ReloQuest".
   - Película del deck aprobada: contacto en negro película con quemadura, polvo y logo con halación, todo en vectores (SVG), sin mapas de bits.
   - No depender de Framer: aprobado.
-  - Fase 4 en prueba: halación del logo al pasar el cursor + barrido del horizonte entre páginas.
+  - Fase 4 aprobada: halación del logo al pasar el cursor + barrido del horizonte entre páginas.
+  - Soles: todos levemente desenfocados, con brillo suave y gradiente muy sutil (amarillo cálido arriba, más quemado hacia el horizonte).
+  - Le gusta la grilla actual de proyectos. De la alternativa B le gustó la grilla de tres y el revelado a color; la película en proyectos está descartada.
+  - Regla de marca: el logo es geométrico y perfecto. Nada orgánico ni dibujado a mano (fue lindo, pero rompe la marca); todo efecto sale del arco, el punto y la línea.
+  - La plantilla por capítulos le gusta, pero necesitaba blanco: ahora alterna secciones índigo y blancas.
 - Pendiente de aprobación (ver "Pendiente de tu decisión" en `redesign/a-v2/PROPUESTAS.md`):
-  - Alternativa de proyectos (actual / A / B).
-  - Plantilla por capítulos y sus textos nuevos.
+  - Fusión de proyectos (`projects-c/`).
+  - Plantilla por capítulos evolucionada y sus textos nuevos.
   - Punto 9.
   - Archivos Lottie.
   - Publicación.
 - El español debe ser una traducción fiel del inglés (mismo contenido, palabras nativas de cada idioma).
-- Casos de estudio: fondo índigo (`body.page-night`); el color del cliente va en `--client`.
+- Casos de estudio:
+  - Invest in Bogotá sigue completo en índigo (`body.page-night`).
+  - La plantilla por capítulos es una página clara con secciones `is-night tone-night`.
+  - Color del cliente: `--client` (sobre oscuro) y `--client-ink` (sobre blanco).
+- Red del entorno: `framerusercontent.com` y `*.framer.app` están bloqueados. Para descargar las Lottie, el dueño debe permitirlos en Network access.
 - Nada se publica en `main` sin aprobación explícita. El sitio en vivo es `https://nicolasmb.com/` (Netlify, se actualiza desde `main` en minutos).
 - Deck de Figma del dueño (Figma Slides, fileKey `A2FLZyFCZUkYItYyTG2Tgn`, portada nodo `1:2107`): fondo negro tipo película, grano, polvo/rayas, quemadura de película naranja en una esquina y el logotipo con halación (núcleo amarillo, naranja, borde magenta). El conector de Figma solo puede capturar diapositivas cuyo enlace (node-id) comparta el dueño; no puede listar las diapositivas de un deck.
 - Vista previa: `https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v2/index.html`. Puede tardar unos minutos en reflejar un cambio; si dudas, recarga forzada.

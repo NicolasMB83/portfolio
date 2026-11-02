@@ -4,57 +4,50 @@ Prototipo, no publicado. Rama `redesign`, carpeta `redesign/a-v2/` (inglés) y `
 
 ## ⏳ Pendiente de tu decisión
 
-### A. Proyectos: ¿grilla actual, alternativa A o alternativa B?
-Solo cambia la sección de proyectos; el resto de la página es igual.
-- **Actual:** `index.html` (grilla de tarjetas sobre índigo).
-- **A, dirección de arte por proyecto:** `projects-a/index.html`. Cada proyecto tiene su color (tomado de sus propias piezas), una forma del logotipo y su propio lugar en una composición asimétrica:
-  - Radio a Domicilio: arco.
-  - Invest in Bogotá: punto (círculo).
-  - Colombia 4.0: arco invertido.
-  - Pro Surge JA: franja.
+### A. Proyectos: fusión (alternativa C)
+Tu respuesta: te gusta la actual. De la B te atrajo la grilla de tres (equilibra y evita tanto scroll) y el efecto al pasar el cursor, pero la película y el círculo a mano no van con la marca. La fusión está en `projects-c/index.html`:
+- **Superficie:** la sección índigo actual, con la teselación mientras cargan las imágenes.
+- **Composición:** la grilla de la B, tres fotogramas iguales por fila (dos en tablet, uno en celular).
+- **Efecto al pasar el cursor:**
+  - La imagen pasa a color, como en la B.
+  - El círculo a mano se vuelve la geometría de la marca: cada fila se apoya en un solo horizonte continuo. Al pasar el cursor, el tramo de ese proyecto se enciende en naranja de izquierda a derecha y, al final de la línea, sale el sol con la flecha. Es decir: letras que salen de una línea.
+- **Celulares** (sin cursor): todo a color, con la línea encendida y el sol visible.
 
-  Detrás de cada imagen, el color del cliente se imprime levemente desfasado y, al pasar el cursor, se desplaza más.
-- **B, hoja de contactos:** `projects-b/index.html`. Fondo de película negra con tiras perforadas y numeración de borde ("NMB 01 ▸ 1A").
-  - Los fotogramas están casi en blanco y negro y se revelan a color al pasar el cursor.
-  - Al mismo tiempo, un lápiz graso naranja los encierra en un círculo.
-  - En celulares el círculo se dibuja al hacer scroll.
+¿Reemplazamos la grilla actual por esta?
 
-  Todo es vectorial.
+### B. Plantilla por capítulos, evolucionada (Radio a Domicilio)
+Tu respuesta: te gusta, pero le faltaba blanco. Ahora alterna como un día:
+- **Índigo:** la portada (tipo deck) y "Las piezas" (las imágenes resaltan sobre oscuro).
+- **Blanco:** Contexto, Objetivos, Proceso y Resultados.
 
-### B. Plantilla de caso por capítulos (ejemplo: Radio a Domicilio)
-Ver `radio-a-domicilio/index.html` (y `es/radio-a-domicilio/index.html`).
+Sobre blanco, los números de capítulo usan el violeta de Radio a Domicilio (el amarillo no se lee sobre blanco); sobre índigo, el amarillo. Si la apruebas, Invest in Bogotá pasa también a esta plantilla.
 
-**Estructura:**
-- **Portada tipo deck:** el título sobre el horizonte. En lugar del sol aparece la forma del cliente: ondas de radio dibujadas con el arco de la "n" en el amarillo de la marca.
-- **Barra de capítulos fija** (01 Contexto · 02 Objetivos · 03 Proceso · 04 Las piezas · 05 Resultados). Marca en qué capítulo estás y en el celular se desliza sola.
-- **Apertura de cada capítulo:** un número grande que sube desde la línea.
-- **Proceso:** una línea del tiempo en la que el sol sale un poco más en cada fase.
-- **Piezas:** incluyen los banners HTML5 reales del repositorio, animados.
-
-**Textos nuevos que necesitan tu sí** (marcados en el HTML con `PROPUESTA DE TEXTO`):
+**Textos nuevos que siguen pendientes de tu sí** (marcados en el HTML con `PROPUESTA DE TEXTO`):
 1. Nombres de capítulo nuevos: "Context / Contexto" y "The work / Las piezas". "Objectives", "Process", "Results" y "Next steps" ya estaban en tu CMS.
 2. Rótulo "HTML5 banners / Banners HTML5".
 3. Textos alternativos de las 6 imágenes y los 5 banners (para lectores de pantalla).
 4. La traducción al español de todo el contenido del caso. En español, "Radio at Home" queda como "Radio a Domicilio", que es el nombre original de la marca.
 
-**Observaciones sobre los textos del CMS** (no los cambié; dime si quieres ajustarlos):
-- "Audience and Style Analysis" (en Diseño y desarrollo) repite casi lo mismo que "Market and Style Study" (en Descubrimiento).
-- "UI/UX Design", "User Testing" y el resumen de la portada terminan sin punto.
-- "Visual engagement": lo traduje como "Conexión visual", porque "engagement" no es palabra nativa del español.
+**Observaciones sobre los textos del CMS** (no los cambié):
+- "Audience and Style Analysis" repite casi lo mismo que "Market and Style Study".
+- "UI/UX Design", "User Testing" y el resumen terminan sin punto.
+- "Visual engagement" quedó como "Conexión visual".
 
 ### C. Punto 9 (en espera, no se muestra)
 > IBB aim is to facilitate relevant international investments and attract world-class meetings and events that contribute to the socioeconomic development, competitiveness, and quality of life of Bogotá-Region. I have to develop impactful collateral to create a strong brand presence as well as keep a coherent narrative of the brand.
 
 ### D. Las 3 portadas animadas (Lottie) siguen en Framer
-Radio a Domicilio, Invest in Bogotá y Vende Digital usan animaciones Lottie alojadas en `framerusercontent.com`. Desde este entorno no pude descargarlas porque el dominio está bloqueado.
+Radio a Domicilio, Invest in Bogotá y Vende Digital usan animaciones Lottie alojadas en Framer. Probé con tu enlace `orange-point-971308.framer.app`, pero la política de red de este entorno bloquea tanto ese dominio como `framerusercontent.com`.
 
-Mientras cargan, o si Framer desaparece, ahora se ve una imagen local:
-- Radio a Domicilio e Invest in Bogotá muestran una de sus piezas.
-- Vende Digital muestra la teselación, porque no tengo ninguna imagen suya.
+**Opción 1: habilitarlos.**
+1. Abre el menú del entorno en la barra del título de la sesión y elige **Edit**.
+2. En **Network access**, agrega `orange-point-971308.framer.app` y `framerusercontent.com` en **Allowed domains**. Deja marcada la casilla de gestores de paquetes.
 
-Para cortar del todo con Framer:
-- **Opción 1:** envíame los 3 archivos `.json`, exportados desde Framer o After Effects con Bodymovin.
-- **Opción 2:** agrega `framerusercontent.com` a los dominios permitidos del entorno.
+Guía: https://code.claude.com/docs/en/cloud-environments#network-access. Después, avísame y las descargo.
+
+**Opción 2: enviarme los 3 archivos `.json`.**
+
+Mientras tanto, se ve una imagen local (Vende Digital muestra la teselación).
 
 ### E. Publicación en nicolasmb.com (cuando lo apruebes)
 El dominio está activo en Netlify. Para publicar:
@@ -67,16 +60,19 @@ Las direcciones canónicas y `hreflang` ya apuntan a `https://nicolasmb.com/`.
 ---
 
 ## ✅ Aplicado en esta ronda
-- **Película aprobada, ahora 100 % vectorial y por defecto** (ya no hace falta `?look=film`):
-  - La quemadura es un SVG en la página, con filtros estáticos (ruido, desplazamiento y desenfoque) que escalan con el dibujo.
-  - El polvo y las rayas son un SVG de 1 KB.
-  - El grano es ruido SVG.
-  - Se borraron 4 texturas en mapa de bits (unos 93 KB), reemplazadas por unos 3 KB de vectores.
-- **Sin depender de Framer:** imágenes en WebP con varios tamaños (`assets/img/`), fuentes propias en WOFF2 (Clash Display y DM Sans; ya no se usa Google Fonts) y el reproductor Lottie local. Solo quedan los 3 `.json` del punto D.
-- **Fase 4:**
-  - Al pasar el cursor por el logo, se enciende con halación como en tu deck: núcleo cálido con bordes coral y verde.
-  - Al cambiar de página, la nueva sube desde abajo detrás de una línea de horizonte naranja que barre la pantalla. Funciona en Chrome, Edge y Safari 18.2 o superior. En otros navegadores la página carga normal, y con "reducir movimiento" no hay barrido.
-- **Generador dentro del repositorio:** `redesign/tools/build.py` (antes vivía en una carpeta temporal).
+- **Soles** (todos: hero, panel de contacto, caso de estudio, 404, el sol de los proyectos, "View portfolio" y el proceso):
+  - Un desenfoque leve y un brillo suave, para que se lean como sol.
+  - Un gradiente muy sutil: de un amarillo más cálido arriba a un tono un poco más quemado hacia el horizonte.
+  - Es un gradiente CSS, igual de vectorial que un SVG: no tiene píxeles y escala a cualquier tamaño.
+  - El desenfoque es estático (no se anima), como recomiendan las guías de rendimiento.
+  - En el 404, el GIF del gato se ve nítido dentro del sol y solo el borde brilla.
+- **Fase 4 aprobada:** la halación del logo y el barrido del horizonte quedan.
+- **Película vectorial aprobada.**
+
+## Aplicado en la ronda anterior
+- Película 100 % vectorial y por defecto: quemadura SVG con filtros estáticos, polvo SVG y grano SVG. Las texturas en mapa de bits se borraron.
+- Sin depender de Framer, salvo las 3 animaciones Lottie (punto D).
+- Generador dentro del repositorio: `redesign/tools/build.py`.
 
 ## Sistema visual
 
@@ -100,6 +96,7 @@ La halación se probó y se descartó.
   - Entra en unos 0,4 s con desaceleración fuerte y sale más rápido (unos 0,2 s), como recomiendan las guías de movimiento actuales.
   - Adentro, el sol sale, el título sube desde la línea y el resto aparece en secuencia, cada elemento unos 40 ms después del anterior.
   - Se descartó la versión anterior, en la que el botón se transformaba en el panel.
+- **Soles:** levemente desenfocados, con brillo y un gradiente sutil (amarillo cálido a quemado).
 - **Entre páginas:** la línea del horizonte barre la pantalla de abajo hacia arriba y la página nueva sube detrás de ella (0,66 s). El encabezado se queda quieto.
 - **Logo:** halación al pasar el cursor (es un cambio de luz, no de movimiento).
 - **Curvas:** resorte críticamente amortiguado (sin rebote).
@@ -133,7 +130,10 @@ Lo que hacen las grandes empresas y recomienda Google:
 | 14 | ❌ | Rechazado |
 | Email | ✅ | Se mantiene `nicolasbarbosa.us@gmail.com` |
 | Secciones oscuras | ✅ | Aprobadas |
-| Película (deck) | ✅ | Aprobada; ahora vectorial y por defecto |
+| Película (deck) | ✅ | Aprobada; vectorial y por defecto |
+| Fase 4 | ✅ | Halación del logo y barrido del horizonte |
+| Película en proyectos (B) | ❌ | Descartada: la película se queda solo en el contacto |
+| Formas orgánicas / a mano | ❌ | No van con la marca: todo debe ser geometría del logo |
 | No depender de Framer | ✅ | Hecho, salvo las 3 animaciones Lottie (punto D) |
 
 ## GIF aleatorio del 404

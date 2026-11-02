@@ -113,13 +113,26 @@ p, li { text-wrap: pretty; }
 /* ---------- Horizon primitives ---------- */
 .horizon { display: block; height: var(--line-w); background: var(--line); margin-inline: calc(50% - 50vw); transform-origin: left center; }
 .horizon--night { background: var(--on-night); }
-.sky { position: relative; overflow: clip; display: flex; align-items: flex-end; }
+/* Things rise from the line: clipped at the bottom only, so a sun's glow can spread above and to the sides */
+.sky { position: relative; display: flex; align-items: flex-end; clip-path: inset(-240px -240px 0 -240px); }
 .sky > .rise { display: block; }
 /* The sun is the dot of the "i" */
 .sun {
   position: absolute; bottom: 0; right: var(--sun-x, 0);
   width: calc(var(--sun-r) * 2); aspect-ratio: 1; border-radius: 50%;
-  background: var(--sun); translate: 0 50%; pointer-events: none; overflow: hidden;
+  translate: 0 50%; pointer-events: none;
+}
+/* Every sun (and every half sun) is slightly out of focus, with a soft glow and a very subtle gradient
+   from a warmer yellow at the top to a slightly burnt tone toward the horizon. Static: nothing animates the blur. */
+.sun, .dawn, .view-all, .phase-dot {
+  --sun-c: var(--sun);
+  --sun-fill: linear-gradient(to bottom, color-mix(in oklch, var(--sun-c), oklch(0.9 0.16 95) 24%), var(--sun-c) 55%, color-mix(in oklch, var(--sun-c), oklch(0.52 0.17 36) 18%));
+  --sun-halo: color-mix(in oklch, var(--sun-c) 50%, transparent);
+}
+.sun::before {
+  content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--sun-fill);
+  filter: blur(max(1px, calc(var(--sun-r) * 0.022)));
+  box-shadow: 0 0 calc(var(--sun-r) * 0.45) calc(var(--sun-r) * 0.06) var(--sun-halo);
 }
 .below { display: block; overflow: clip; padding-top: 0.12em; }
 .below > span { display: block; }
@@ -240,11 +253,11 @@ p, li { text-wrap: pretty; }
 .lottie-stage svg { width: 100% !important; height: 100% !important; }
 .project-link:hover .project-media img, .project-link:hover .lottie-stage { transform: scale(1.035); }
 .dawn {
-  position: absolute; left: 20px; bottom: 0; z-index: 2;
+  position: absolute; left: 20px; bottom: 0; z-index: 2; isolation: isolate;
   width: 76px; height: 38px; border-radius: 76px 76px 0 0;
-  background: var(--sun); color: var(--on-sun);
+  color: var(--on-sun);
   display: grid; place-items: end center; padding-bottom: 6px;
-  translate: 0 101%; transition: translate .6s var(--spring);
+  translate: 0 calc(100% + 30px); transition: translate .6s var(--spring); /* +30px: the glow stays hidden too */
 }
 .dawn .icon { width: 20px; height: 20px; }
 .project-link:hover .dawn, .project-link:focus-visible .dawn { translate: 0 0; }
@@ -268,8 +281,10 @@ p, li { text-wrap: pretty; }
 .view-all .icon { width: clamp(28px, 3vw, 40px); height: auto; transition: transform .6s var(--spring); }
 .view-all::before {
   content: ""; position: absolute; right: 0; bottom: 0; width: 140px; height: 70px; border-radius: 140px 140px 0 0;
-  background: var(--sun); translate: 0 101%; transition: translate .7s var(--spring); z-index: -1;
+  background: var(--sun-fill); filter: blur(1.5px); box-shadow: 0 0 28px 4px var(--sun-halo);
+  translate: 0 calc(100% + 40px); transition: translate .7s var(--spring); z-index: -1;
 }
+.dawn::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: var(--sun-fill); filter: blur(1px); box-shadow: 0 0 22px 3px var(--sun-halo); }
 .view-all:hover::before { translate: 0 0; }
 .view-all:hover .icon { transform: translate(-36px, 0); color: var(--on-sun); }
 
@@ -423,7 +438,7 @@ p, li { text-wrap: pretty; }
 .back-link .icon { transition: transform .5s var(--spring); }
 .back-link:hover .icon { transform: translateX(-4px); }
 .case-hero .sky { --sun-r: clamp(56px, 12vw, 176px); --sun-x: clamp(0px, 4vw, 64px); min-height: calc(var(--sun-r) * 2); }
-.case-hero .sun { translate: 0 0; background: var(--client, var(--sun)); }
+.case-hero .sun { translate: 0 0; --sun-c: var(--client, var(--sun)); }
 .case-hero .rise { padding-right: calc(var(--sun-r) * 2 + var(--sun-x) + 16px); padding-bottom: 0.1em; }
 .case-summary { margin-top: 20px; max-width: 32ch; }
 .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--col-gap); margin-top: clamp(32px, 4vw, 56px); border-top: 1px solid var(--rule); }
@@ -456,7 +471,7 @@ p, li { text-wrap: pretty; }
 
 
 /* ---------- Night pages (case studies): the whole page in indigo, like the work section ---------- */
-.page-night {
+.page-night, .tone-night {
   --paper: oklch(0.2 0.058 281);
   --paper-2: oklch(0.255 0.07 281);
   --ink: oklch(0.965 0.012 278);
@@ -469,8 +484,9 @@ p, li { text-wrap: pretty; }
 .page-night .site-header { background: color-mix(in oklch, var(--night) 90%, transparent); }
 .page-night .menu-toggle, .page-night .brand { color: var(--on-night); }
 .page-night .lang-switch:hover { background: var(--night-2); }
-.page-night .gallery > figure { background: var(--night-2); }
-.page-night .gallery > figure::before { background-image: var(--tess-night); opacity: 0.1; }
+.tone-night { background: var(--night); color: var(--on-night); }
+:is(.page-night, .tone-night) .gallery > figure { background: var(--night-2); }
+:is(.page-night, .tone-night) .gallery > figure::before { background-image: var(--tess-night); opacity: 0.1; }
 .page-night .other-work { border-top: 1px solid var(--rule-night); }
 
 /* ---------- 404 ---------- */
@@ -478,7 +494,7 @@ p, li { text-wrap: pretty; }
 .lost .sky { --sun-r: clamp(56px, 10vw, 140px); --sun-x: clamp(0px, 6vw, 96px); min-height: calc(var(--sun-r) * 2); }
 .lost .sun { translate: 0 82%; transition: translate 1.4s var(--spring-soft); }
 .lost .sky.has-gif .sun { translate: 0 0; }
-.sun-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .8s var(--ease-quart) .4s; }
+.sun-media { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; opacity: 0; transition: opacity .8s var(--ease-quart) .4s; }
 .has-gif .sun-media { opacity: 1; }
 .lost-code { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.03em; line-height: 0.8; font-size: clamp(8rem, 4rem + 18vw, 20rem); translate: 0 46%; }
 .lost-body { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 28px; padding-top: 28px; }
@@ -748,8 +764,8 @@ html:has(.chapter-nav) { scroll-padding-top: calc(var(--header-h) + 72px); }
 .chapters { position: relative; }
 .chapter-nav {
   position: sticky; top: var(--header-h); z-index: calc(var(--z-sticky) - 1);
-  background: color-mix(in oklch, var(--night) 92%, transparent);
-  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  background: color-mix(in oklch, var(--paper) 92%, transparent);
+  -webkit-backdrop-filter: saturate(1.2) blur(10px); backdrop-filter: saturate(1.2) blur(10px);
   border-bottom: 1px solid var(--rule);
 }
 .chapter-nav ol { position: relative; display: flex; gap: clamp(18px, 3vw, 48px); overflow-x: auto; scrollbar-width: none; }
@@ -758,16 +774,19 @@ html:has(.chapter-nav) { scroll-padding-top: calc(var(--header-h) + 72px); }
   position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 56px; white-space: nowrap;
   font-size: 0.875rem; font-weight: 600; color: var(--ink-2); transition: color .3s var(--ease-quart);
 }
-.chapter-nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--client); transform: scaleX(0); transform-origin: left center; transition: transform .55s var(--ease-out); }
+.chapter-nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--client-ink, var(--client)); transform: scaleX(0); transform-origin: left center; transition: transform .55s var(--ease-out); }
 .chapter-nav a:hover, .chapter-nav a[aria-current] { color: var(--ink); }
 .chapter-nav a[aria-current]::after { transform: scaleX(1); }
-.cn-no { font-variant-numeric: tabular-nums; color: var(--client); }
+.cn-no { font-variant-numeric: tabular-nums; color: var(--client-ink, var(--client)); }
 
-.chapter { padding-top: var(--section); }
 .chapter--results { padding-bottom: var(--section); }
 .chapter-head { margin-bottom: clamp(40px, 5vw, 72px); }
 .chapter-head .sky { gap: clamp(14px, 2vw, 32px); }
-.chapter-no { font-family: var(--font-display); font-weight: 600; font-size: clamp(4.5rem, 2rem + 9vw, 10rem); line-height: 0.78; letter-spacing: -0.04em; color: var(--client); translate: 0 0.05em; }
+.chapter-no { font-family: var(--font-display); font-weight: 600; font-size: clamp(4.5rem, 2rem + 9vw, 10rem); line-height: 0.78; letter-spacing: -0.04em; color: var(--client-ink, var(--client)); translate: 0 0.05em; }
+.tone-night .chapter-no { color: var(--client); }
+/* The client's two colours: the bright one on night, the deep one on paper (text-safe) */
+.chapter { padding-block: var(--section) 0; }
+.chapter.tone-night { padding-bottom: var(--section); }
 .chapter-title { padding-bottom: 0.12em; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.75rem, 1.1rem + 2.2vw, 3.25rem); line-height: 1; letter-spacing: -0.015em; }
 .chapter-body { align-items: start; row-gap: 40px; }
 .chapter-lede { grid-column: 1 / span 6; }
@@ -777,15 +796,15 @@ html:has(.chapter-nav) { scroll-padding-top: calc(var(--header-h) + 72px); }
 .objectives { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 32px; }
 .objective { padding-top: 22px; border-top: var(--line-w) solid var(--line); }
 .objective h3 { position: relative; padding-left: 30px; margin-bottom: 12px; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 0.8vw, 1.875rem); line-height: 1.1; }
-.objective h3::before { content: ""; position: absolute; left: 0; top: 0.32em; width: 18px; height: 11px; background: var(--client); -webkit-mask: var(--arch) center / contain no-repeat; mask: var(--arch) center / contain no-repeat; }
+.objective h3::before { content: ""; position: absolute; left: 0; top: 0.32em; width: 18px; height: 11px; background: var(--client-ink, var(--client)); -webkit-mask: var(--arch) center / contain no-repeat; mask: var(--arch) center / contain no-repeat; }
 .objective p { max-width: 36ch; color: var(--ink-2); }
 
 /* Process: three phases on a horizon; the sun rises a little more at each one (a day, again) */
 .phases { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 48px; }
-.phases::before { content: ""; position: absolute; left: 0; right: 0; top: 28px; height: var(--line-w); background: var(--line); }
-.phase { position: relative; padding-top: 60px; }
-.phase-dot { position: absolute; left: 0; top: 0; width: 28px; height: 28px; overflow: hidden; }
-.phase-dot::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--client); translate: 0 var(--rise, 50%); }
+.phases::before { content: ""; position: absolute; left: 0; right: 0; top: 36px; height: var(--line-w); background: var(--line); }
+.phase { position: relative; padding-top: 68px; }
+.phase-dot { --sun-c: var(--client); position: absolute; left: 0; top: 0; width: 36px; height: 36px; clip-path: inset(-40px -40px 0 -40px); }
+.phase-dot::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--sun-fill); filter: blur(1px); box-shadow: 0 0 14px 3px var(--sun-halo); translate: 0 var(--rise, 50%); }
 .phase:nth-child(2) { --rise: 20%; }
 .phase:nth-child(3) { --rise: 0%; }
 .phase-title { margin-bottom: 8px; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.5rem, 1.15rem + 1.1vw, 2.125rem); line-height: 1.08; letter-spacing: -0.01em; }
@@ -821,8 +840,9 @@ html:has(.chapter-nav) { scroll-padding-top: calc(var(--header-h) + 72px); }
 @media (max-width: 860px) {
   .objectives { grid-template-columns: minmax(0, 1fr); }
   .phases { grid-template-columns: minmax(0, 1fr); }
-  .phases::before { left: 13px; right: auto; top: 0; bottom: 0; width: var(--line-w); height: auto; }
-  .phase { padding: 0 0 0 52px; }
+  .phases::before { left: 17px; right: auto; top: 0; bottom: 0; width: var(--line-w); height: auto; }
+  .phase { padding: 0 0 0 60px; }
+  .phase-dot { clip-path: none; }
   .phase-dot::before { translate: 0 0; }
 }
 @media (max-width: 760px) {
@@ -836,3 +856,27 @@ html:has(.chapter-nav) { scroll-padding-top: calc(var(--header-h) + 72px); }
   .banners { padding: 16px; }
 }
 @media (max-width: 400px) { .banner iframe { zoom: 0.82; } }
+
+/* ==========================================================================
+   WORK, ALTERNATIVE C (prototype): fusion.
+   B's balanced grid and colour reveal, in the brand's geometry instead of film and pencil:
+   each row of frames sits on one continuous horizon; on hover the frame comes to colour,
+   its stretch of the line lights up from left to right and the sun rises at the end of it.
+   ========================================================================== */
+.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: clamp(44px, 5vw, 72px); margin-inline: -12px; }
+.tile-link { display: block; }
+.tile-media { height: auto; aspect-ratio: 3 / 2; margin-inline: 12px; }
+.tile-media img, .tile-media .lottie-stage { filter: saturate(0.18) contrast(1.04); transition: filter .6s var(--ease-quart), transform 1.1s var(--ease-out); }
+.tile-link:is(:hover, :focus-visible) .tile-media :is(img, .lottie-stage) { filter: none; }
+.tile .dawn { left: auto; right: 16px; transition-delay: 0s; }
+.tile-link:is(:hover, :focus-visible) .dawn { transition-delay: .22s; }
+.tile-line { position: relative; display: block; height: var(--line-w); margin-top: 14px; background: var(--rule-night); }
+.tile-line::after { content: ""; position: absolute; inset: -0.5px 0; background: var(--sun); transform: scaleX(0); transform-origin: left center; transition: transform .5s var(--ease-out); }
+.tile-link:is(:hover, :focus-visible) .tile-line::after { transform: scaleX(1); }
+.tile-meta { display: block; padding: 14px 12px 0; }
+@media (hover: none) {
+  .tile-media img, .tile-media .lottie-stage { filter: none; }
+  .tile-line::after { transform: scaleX(1); }
+}
+@media (max-width: 1080px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .tiles { grid-template-columns: minmax(0, 1fr); margin-inline: 0; } .tile-media { margin-inline: 0; } .tile-meta { padding-inline: 0; } }
