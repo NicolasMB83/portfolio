@@ -35,6 +35,9 @@ def ic(sid, cls=''):
     return f'<svg class="icon {cls}" aria-hidden="true" focusable="false"><use href="#{sid}"/></svg>'
 
 
+GO = '<span class="go" aria-hidden="true">' + ic('i-go') + '</span>'   # the dot of the "i" rises behind the arrow on hover
+
+
 LOGO = (PARTS / 'frag-logo.svg').read_text().strip()
 LOGO_SYMBOL = '<symbol id="logo-shape" viewBox="0 0 119.912 22">' + re.search(r'<svg[^>]*>(.*)</svg>', LOGO, re.S).group(1) + '</symbol>'
 LOGO_PROSURGE = (PARTS / 'frag-prosurge.svg').read_text().strip()
@@ -290,7 +293,7 @@ def header(t, home, other):
     return f'''
   <header class="site-header" data-header>
     <div class="wrap header-inner">
-      <a class="brand" href="{home}" aria-label="Nicolas MB">{LOGO}</a>
+      <a class="brand" href="{home}" aria-label="Nicolas MB"><svg class="brand-halo" viewBox="0 0 119.912 22" aria-hidden="true" focusable="false"><use href="#logo-shape"/></svg>{LOGO}</a>
       <nav class="nav" aria-label="Primary">
         <ul class="nav-links">
           <li><a href="{home}#work">{t['nav_work']}</a></li>
@@ -298,7 +301,7 @@ def header(t, home, other):
           <li><a href="{home}#experience">{t['nav_exp']}</a></li>
         </ul>
         {lang_link(t, other)}
-        <a class="btn btn--sun" href="{home}#contact" data-contact>{t['cta']} {ic('i-go', 'icon--go')}</a>
+        <a class="btn btn--sun" href="{home}#contact" data-contact>{t['cta']} {GO}</a>
       </nav>
       <div class="header-tools">
         {lang_link(t, other)}
@@ -313,7 +316,7 @@ def header(t, home, other):
       <li><a href="{home}#about">{t['nav_about']}</a></li>
       <li><a href="{home}#experience">{t['nav_exp']}</a></li>
     </ul>
-    <a class="btn btn--sun btn--lg" href="{home}#contact" data-contact>{t['cta']} {ic('i-go', 'icon--go')}</a>
+    <a class="btn btn--sun btn--lg" href="{home}#contact" data-contact>{t['cta']} {GO}</a>
   </div>'''
 
 
@@ -357,7 +360,7 @@ def sheet(t):
       <p class="contact-sub">{t['magic_sub']}</p>
       {email_row(t)}
       <div class="sheet-actions">
-        <a class="btn btn--sun btn--lg" href="mailto:{EMAIL}">{t['cta']} {ic('i-go', 'icon--go')}</a>
+        <a class="btn btn--sun btn--lg" href="mailto:{EMAIL}">{t['cta']} {GO}</a>
         <a class="btn btn--line btn--lg" href="{CV}" target="_blank" rel="noopener">{t['cv']} {ic('i-download')}</a>
       </div>
       {socials()}
@@ -376,7 +379,7 @@ def footer(t, other):
       {email_row(t)}
       <div class="contact-actions">
         <div class="cta-group">
-          <a class="btn btn--sun btn--lg" href="mailto:{EMAIL}">{t['cta']} {ic('i-go', 'icon--go')}</a>
+          <a class="btn btn--sun btn--lg" href="mailto:{EMAIL}">{t['cta']} {GO}</a>
           <a class="btn btn--line btn--lg" href="{CV}" target="_blank" rel="noopener">{t['cv']} {ic('i-download')}</a>
         </div>
         {socials()}
@@ -650,7 +653,7 @@ def case(lang):
           <div><dt>{t['c_srv']}</dt><dd>{t['r_vai']}</dd></div>
         </dl>
       </div>
-      <div class="reel" style="--reel-bg: rgb(235 62 27)">
+      <div class="reel parallax" style="--reel-bg: rgb(235 62 27)">
         <video src="@R/case-studies/invest-in-bogota/presentations/sigo.webm" poster="@A/sigo-poster.jpg" autoplay muted loop playsinline preload="metadata" width="720" height="576" aria-label="{t['c_reel']}"></video>
       </div>
     </section>
@@ -769,7 +772,7 @@ def case_chapters(lang):
           <div><dt>{t['c_srv']}</dt><dd>{t['r_art']}</dd></div>
         </dl>
       </div>
-      <figure class="cover-shot">{pic('rad-campaign', '100vw', ra['campaign'], eager=True)}</figure>
+      <div class="wrap"><figure class="cover-shot parallax">{pic('rad-brand', '(max-width: 760px) 100vw, 1320px', ra['brand'], eager=True)}</figure></div>
     </section>
 
     <div class="chapters">
@@ -811,7 +814,7 @@ def case_chapters(lang):
           <div class="gallery">
             <figure class="g-7">{pic('rad-web', '(max-width: 760px) 100vw, 58vw', ra['web'])}</figure>
             <figure class="g-5">{pic('rad-headphones', '(max-width: 760px) 100vw, 40vw', ra['headphones'])}</figure>
-            <figure>{pic('rad-brand', '(max-width: 760px) 100vw, 1320px', ra['brand'])}</figure>
+            <figure>{pic('rad-campaign', '(max-width: 760px) 100vw, 1320px', ra['campaign'])}</figure>
             <div class="gallery-label"><h3>{t['c_social']}</h3></div>
             <figure>{pic('rad-social', '(max-width: 760px) 100vw, 1320px', ra['social'])}</figure>
             <div class="gallery-label">{P.format('“HTML5 banners” es un rótulo nuevo')}<h3>{t['r_banners']}</h3></div>

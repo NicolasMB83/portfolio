@@ -42,6 +42,11 @@ These rules come from the site owner and apply to every task in this repo.
   - Le gusta la grilla actual de proyectos. De la alternativa B le gustó la grilla de tres y el revelado a color; la película en proyectos está descartada.
   - Regla de marca: el logo es geométrico y perfecto. Nada orgánico ni dibujado a mano (fue lindo, pero rompe la marca); todo efecto sale del arco, el punto y la línea.
   - La plantilla por capítulos le gusta, pero necesitaba blanco: ahora alterna secciones índigo y blancas.
+  - Rescatado de la primera versión (Framer, en la raíz del repo):
+    - Encabezado en píldora flotante que se esconde al bajar y aparece al subir.
+    - Hover del CTA con círculo y flecha (reinterpretado como el punto que sube desde el horizonte).
+    - Parallax en la imagen inicial de cada proyecto.
+  - Halación del logo: capa ya dibujada que solo cambia de opacidad (animar `filter` desde `none` daba un brillo negro).
 - Pendiente de aprobación (ver "Pendiente de tu decisión" en `redesign/a-v2/PROPUESTAS.md`):
   - Fusión de proyectos (`projects-c/`).
   - Plantilla por capítulos evolucionada y sus textos nuevos.

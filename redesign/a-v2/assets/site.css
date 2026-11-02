@@ -33,6 +33,7 @@
   --rule-night:   oklch(0.965 0.012 278 / 0.18);
   --sun:          oklch(0.72 0.19 52);       /* #ff8000 */
   --sun-hi:       oklch(0.78 0.165 62);
+  --pill:         oklch(0.997 0.002 278);     /* the floating header, a step lighter than the paper */
   --on-sun:       oklch(0.21 0.07 281);
 
   --font-display: "Clash Display", "Clash Display Fallback", ui-sans-serif, system-ui, sans-serif;
@@ -157,6 +158,16 @@ p, li { text-wrap: pretty; }
 }
 .btn .icon { transition: transform .5s var(--spring); }
 .btn:hover .icon--go { transform: translate(2px, -2px); }
+/* Call to action: on hover the dot of the "i" rises from the button's bottom edge (its horizon) behind
+   the arrow, and the arrow turns from "up and out" to "forward". */
+.btn:has(.go) { padding-right: 0.42em; gap: 0.7em; }
+.go { position: relative; isolation: isolate; display: inline-grid; place-items: center; width: 2.2em; height: 2.2em; border-radius: 50%; }
+.btn--lg .go { width: 2.6em; height: 2.6em; }
+.go::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 50%; background: var(--pill); translate: 0 135%; transition: translate .55s var(--spring); }
+.go .icon { transition: rotate .55s var(--spring); }
+.btn:is(:hover, :focus-visible) .go::before { translate: 0 0; }
+.btn:is(:hover, :focus-visible) .go .icon { rotate: 45deg; }
+@media (prefers-reduced-motion: reduce) { .go::before, .go .icon { transition: none; } }
 .btn--sun { background: var(--sun); color: var(--on-sun); }
 .btn--sun:hover { background: var(--sun-hi); }
 .btn--lg { --btn-h: 56px; padding: 0 1.55em; font-size: 1rem; letter-spacing: 0; }
@@ -174,25 +185,35 @@ p, li { text-wrap: pretty; }
 }
 
 /* ---------- Header ---------- */
+/* A floating pill (rescued from the first version of the site). It hides while you read down
+   and comes back as soon as you scroll up a little (site.js), or when it receives focus. */
 .site-header {
-  position: sticky; top: 0; z-index: var(--z-sticky);
-  background: color-mix(in oklch, var(--paper) 94%, transparent);
-  -webkit-backdrop-filter: saturate(1.2) blur(10px); backdrop-filter: saturate(1.2) blur(10px);
-  box-shadow: 0 1px 0 transparent; transition: box-shadow .4s var(--ease-quart);
+  position: sticky; top: 0; z-index: var(--z-sticky); padding-top: 12px; pointer-events: none;
+  transition: translate .45s var(--ease-enter);
   view-transition-name: site-header;
 }
-.site-header[data-scrolled] { box-shadow: 0 1px 0 var(--rule); }
-.header-inner { height: var(--header-h); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-.brand { display: inline-flex; padding: 10px 0; color: var(--ink); }
-.brand-mark { width: 128px; height: auto; overflow: visible; transition: filter .45s var(--ease-quart); }
-/* Hover: the logotype catches the light like the deck's cover. Halation = a warm core glow plus
-   coral and green fringes slightly off-register. A filter change, not motion, so it stays with reduced motion. */
-.brand:is(:hover, :focus-visible) .brand-mark {
-  filter: drop-shadow(-1.2px 0.8px 0 oklch(0.68 0.21 22 / 0.9)) drop-shadow(1.2px -0.6px 0 oklch(0.72 0.17 142 / 0.75)) drop-shadow(0 0 5px oklch(0.88 0.17 92 / 0.85));
+.site-header[data-hidden] { translate: 0 calc(-100% - 12px); transition: translate .3s var(--ease-exit); }
+.header-inner {
+  pointer-events: auto; height: calc(var(--header-h) - 12px); padding: 0 8px 0 clamp(18px, 2.2vw, 28px);
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  border-radius: 999px; background: color-mix(in oklch, var(--pill) 90%, transparent);
+  -webkit-backdrop-filter: saturate(1.2) blur(14px); backdrop-filter: saturate(1.2) blur(14px);
+  box-shadow: 0 0 0 1px var(--rule), 0 12px 32px -18px oklch(0.257 0.09 281 / 0.35);
 }
-.nav { display: flex; align-items: center; gap: clamp(20px, 2.6vw, 40px); }
-.nav-links { display: flex; gap: clamp(20px, 2.4vw, 36px); }
-.nav-links a { position: relative; display: inline-block; padding: 10px 0; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.06em; }
+.brand { --brand-w: 128px; position: relative; isolation: isolate; display: inline-flex; padding: 10px 0; color: var(--ink); }
+.brand-mark { width: var(--brand-w); height: auto; overflow: visible; }
+/* Hover: the logotype catches the light like the deck's cover. Halation = a warm core glow plus coral and
+   green fringes slightly off-register. It is drawn once on a copy under the logo; hover only fades that copy in
+   (animating opacity, not the filter, avoids the dark first frame a filter transition from "none" produces). */
+.brand-halo {
+  position: absolute; z-index: -1; left: 0; top: 10px; width: var(--brand-w); height: auto; overflow: visible; pointer-events: none;
+  filter: drop-shadow(-1.2px 0.8px 0 oklch(0.68 0.21 22 / 0.9)) drop-shadow(1.2px -0.6px 0 oklch(0.72 0.17 142 / 0.75)) drop-shadow(0 0 5px oklch(0.88 0.17 92 / 0.85));
+  opacity: 0; transition: opacity .4s var(--ease-quart);
+}
+.brand:is(:hover, :focus-visible) .brand-halo { opacity: 1; }
+.nav { display: flex; align-items: center; gap: clamp(18px, 2.4vw, 36px); }
+.nav-links { display: flex; gap: clamp(18px, 2.2vw, 34px); }
+.nav-links a { position: relative; display: inline-block; padding: 10px 0; font-family: var(--font-display); font-size: 0.9375rem; font-weight: 600; letter-spacing: 0.01em; }
 .nav-links a::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: 6px; height: var(--line-w);
   background: currentColor; transform: scaleX(0); transform-origin: right center; transition: transform .55s var(--ease-out);
@@ -445,7 +466,7 @@ p, li { text-wrap: pretty; }
 .facts > div { padding-top: 16px; }
 .facts dt { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; color: var(--ink-2); }
 .facts dd { margin-top: 6px; font-weight: 500; }
-.reel { margin-top: clamp(48px, 6vw, 88px); background: var(--reel-bg, var(--night)); }
+.reel { margin-top: clamp(48px, 6vw, 88px); background: var(--reel-bg, var(--night)); overflow: hidden; }
 .reel video, .reel img { width: min(100%, 900px); margin-inline: auto; aspect-ratio: 720 / 576; object-fit: cover; }
 .case-block { padding-block: var(--section) 0; }
 .case-block .grid { align-items: start; row-gap: 32px; }
@@ -481,7 +502,7 @@ p, li { text-wrap: pretty; }
   background: var(--night); color: var(--on-night);
 }
 .page-night::after { background-image: var(--grain-paper); opacity: 0.07; }
-.page-night .site-header { background: color-mix(in oklch, var(--night) 90%, transparent); }
+.page-night { --pill: oklch(0.255 0.07 281); }
 .page-night .menu-toggle, .page-night .brand { color: var(--on-night); }
 .page-night .lang-switch:hover { background: var(--night-2); }
 .tone-night { background: var(--night); color: var(--on-night); }
@@ -598,13 +619,13 @@ p, li { text-wrap: pretty; }
 }
 @media (max-width: 860px) {
   .nav { display: none; }
-  .menu-toggle { display: inline-grid; place-items: center; width: 44px; height: 44px; margin-right: -10px; border: 0; background: none; color: var(--ink); cursor: pointer; }
+  .menu-toggle { display: inline-grid; place-items: center; width: 44px; height: 44px; margin-right: 0; border: 0; background: none; color: var(--ink); cursor: pointer; }
   .menu-toggle .icon { width: 24px; height: 24px; }
   .header-tools { display: flex; align-items: center; gap: 4px; }
 }
 @media (max-width: 760px) {
   :root { --header-h: 64px; }
-  .brand-mark { width: 112px; }
+  .brand { --brand-w: 108px; }
   .hero-title .rise { padding-right: 0; }
   .hero .sky { --sun-x: 0px; --sun-r: 54px; }
   .hero .sky .rise { position: relative; z-index: 1; }
@@ -644,11 +665,12 @@ p, li { text-wrap: pretty; }
 @media (min-width: 861px) { .header-tools .lang-switch { display: none; } .header-tools { display: contents; } }
 
 /* ---------- Mobile menu (native popover) ---------- */
-.menu {
-  position: fixed; inset: var(--header-h) 0 auto 0; margin: 0; width: 100%; max-width: none; height: auto;
-  padding: 8px var(--gutter) 28px; border: 0; border-bottom: 1px solid var(--rule);
-  background: var(--paper); color: var(--ink);
+.menu { /* opens as a rounded panel under the pill */
+  position: fixed; inset: calc(var(--header-h) + 8px) var(--gutter) auto; margin: 0; width: auto; max-width: none; height: auto;
+  padding: 8px 22px 22px; border: 0; border-radius: 28px;
+  background: var(--pill); color: var(--ink); box-shadow: 0 0 0 1px var(--rule), 0 24px 48px -24px oklch(0.257 0.09 281 / 0.4);
 }
+.menu li:last-child a { border-bottom: 0; }
 .menu::backdrop { background: oklch(0.2 0.058 281 / 0.32); }
 .menu li a { display: block; padding: 14px 0; font-family: var(--font-display); font-weight: 600; font-size: 1.75rem; line-height: 1.1; border-bottom: 1px solid var(--rule); }
 .menu .btn { margin-top: 24px; width: 100%; }
@@ -754,27 +776,33 @@ p, li { text-wrap: pretty; }
    (radio waves, drawn with the arch of the "n").
    ========================================================================== */
 html:has(.chapter-nav) { scroll-padding-top: calc(var(--header-h) + 72px); }
+.chapter-cover { padding-bottom: clamp(48px, 6vw, 88px); }
 .chapter-cover .sky { min-height: clamp(110px, 15vw, 200px); }
 .chapter-cover .rise { padding-right: calc(clamp(150px, 24vw, 340px) + 16px); }
 .waves { position: absolute; right: clamp(0px, 3vw, 48px); bottom: 0; width: clamp(150px, 24vw, 340px); height: auto; overflow: visible; }
 .waves .w { fill: none; stroke: var(--client); stroke-width: 12; stroke-linecap: round; }
-.cover-shot { margin-top: clamp(40px, 5vw, 72px); background: var(--night-2); }
-.cover-shot img { width: 100%; height: auto; aspect-ratio: 21 / 9; object-fit: cover; object-position: 30% 40%; }
+.cover-shot { margin-top: clamp(40px, 5vw, 72px); aspect-ratio: 16 / 7; border-radius: clamp(14px, 1.6vw, 24px); background: var(--night-2); }
+.cover-shot img { width: 100%; height: 100%; object-fit: cover; }
 
 .chapters { position: relative; }
 .chapter-nav {
-  position: sticky; top: var(--header-h); z-index: calc(var(--z-sticky) - 1);
-  background: color-mix(in oklch, var(--paper) 92%, transparent);
-  -webkit-backdrop-filter: saturate(1.2) blur(10px); backdrop-filter: saturate(1.2) blur(10px);
-  border-bottom: 1px solid var(--rule);
+  position: sticky; top: calc(var(--header-h) + 8px); z-index: calc(var(--z-sticky) - 1);
+  margin-top: clamp(40px, 5vw, 64px); pointer-events: none; transition: top .45s var(--ease-enter);
 }
-.chapter-nav ol { position: relative; display: flex; gap: clamp(18px, 3vw, 48px); overflow-x: auto; scrollbar-width: none; }
+html[data-header-hidden] .chapter-nav { top: 12px; transition: top .3s var(--ease-exit); }
+.chapter-nav ol {
+  position: relative; display: flex; gap: clamp(18px, 3vw, 40px); overflow-x: auto; scrollbar-width: none;
+  width: fit-content; max-width: calc(100% - 2 * var(--gutter)); padding-inline: 24px; pointer-events: auto;
+  border-radius: 999px; background: color-mix(in oklch, var(--pill) 90%, transparent);
+  -webkit-backdrop-filter: saturate(1.2) blur(14px); backdrop-filter: saturate(1.2) blur(14px);
+  box-shadow: 0 0 0 1px var(--rule), 0 12px 32px -18px oklch(0.257 0.09 281 / 0.35);
+}
 .chapter-nav ol::-webkit-scrollbar { display: none; }
 .chapter-nav a {
-  position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 56px; white-space: nowrap;
+  position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 48px; white-space: nowrap;
   font-size: 0.875rem; font-weight: 600; color: var(--ink-2); transition: color .3s var(--ease-quart);
 }
-.chapter-nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--client-ink, var(--client)); transform: scaleX(0); transform-origin: left center; transition: transform .55s var(--ease-out); }
+.chapter-nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 8px; height: 2px; background: var(--client-ink, var(--client)); transform: scaleX(0); transform-origin: left center; transition: transform .55s var(--ease-out); }
 .chapter-nav a:hover, .chapter-nav a[aria-current] { color: var(--ink); }
 .chapter-nav a[aria-current]::after { transform: scaleX(1); }
 .cn-no { font-variant-numeric: tabular-nums; color: var(--client-ink, var(--client)); }
@@ -849,7 +877,7 @@ html:has(.chapter-nav) { scroll-padding-top: calc(var(--header-h) + 72px); }
   .chapter-cover .rise { padding-right: 0; position: relative; z-index: 1; }
   .chapter-cover .sky { min-height: calc(64px + 1.05em); }
   .waves { width: 128px; right: 0; bottom: auto; top: 0; }
-  .cover-shot img { aspect-ratio: 4 / 3; }
+  .cover-shot { aspect-ratio: 4 / 3; }
   .chapter-nav ol { -webkit-mask-image: linear-gradient(to right, #000 82%, transparent); mask-image: linear-gradient(to right, #000 82%, transparent); padding-right: 40px; }
   .chapter-lede, .chapter-figure { grid-column: 1 / -1; }
   .chapter-figure { max-width: 420px; }
@@ -880,3 +908,19 @@ html:has(.chapter-nav) { scroll-padding-top: calc(var(--header-h) + 72px); }
 }
 @media (max-width: 1080px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 600px) { .tiles { grid-template-columns: minmax(0, 1fr); margin-inline: 0; } .tile-media { margin-inline: 0; } .tile-meta { padding-inline: 0; } }
+
+/* ---------- Parallax openings (rescued from the first version of the site) ----------
+   The media inside the frame moves slower than the page. CSS scroll-driven animation: no JavaScript,
+   off for "reduce motion", and browsers without support simply show the still image. */
+.parallax { position: relative; overflow: hidden; }
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    @keyframes parallax-drift { from { translate: 0 -9%; } to { translate: 0 9%; } }
+    .cover-shot.parallax img { position: absolute; left: 0; top: -12%; height: 124%; animation: parallax-drift linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+    @keyframes reel-drift { from { translate: 0 -7%; } to { translate: 0 7%; } }
+    .reel.parallax video { animation: reel-drift linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header, .site-header[data-hidden], .chapter-nav, html[data-header-hidden] .chapter-nav, .brand-halo { transition: none; }
+}

@@ -22,6 +22,28 @@
 
   /* Mobile menu: native popover; sync aria-expanded and close on navigation */
   const menu = document.getElementById("menu");
+
+  /* The header pill gets out of the way while you read down and returns as soon as you scroll up a little.
+     It never hides near the top, while the menu is open, or while something inside it has keyboard focus. */
+  if (header) {
+    let lastY = window.scrollY, hidden = false, ticking = false;
+    const setHidden = (h) => {
+      if (h === hidden) return;
+      hidden = h;
+      header.toggleAttribute("data-hidden", h);
+      html.toggleAttribute("data-header-hidden", h);
+    };
+    const update = () => {
+      ticking = false;
+      const y = window.scrollY, dy = y - lastY;
+      if (Math.abs(dy) < 6) return; // ignore tiny movements
+      const menuOpen = menu && menu.matches && menu.matches(":popover-open");
+      setHidden(dy > 0 && y > 160 && !menuOpen && !header.contains(document.activeElement));
+      lastY = y;
+    };
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    header.addEventListener("focusin", () => setHidden(false));
+  }
   const menuToggle = document.querySelector('[popovertarget="menu"]');
   if (menu && menuToggle) {
     menu.addEventListener("toggle", (e) => menuToggle.setAttribute("aria-expanded", String(e.newState === "open")));

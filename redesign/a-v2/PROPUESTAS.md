@@ -60,6 +60,22 @@ Las direcciones canónicas y `hreflang` ya apuntan a `https://nicolasmb.com/`.
 ---
 
 ## ✅ Aplicado en esta ronda
+- **Logo:** se corrigió el brillo negro que aparecía antes de la halación.
+  - Causa: una sombra que arranca desde "sin filtro" se interpola desde el color del texto, que en el logo es índigo oscuro.
+  - Solución: la halación está ya dibujada en una copia debajo del logo, y al pasar el cursor solo cambia su opacidad. Además es más liviano.
+- **Encabezado en píldora** (rescatado de la primera versión):
+  - La píldora flota con el logo, las secciones y el botón.
+  - Se esconde al bajar y reaparece apenas subes un poco. No se esconde cerca del inicio, con el menú abierto, ni si navegas con el teclado dentro de ella.
+  - En celular, el menú se abre como un panel redondeado debajo de la píldora.
+  - En los casos de estudio, la barra de capítulos también es una píldora y sube cuando el encabezado se esconde.
+  - Las secciones del menú usan Clash Display, como en la primera versión.
+- **Botón "Let’s talk":** al pasar el cursor, el punto de la "i" sube desde el borde inferior del botón (su horizonte) detrás de la flecha, y la flecha gira de ↗ a →. Es la idea del original (círculo blanco con flecha), pero contada con el lenguaje del logo y con movimiento de resorte.
+- **Parallax al inicio de cada proyecto** (rescatado de la primera versión):
+  - Radio a Domicilio: el collage de marca, en un marco redondeado, se mueve más lento que la página.
+  - Invest in Bogotá: el video flota dentro de su franja roja.
+  - Se hace con animación ligada al scroll en CSS (sin JavaScript), se apaga con "reducir movimiento" y en navegadores sin soporte se ve la imagen quieta.
+
+## Aplicado antes
 - **Soles** (todos: hero, panel de contacto, caso de estudio, 404, el sol de los proyectos, "View portfolio" y el proceso):
   - Un desenfoque leve y un brillo suave, para que se lean como sol.
   - Un gradiente muy sutil: de un amarillo más cálido arriba a un tono un poco más quemado hacia el horizonte.
@@ -69,7 +85,6 @@ Las direcciones canónicas y `hreflang` ya apuntan a `https://nicolasmb.com/`.
 - **Fase 4 aprobada:** la halación del logo y el barrido del horizonte quedan.
 - **Película vectorial aprobada.**
 
-## Aplicado en la ronda anterior
 - Película 100 % vectorial y por defecto: quemadura SVG con filtros estáticos, polvo SVG y grano SVG. Las texturas en mapa de bits se borraron.
 - Sin depender de Framer, salvo las 3 animaciones Lottie (punto D).
 - Generador dentro del repositorio: `redesign/tools/build.py`.
