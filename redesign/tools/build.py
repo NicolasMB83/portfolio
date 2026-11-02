@@ -13,9 +13,10 @@ Paths inside the markup use tokens that page() resolves for each page's depth:
     @R/  -> the root of the repository    (files that live outside a-v2: CV, video, banners)
 When the site is promoted to the repository root, set REPO_FROM_SITE = ''.
 """
-import re, json, hashlib, pathlib
+import re, json, hashlib, pathlib, sys
 
 HERE = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
 PARTS = HERE / 'parts'
 OUT = HERE.parent / 'a-v2'
 REPO_FROM_SITE = '../../'
@@ -112,7 +113,7 @@ T = {
   # case study: Invest in Bogotá
   c_title='Invest in Bogotá - Nicolas MB', c_desc='Invest in Bogotá: visual and AI design for the investment promotion agency of Bogotá.',
   c_summary='The investment promotion agency for Bogotá&nbsp;– Region.',
-  c_year='YEAR', c_ind='INDUSTRY', c_srv='SERVICES', c_year_v='Feb 2025 - Jan 2026', c_ind_v='Investment',
+  c_year='YEAR', c_company='COMPANY', c_role='ROLE', c_ind='INDUSTRY', c_srv='SERVICES', c_year_v='Feb 2025 - Jan 2026', c_ind_v='Investment',
   c_reel='SIGO presentation opener: Una idea que nace en Bogotá',
   c_aim='IBB aim is to facilitate relevant international investments and attract world-class meetings and events that contribute to the socioeconomic development, competitiveness, and quality of life of Bogotá-Region. I have to develop impactful collateral to create a strong brand presence as well as keep a coherent narrative of the brand.',
   c_obj='Objectives - Challenges',
@@ -132,7 +133,9 @@ T = {
   r_summary='Under the slogan “Radio at Home,” we seek to create an authentic and welcoming experience',
   r_ind_v='Communications', r_year_v='2023-2024',
   chapters_label='Chapters',
-  ch=['Context', 'Objectives', 'Process', 'The work', 'Results'],
+  ch_obj='Objectives', ch_proc='Process', ch_res='Results',
+  work_rad='Brand, web and campaigns', work_iib='Campaigns, presentations and web', c_aim_label='About the agency',
+  r_company='Ondas y Ecos S.A.S.', new_tab='(opens in a new tab)',
   r_obj=[('Modern essence', 'Achieving a balance between an iconic identity and a modern touch that attracts new audiences.'),
          ('Multichannel consistency', 'Designing a visual identity that is adaptable and coherent across all channels.'),
          ('Visual engagement', 'Create striking graphics that capture attention and retain users on social media.')],
@@ -197,7 +200,7 @@ T = {
   made='Creado con pasión, amor y diseño', rights='© 2026 Nicolás Mogollón Barbosa',
   c_title='Invest in Bogotá - Nicolas MB', c_desc='Invest in Bogotá: diseño visual y con IA para la agencia de promoción de inversión de Bogotá.',
   c_summary='La agencia de promoción de inversión de Bogotá&nbsp;– Región.',
-  c_year='AÑO', c_ind='INDUSTRIA', c_srv='SERVICIOS', c_year_v='Feb 2025 - Ene 2026', c_ind_v='Inversión',
+  c_year='AÑO', c_company='EMPRESA', c_role='ROL', c_ind='INDUSTRIA', c_srv='SERVICIOS', c_year_v='Feb 2025 - Ene 2026', c_ind_v='Inversión',
   c_reel='Apertura de la presentación de SIGO: Una idea que nace en Bogotá',
   c_aim='El objetivo de IBB es facilitar inversiones internacionales relevantes y atraer reuniones y eventos de talla mundial que contribuyan al desarrollo socioeconómico, la competitividad y la calidad de vida de Bogotá-Región. Debo desarrollar piezas de impacto para crear una presencia de marca sólida, así como mantener una narrativa coherente de la marca.',
   c_obj='Objetivos - Retos',
@@ -216,7 +219,9 @@ T = {
   r_summary='Bajo el lema “Radio a Domicilio”, buscamos crear una experiencia auténtica y acogedora',
   r_ind_v='Comunicaciones', r_year_v='2023-2024',
   chapters_label='Capítulos',
-  ch=['Contexto', 'Objetivos', 'Proceso', 'Las piezas', 'Resultados'],
+  ch_obj='Objetivos', ch_proc='Proceso', ch_res='Resultados',
+  work_rad='Marca, web y campañas', work_iib='Campañas, presentaciones y web', c_aim_label='Sobre la agencia',
+  r_company='Ondas y Ecos S.A.S.', new_tab='(se abre en una pestaña nueva)',
   r_obj=[('Esencia moderna', 'Lograr un equilibrio entre una identidad icónica y un toque moderno que atraiga nuevas audiencias.'),
          ('Coherencia multicanal', 'Diseñar una identidad visual adaptable y coherente en todos los canales.'),
          ('Conexión visual', 'Crear gráficas llamativas que capten la atención y retengan a los usuarios en redes sociales.')],
@@ -291,6 +296,8 @@ def head(lang, title, desc, alternates):
   <link rel="icon" href="@A/img/favicon-dark.png" media="(prefers-color-scheme: dark)">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="@A/fonts/clash-display-700.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="@A/fonts/albert-sans-400.woff2">
+  <!-- PROTOTIPO: comparar propuestas con ?header=a|b|c y ?parallax=b|c|d (se elimina al publicar) -->
+  <script>(function(){{var q=location.search,h=q.match(/[?&]header=([abc])/),x=q.match(/[?&]parallax=([bcd])/),d=document.documentElement;if(h)d.dataset.header=h[1];if(x)d.dataset.parallax=x[1];}})()</script>
   <link rel="stylesheet" href="@A/site.css?v={ASSET_V}">
   <script src="@A/site.js?v={ASSET_V}" defer></script>
 </head>'''
@@ -355,10 +362,11 @@ def email_row(t):
         </div>'''
 
 
-def socials():
+def socials(t):
+    nt = t['new_tab']   # links that open a new tab say so to screen readers (W3C technique G201)
     return f'''<ul class="socials">
-          <li><a href="https://www.linkedin.com/in/nicolasmb" target="_blank" rel="noopener" aria-label="LinkedIn">{ic('i-linkedin')}</a></li>
-          <li><a href="https://www.behance.net/NicolasMB" target="_blank" rel="noopener" aria-label="Behance">{ic('i-behance')}</a></li>
+          <li><a href="https://www.linkedin.com/in/nicolasmb" target="_blank" rel="noopener" aria-label="LinkedIn {nt}">{ic('i-linkedin')}</a></li>
+          <li><a href="https://www.behance.net/NicolasMB" target="_blank" rel="noopener" aria-label="Behance {nt}">{ic('i-behance')}</a></li>
           <li><a href="mailto:{EMAIL}" aria-label="Email">{ic('i-mail')}</a></li>
         </ul>'''
 
@@ -369,14 +377,14 @@ def sheet(t):
     <div class="sheet-inner">
       <button class="sheet-close" type="button" data-close aria-label="{t['close']}">{ic('i-close')}</button>
       <div class="sky"><span class="sun" aria-hidden="true"></span><h2 id="sheet-title" class="rise sheet-title">{t['magic']}</h2></div>
-      <span class="horizon horizon--night" style="margin-inline:0" aria-hidden="true"></span>
+      <span class="horizon horizon--night horizon--sun" style="margin-inline:0" aria-hidden="true"></span>
       <p class="contact-sub">{t['magic_sub']}</p>
       {email_row(t)}
       <div class="sheet-actions">
         <a class="btn btn--sun btn--lg" href="mailto:{EMAIL}">{t['cta']} {GO}</a>
-        <a class="btn btn--line btn--lg" href="{CV}" target="_blank" rel="noopener">{t['cv']} {ic('i-download')}</a>
+        <a class="btn btn--line btn--lg" href="{CV}" target="_blank" rel="noopener">{t['cv']}<span class="sr-only"> {t['new_tab']}</span> {ic('i-download')}</a>
       </div>
-      {socials()}
+      {socials(t)}
     </div>
   </dialog>'''
 
@@ -392,9 +400,9 @@ def footer(t, other):
       <div class="contact-actions">
         <div class="cta-group">
           <a class="btn btn--sun btn--lg" href="mailto:{EMAIL}">{t['cta']} {GO}</a>
-          <a class="btn btn--line btn--lg" href="{CV}" target="_blank" rel="noopener">{t['cv']} {ic('i-download')}</a>
+          <a class="btn btn--line btn--lg" href="{CV}" target="_blank" rel="noopener">{t['cv']}<span class="sr-only"> {t['new_tab']}</span> {ic('i-download')}</a>
         </div>
-        {socials()}
+        {socials(t)}
       </div>
       <div class="footer-bar">
         <p>{t['made']} <span class="heart">♥</span></p>
@@ -511,6 +519,25 @@ def work_tiles(t, home):
     return '<ul class="tiles">' + ''.join(out) + '\n        </ul>'
 
 
+from review import REVIEW
+
+
+def mark_review(html):
+    """Style review: put <!-- PROPUESTA DE TEXTO R<n>: ... --> right before each reviewed text (never inside a tag)."""
+    for n, where, en_old, en_new, es_old, es_new, why in REVIEW:
+        for old, new in ((en_old, en_new), (es_old, es_new)):
+            if not old:
+                continue
+            start = 1 if old.startswith('>') else 0
+            i = html.find(old)
+            while i != -1 and html.rfind('<', 0, i + start) > html.rfind('>', 0, i + start):
+                i = html.find(old, i + 1)   # inside a tag (e.g. an attribute): look further
+            if i != -1:
+                i += start
+                html = html[:i] + f'<!-- PROPUESTA DE TEXTO R{n}: {new} -->' + html[i:]
+    return html
+
+
 def page(lang, depth, body, title, desc, alternates, body_cls='', robots=None, absolute=False):
     up = ABS_ROOT if (absolute and ABS_ROOT) else '../' * depth
     cls = f' class="{body_cls}"' if body_cls else ''
@@ -521,6 +548,7 @@ def page(lang, depth, body, title, desc, alternates, body_cls='', robots=None, a
     if robots:
         html = html.replace('  <link rel="canonical"', f'  <meta name="robots" content="{robots}">\n  <link rel="canonical"', 1)
     html = html.replace('@A/', up + 'assets/').replace('@R/', up + REPO_FROM_SITE).replace('@H/', up or './')
+    html = mark_review(html)
     if LINK_INDEX:
         html = re.sub(r'href="(\.\.?/(?:[^"#:]*/)?)(#[^"]*)?"', lambda m: f'href="{m.group(1)}index.html{m.group(2) or ""}"', html)
     return html
@@ -563,7 +591,7 @@ def home(lang, variant='grid'):
       <div class="wrap">
         <h1 class="hero-title">
           <span class="sky"><span class="sun" aria-hidden="true"></span><span class="rise"><span class="hero-a display-1">{t['h1a']}</span> <span class="hero-b lede">{t['h1b']}</span></span></span>
-          <span class="horizon" aria-hidden="true"></span>
+          <span class="horizon horizon--sun" aria-hidden="true"></span>
         </h1>
         <div class="hero-below">
           <p class="hero-intro body-lg">{t['intro']}</p>
@@ -628,7 +656,9 @@ def home(lang, variant='grid'):
     return page(lang, 0 if lang == 'en' else 1, body, t['title'], t['desc'], alts)
 
 
-# ------------------------------------------------------------------ CASE STUDIES: one chapter template for every project
+# ------------------------------------------------------------------ CASE STUDIES
+# Each project has its own structure (each project is different), but they share a family:
+# the same cover (title on the horizon + short description + Year / Company / Role), type, horizon and frames.
 WAVES = '''<svg class="waves" viewBox="0 0 240 120" aria-hidden="true" focusable="false">
             <path class="w w1" d="M96 120a24 24 0 0 1 48 0"/>
             <path class="w w2" d="M66 120a54 54 0 0 1 108 0"/>
@@ -640,20 +670,13 @@ BEHANCE = {'radio-a-domicilio': 'https://www.behance.net/gallery/190745145/Radio
            'invest-in-bogota': 'https://www.behance.net/gallery/230400817/Invest-in-Bogota'}
 
 
-def chapter_head(n, label, hid):
-    return f'''<header class="chapter-head">
-          <div class="sky"><span class="rise chapter-no" aria-hidden="true">{n:02d}</span><h2 id="{hid}" class="rise chapter-title"><span class="sr-only">{n:02d}. </span>{label}</h2></div>
-          <span class="horizon" aria-hidden="true"></span>
-        </header>'''
-
-
 def fig(name, cls, sizes, alt):
     c = f' class="{cls}"' if cls else ''
     return f'<figure{c}>{pic(name, sizes, alt)}</figure>'
 
 
-def behance_link(slug):
-    return f'<a class="behance-link" href="{BEHANCE[slug]}" target="_blank" rel="noopener">{ic("i-behance")} Behance {ic("i-go", "icon--go")}</a>'
+def behance_link(t, slug):
+    return f'<a class="behance-link" href="{BEHANCE[slug]}" target="_blank" rel="noopener">{ic("i-behance")} Behance<span class="sr-only"> {t["new_tab"]}</span> {ic("i-go", "icon--go")}</a>'
 
 
 def objectives_html(items):
@@ -661,17 +684,69 @@ def objectives_html(items):
             <li class="objective"><h3>{hd}</h3><p>{p}</p></li>''' for hd, p in items) + '\n          </ol>'
 
 
-def context_html(lede, figure, extra=None):
-    more = f'\n              <p class="chapter-text">{extra}</p>' if extra else ''
-    return f'''<div class="chapter-body grid">
-            <div class="chapter-intro">
-              <p class="chapter-lede lede">{lede}</p>{more}
-            </div>
-            {figure}
-          </div>'''
+def case_cover(t, h, title, shape, desc, facts, media, sun=False):
+    """The cover every project shares: back link, title rising from the horizon beside the client's shape,
+    a short description, Year / Company / Role, and the opening image."""
+    note = P.format('rótulos Year / Company / Role: pedidos por ti (antes Year / Industry / Services)')
+    return f'''
+    <section class="case-hero chapter-cover{' chapter-cover--sun' if sun else ''} is-night tone-night">
+      <div class="wrap">
+        <a class="back-link" href="{h}#work">{ic('i-back')} {t['work']}</a>
+        <h1 class="title-lg">
+          <span class="sky">{shape}<span class="rise">{title}</span></span>
+        </h1>
+        <span class="horizon{' horizon--sun' if sun else ''}" aria-hidden="true"></span>
+        <p class="case-desc">{desc}</p>
+        {note}
+        <dl class="facts">
+          <div><dt>{t['c_year']}</dt><dd>{facts[0]}</dd></div>
+          <div><dt>{t['c_company']}</dt><dd>{facts[1]}</dd></div>
+          <div><dt>{t['c_role']}</dt><dd>{facts[2]}</dd></div>
+        </dl>
+      </div>
+    </section>
+    <div class="cover-stage is-night tone-night"><div class="wrap cover-wrap">{media}</div></div>'''
 
 
-def spec_rad(t):
+def other_work(t, h, items):
+    others = ''.join(project(t, h, s, c, z) for s, c, z in items)
+    return f'''
+    <section class="other-work is-night" aria-labelledby="other-title">
+      <div class="wrap">
+        <div class="titled">
+          <div class="sky"><h2 id="other-title" class="rise display-2" style="padding-bottom:.16em">{t['c_other']}</h2></div>
+          <span class="horizon" aria-hidden="true"></span>
+        </div>
+        <ul class="grid projects">{others}
+        </ul>
+      </div>
+    </section>'''
+
+
+def case_shell(lang, slug, meta, client, client_ink, main_html):
+    t = T[lang]
+    depth = 1 if lang == 'en' else 2
+    h = '@H/' if lang == 'en' else '@H/es/'
+    other = f'@H/es/{slug}/' if lang == 'en' else f'@H/{slug}/'
+    note = ES_DRAFT if lang == 'es' else ''
+    body = hint(t, other) + header(t, h, other) + sheet(t) + f'''
+
+  <main style="--client: {client}; --client-ink: {client_ink}">{note}{main_html(t, h)}
+  </main>
+''' + footer(t, other)
+    alts = [('en', BASE + f'{slug}/'), ('es', BASE + f'es/{slug}/'), ('x-default', BASE + f'{slug}/')]
+    return page(lang, depth, body, meta(t)[0], meta(t)[1], alts, 'page-chapters')
+
+
+# ---------- Radio a Domicilio: a story told in numbered chapters (objectives, process, pieces, results)
+def chapter_head(n, label, hid):
+    return f'''<header class="chapter-head">
+          <div class="sky"><span class="rise chapter-no" aria-hidden="true">{n:02d}</span><h2 id="{hid}" class="rise chapter-title"><span class="sr-only">{n:02d}. </span>{label}</h2></div>
+          <span class="horizon" aria-hidden="true"></span>
+        </header>'''
+
+
+def rad_main(t, h):
     ra = t['r_alts']
     phases = '<ol class="phases">' + ''.join(f'''
             <li class="phase">
@@ -687,10 +762,11 @@ def spec_rad(t):
               </figure>''' for k, w, hh in BANNERS)
     work = f'''<div class="gallery">
             {fig('rad-web', 'g-7', '(max-width: 760px) 100vw, 58vw', ra['web'])}
-            {fig('rad-headphones', 'g-5', '(max-width: 760px) 100vw, 40vw', ra['headphones'])}
+            {fig('rad-studio', 'g-5', '(max-width: 760px) 100vw, 40vw', ra['studio'])}
             {fig('rad-campaign', '', '(max-width: 760px) 100vw, 1320px', ra['campaign'])}
             <div class="gallery-label"><h3>{t['c_social']}</h3></div>
-            {fig('rad-social', '', '(max-width: 760px) 100vw, 1320px', ra['social'])}
+            {fig('rad-social', 'g-7', '(max-width: 760px) 100vw, 58vw', ra['social'])}
+            {fig('rad-headphones', 'g-5', '(max-width: 760px) 100vw, 40vw', ra['headphones'])}
             <div class="gallery-label">{P.format('“HTML5 banners” es un rótulo nuevo')}<h3>{t['r_banners']}</h3></div>
             <div class="banners">{banners}
             </div>
@@ -703,25 +779,50 @@ def spec_rad(t):
               <h3>{t['r_next_label']}</h3>
               <ul>{nxt}
               </ul>
-              {behance_link('radio-a-domicilio')}
+              {behance_link(t, 'radio-a-domicilio')}
             </div>
           </div>'''
-    return dict(slug='radio-a-domicilio', title='Radio a Domicilio', client='#ffc845', client_ink='#4a3fc8', shape=WAVES, shape_cls='',
-                meta=(t['r_title'], t['r_desc']), facts=(t['r_year_v'], t['r_ind_v'], t['r_art']),
-                cover=f'<figure class="cover-shot parallax">{pic("rad-brand", "(max-width: 760px) 100vw, 1320px", ra["brand"], eager=True)}</figure>',
-                chapters=[('context', t['ch'][0], context_html(t['r_summary'], fig('rad-studio', 'chapter-figure', '(max-width: 760px) 100vw, 50vw', ra['studio'])), False),
-                          ('objectives', t['ch'][1], objectives_html(t['r_obj']), False),
-                          ('process', t['ch'][2], phases, False),
-                          ('work', t['ch'][3], work, True),
-                          ('results', t['ch'][4], results, False)],
-                other=[('invest-in-bogota', 'project--narrow', '(max-width: 760px) 100vw, 42vw'), ('pro-surge-ja', '', '(max-width: 760px) 100vw, 58vw')])
+    chs = [('objectives', t['ch_obj'], objectives_html(t['r_obj']), False),
+           ('process', t['ch_proc'], phases, False),
+           ('work', t['work_rad'], work, True),
+           ('results', t['ch_res'], results, False)]
+    rail = ''.join(f'\n          <li><a href="#ch-{k}"><span class="cn-no">{n:02d}</span> <span class="cn-label">{lab}</span></a></li>' for n, (k, lab, _, _) in enumerate(chs, 1))
+    sections = ''.join(f'''
+
+      <section id="ch-{k}" class="chapter{' is-night tone-night' if night else ''}{' chapter--last' if n == len(chs) else ''}" aria-labelledby="ch-{k}-t">
+        <div class="wrap">
+          {chapter_head(n, lab, f'ch-{k}-t')}
+          {html}
+        </div>
+      </section>''' for n, (k, lab, html, night) in enumerate(chs, 1))
+    cover_img = f'<figure class="cover-shot parallax">{pic("rad-brand", "(max-width: 760px) 100vw, 1320px", ra["brand"], eager=True)}</figure>'
+    return case_cover(t, h, 'Radio a Domicilio', WAVES, t['r_summary'], (t['r_year_v'], t['r_company'], t['r_art']), cover_img) + f'''
+
+    <div class="chapters">
+      <nav class="chapter-nav" aria-label="{t['chapters_label']}">
+        {P.format('nombres de capítulo: Objectives, Process y Results vienen del CMS; el de las piezas es nuevo (ver revisión de estilo)')}
+        <ol class="wrap">{rail}
+        </ol>
+      </nav>{sections}
+    </div>''' + other_work(t, h, [('invest-in-bogota', 'project--narrow', '(max-width: 760px) 100vw, 42vw'), ('pro-surge-ja', '', '(max-width: 760px) 100vw, 58vw')])
 
 
-def spec_iib(t):
+# ---------- Invest in Bogotá: a brand-system showcase, marked by the agency's own red dot (no numbers)
+def dot_head(label, hid):
+    return f'''<header class="dot-head">
+          <div class="sky"><span class="dot-mark" aria-hidden="true"></span><h2 id="{hid}" class="rise chapter-title">{label}</h2></div>
+          <span class="horizon" aria-hidden="true"></span>
+        </header>'''
+
+
+def iib_main(t, h):
     a = t['alts']
+    reel = f'''<figure class="cover-shot cover-shot--reel" style="--reel-bg: rgb(235 62 27)">
+          <video src="@R/case-studies/invest-in-bogota/presentations/sigo.webm" poster="@A/sigo-poster.jpg" autoplay muted loop playsinline preload="metadata" width="720" height="576" aria-label="{t['c_reel']}"></video>
+        </figure>'''
     work = f'''<div class="gallery">
+            {fig('iib-web', 'settle', '(max-width: 760px) 100vw, 1320px', a[2])}
             {fig('iib-social-grid', '', '(max-width: 760px) 100vw, 1320px', a[0])}
-            {fig('iib-web', '', '(max-width: 760px) 100vw, 1320px', a[2])}
             <div class="gallery-label"><h3>{t['c_social']}</h3></div>
             {fig('iib-mice', 'g-4', '(max-width: 760px) 100vw, 33vw', a[4])}
             {fig('iib-semana-emprendedor', 'g-4', '(max-width: 760px) 100vw, 33vw', a[1])}
@@ -732,81 +833,38 @@ def spec_iib(t):
             {fig('iib-data-slide', 'g-5', '(max-width: 760px) 100vw, 40vw', a[8])}
             {fig('iib-abc-guide', 'g-6', '(max-width: 760px) 100vw, 50vw', a[9])}
             {fig('iib-editorial-spread', 'g-6', '(max-width: 760px) 100vw, 50vw', a[10])}
-            <div class="gallery-label"><h3 class="sr-only">Behance</h3>{behance_link('invest-in-bogota')}</div>
+            {fig('iib-bogota-proposito', 'g-4', '(max-width: 760px) 100vw, 33vw', a[5])}
+            <div class="gallery-label"><h3 class="sr-only">Behance</h3>{behance_link(t, 'invest-in-bogota')}</div>
           </div>'''
-    reel = f'''<figure class="cover-shot cover-shot--reel parallax" style="--reel-bg: rgb(235 62 27)">
-          <video src="@R/case-studies/invest-in-bogota/presentations/sigo.webm" poster="@A/sigo-poster.jpg" autoplay muted loop playsinline preload="metadata" width="720" height="576" aria-label="{t['c_reel']}"></video>
-        </figure>'''
-    return dict(slug='invest-in-bogota', title='Invest in Bogotá', client='#ef491f', client_ink='#c8361a', shape='<span class="sun" aria-hidden="true"></span>', shape_cls=' chapter-cover--sun',
-                meta=(t['c_title'], t['c_desc']), facts=(t['c_year_v'], t['c_ind_v'], t['r_vai']), cover=reel,
-                chapters=[('context', t['ch'][0], context_html(t['c_summary'], fig('iib-bogota-proposito', 'chapter-figure', '(max-width: 760px) 100vw, 50vw', a[5]), t['c_aim']), False),
-                          ('objectives', t['c_obj'], objectives_html(t['c_ch']), False),
-                          ('work', t['ch'][3], work, True)],
-                other=[('vende-digital', '', '(max-width: 760px) 100vw, 58vw'), ('infinited', 'project--narrow project--square', '(max-width: 760px) 100vw, 42vw')])
+    return case_cover(t, h, 'Invest in Bogotá', '<span class="sun" aria-hidden="true"></span>', t['c_summary'], (t['c_year_v'], 'Invest in Bogotá', t['r_vai']), reel, sun=True) + f'''
 
-
-def case_page(lang, spec_fn):
-    t = T[lang]
-    sp = spec_fn(t)
-    slug = sp['slug']
-    depth = 1 if lang == 'en' else 2
-    h = '@H/' if lang == 'en' else '@H/es/'
-    other = f'@H/es/{slug}/' if lang == 'en' else f'@H/{slug}/'
-    note = ES_DRAFT if lang == 'es' else ''
-    chs = sp['chapters']
-    rail = ''.join(f'\n          <li><a href="#ch-{k}"><span class="cn-no">{n:02d}</span> <span class="cn-label">{lab}</span></a></li>' for n, (k, lab, _, _) in enumerate(chs, 1))
-    sections = ''.join(f'''
-
-      <section id="ch-{k}" class="chapter{' is-night tone-night' if night else ''}{' chapter--last' if n == len(chs) else ''}" aria-labelledby="ch-{k}-t">
-        <div class="wrap">
-          {chapter_head(n, lab, f'ch-{k}-t')}
-          {html}
-        </div>
-      </section>''' for n, (k, lab, html, night) in enumerate(chs, 1))
-    others = ''.join(project(t, h, s, c, z) for s, c, z in sp['other'])
-    body = hint(t, other) + header(t, h, other) + sheet(t) + f'''
-
-  <main style="--client: {sp['client']}; --client-ink: {sp['client_ink']}">{note}
-    <!-- PLANTILLA DE CAPÍTULOS: la misma para todos los proyectos. Portada oscura tipo deck, capítulos claros
-         que se abren sobre el horizonte, las piezas en índigo. Contenido: CMS del sitio. -->
-    <section class="case-hero chapter-cover{sp['shape_cls']} is-night tone-night">
+    <section class="statement" aria-label="{t['c_aim_label']}">
       <div class="wrap">
-        <a class="back-link" href="{h}#work">{ic('i-back')} {t['work']}</a>
-        <h1 class="title-lg">
-          <span class="sky">{sp['shape']}<span class="rise">{sp['title']}</span></span>
-        </h1>
-        <span class="horizon" aria-hidden="true"></span>
-        <dl class="facts">
-          <div><dt>{t['c_year']}</dt><dd>{sp['facts'][0]}</dd></div>
-          <div><dt>{t['c_ind']}</dt><dd>{sp['facts'][1]}</dd></div>
-          <div><dt>{t['c_srv']}</dt><dd>{sp['facts'][2]}</dd></div>
-        </dl>
-      </div>
-      <div class="wrap">{sp['cover']}</div>
-    </section>
-
-    <div class="chapters">
-      <nav class="chapter-nav" aria-label="{t['chapters_label']}">
-        {P.format('nombres de capítulo: Context y The work son nuevos; los demás vienen del CMS')}
-        <ol class="wrap">{rail}
-        </ol>
-      </nav>{sections}
-    </div>
-
-    <section class="other-work is-night" aria-labelledby="other-title">
-      <div class="wrap">
-        <div class="titled">
-          <div class="sky"><h2 id="other-title" class="rise display-2" style="padding-bottom:.16em">{t['c_other']}</h2></div>
-          <span class="horizon" aria-hidden="true"></span>
-        </div>
-        <ul class="grid projects">{others}
-        </ul>
+        <p class="statement-text"><span class="dot-mark dot-mark--inline" aria-hidden="true"></span>{t['c_aim']}</p>
       </div>
     </section>
-  </main>
-''' + footer(t, other)
-    alts = [('en', BASE + f'{slug}/'), ('es', BASE + f'es/{slug}/'), ('x-default', BASE + f'{slug}/')]
-    return page(lang, depth, body, sp['meta'][0], sp['meta'][1], alts, 'page-chapters')
+
+    <section class="case-section" aria-labelledby="iib-challenges">
+      <div class="wrap">
+        {dot_head(t['c_obj'], 'iib-challenges')}
+        {objectives_html(t['c_ch'])}
+      </div>
+    </section>
+
+    <section class="case-section is-night tone-night" aria-labelledby="iib-work">
+      <div class="wrap">
+        {dot_head(t['work_iib'], 'iib-work')}
+        {work}
+      </div>
+    </section>''' + other_work(t, h, [('vende-digital', '', '(max-width: 760px) 100vw, 58vw'), ('infinited', 'project--narrow project--square', '(max-width: 760px) 100vw, 42vw')])
+
+
+def case_rad(lang):
+    return case_shell(lang, 'radio-a-domicilio', lambda t: (t['r_title'], t['r_desc']), '#ffc845', '#4a3fc8', rad_main)
+
+
+def case_iib(lang):
+    return case_shell(lang, 'invest-in-bogota', lambda t: (t['c_title'], t['c_desc']), '#ef491f', '#c8361a', iib_main)
 
 
 # ------------------------------------------------------------------ 404 (one file, both languages)
@@ -819,7 +877,7 @@ def lost():
       <h1 class="sr-only">404</h1>
       <!-- GIF aleatorio de gatos dentro del sol: clave GIPHY del dueño del sitio, cambia en cada recarga -->
       <div class="sky" aria-hidden="true" data-giphy-key="DPRlJyFbg3L9PxY5AEqfssUoabElSV2k" data-giphy-tag="cat"><span class="sun"></span><span class="rise lost-code">404</span></div>
-      <span class="horizon" aria-hidden="true"></span>
+      <span class="horizon horizon--sun" aria-hidden="true"></span>
       <div class="lost-body" data-lang-block="en">
         <p>The page you are looking for is not found or has been moved. Please return to the main page.</p>
         <a class="btn btn--sun btn--lg" href="@H/">{ic('i-back')} Back to home</a>
@@ -858,10 +916,10 @@ def write(rel, html):
 
 write('index.html', home('en'))
 write('es/index.html', home('es'))
-write('invest-in-bogota/index.html', case_page('en', spec_iib))
-write('es/invest-in-bogota/index.html', case_page('es', spec_iib))
-write('radio-a-domicilio/index.html', case_page('en', spec_rad))
-write('es/radio-a-domicilio/index.html', case_page('es', spec_rad))
+write('invest-in-bogota/index.html', case_iib('en'))
+write('es/invest-in-bogota/index.html', case_iib('es'))
+write('radio-a-domicilio/index.html', case_rad('en'))
+write('es/radio-a-domicilio/index.html', case_rad('es'))
 write('projects-a/index.html', home('en', 'plates'))
 write('projects-b/index.html', home('en', 'sheet'))
 write('projects-c/index.html', home('en', 'tiles'))

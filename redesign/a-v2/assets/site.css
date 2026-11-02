@@ -38,6 +38,7 @@
   --rule-night:   oklch(0.965 0.012 278 / 0.18);
   --sun:          oklch(0.72 0.19 52);       /* #ff8000 */
   --sun-hi:       oklch(0.78 0.165 62);
+  --sun-ink:      oklch(0.55 0.17 45);       /* orange for text: 5:1 on the pill */
   --pill:         oklch(0.997 0.002 278);     /* solid near-white: menu panel, the CTA dot */
   --pill-glass:   rgb(255 255 255 / 0.82);    /* the floating header, as in the published site: white at 82% over the light blue */
   --on-sun:       oklch(0.21 0.07 281);
@@ -66,9 +67,10 @@
 
   /* Shapes from the logotype, as data URIs */
   --arch: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 21 13'%3E%3Cpath d='M2.6 10.4A7.8 7.8 0 0 1 18.2 10.4' fill='none' stroke='%23000' stroke-width='5.2' stroke-linecap='round'/%3E%3C/svg%3E");
-  /* Tessellation: arches joined into a wave, the dot of the i in the troughs */
-  --tess-night: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='48'%3E%3Cg fill='none' stroke='%23f0f2ff' stroke-width='6.4' stroke-linecap='round'%3E%3Cpath d='M0 24A16 16 0 0 1 32 24'/%3E%3Cpath d='M32 24A16 16 0 0 0 64 24'/%3E%3C/g%3E%3Ccircle cx='16' cy='40' r='3.4' fill='%23f0f2ff'/%3E%3Ccircle cx='48' cy='8' r='3.4' fill='%23f0f2ff'/%3E%3C/svg%3E");
-  --tess-ink: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='48'%3E%3Cg fill='none' stroke='%231e1b4b' stroke-width='6.4' stroke-linecap='round'%3E%3Cpath d='M0 24A16 16 0 0 1 32 24'/%3E%3Cpath d='M32 24A16 16 0 0 0 64 24'/%3E%3C/g%3E%3Ccircle cx='16' cy='40' r='3.4' fill='%231e1b4b'/%3E%3Ccircle cx='48' cy='8' r='3.4' fill='%231e1b4b'/%3E%3C/svg%3E");
+  /* Tessellation: arches joined into one continuous wave, the dot of the i in the troughs.
+     The tile also draws its neighbours' arcs, so the stroke is never cut at the seams. */
+  --tess-night: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='48'%3E%3Cg fill='none' stroke='%23f0f2ff' stroke-width='6.4' stroke-linecap='round'%3E%3Cpath d='M-32 24A16 16 0 0 0 0 24A16 16 0 0 1 32 24A16 16 0 0 0 64 24A16 16 0 0 1 96 24'/%3E%3C/g%3E%3Ccircle cx='16' cy='40' r='3.4' fill='%23f0f2ff'/%3E%3Ccircle cx='48' cy='8' r='3.4' fill='%23f0f2ff'/%3E%3C/svg%3E");
+  --tess-ink: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='48'%3E%3Cg fill='none' stroke='%231e1b4b' stroke-width='6.4' stroke-linecap='round'%3E%3Cpath d='M-32 24A16 16 0 0 0 0 24A16 16 0 0 1 32 24A16 16 0 0 0 64 24A16 16 0 0 1 96 24'/%3E%3C/g%3E%3Ccircle cx='16' cy='40' r='3.4' fill='%231e1b4b'/%3E%3Ccircle cx='48' cy='8' r='3.4' fill='%231e1b4b'/%3E%3C/svg%3E");
 
   /* Grain as vector noise (SVG feTurbulence, static: rasterised once per tile) */
   --grain-ink: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n' x='0' y='0' width='100%' height='100%'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.1 0 0 0 0 0.29 0 0 0 2.2 -1.05'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -116,11 +118,23 @@ p, li { text-wrap: pretty; }
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background: var(--grain-paper) 0 0 / 160px 160px; opacity: 0.07;
 }
-.is-night .horizon { background: var(--on-night); }
+.is-night .horizon { --h-c: var(--on-night); }
 
 /* ---------- Horizon primitives ---------- */
-.horizon { display: block; height: var(--line-w); background: var(--line); margin-inline: calc(50% - 50vw); transform-origin: left center; }
-.horizon--night { background: var(--on-night); }
+.horizon { --h-c: var(--line); display: block; height: var(--line-w); background: var(--h-c); margin-inline: calc(50% - 50vw); transform-origin: left center; }
+.horizon--night { --h-c: var(--on-night); }
+/* Under a sun, the line is invisible far from it and gains opacity as it approaches the sun;
+   past the sun it fades again toward the edge. --sun-at: the sun's centre, measured from the line's left end. */
+.horizon.horizon--sun {
+  --sun-at: calc(50vw + min(var(--wrap), 100vw - 2 * var(--gutter)) / 2 - var(--sun-x, 0px) - var(--sun-r, 0px));
+  background: linear-gradient(90deg,
+    transparent 0,
+    color-mix(in oklch, var(--h-c) 10%, transparent) calc(var(--sun-at) * 0.4),
+    color-mix(in oklch, var(--h-c) 40%, transparent) calc(var(--sun-at) * 0.75),
+    var(--h-c) var(--sun-at),
+    color-mix(in oklch, var(--h-c) 25%, transparent) 100%);
+}
+.sheet .horizon.horizon--sun { --sun-at: calc(100% - var(--sun-r)); }
 /* Things rise from the line: clipped at the bottom only, so a sun's glow can spread above and to the sides */
 .sky { position: relative; display: flex; align-items: flex-end; clip-path: inset(-240px -240px 0 -240px); }
 .sky > .rise { display: block; }
@@ -236,6 +250,9 @@ p, li { text-wrap: pretty; }
   background: currentColor; transform: scaleX(0); transform-origin: right center; transition: transform .55s var(--ease-out);
 }
 .nav-links a:hover::after, .nav-links a[aria-current="true"]::after { transform: scaleX(1); transform-origin: left center; }
+.nav-links a, .site-header .lang-switch { transition: color .25s var(--ease-quart), background-color .3s var(--ease-quart), scale .5s var(--spring); }
+.nav-links a:hover, .site-header .lang-switch:hover { color: var(--sun-ink); }
+.site-header .lang-switch:hover { background: none; }
 /* Language: the other language, named in its own language. No flags. */
 .lang-switch {
   display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 0 6px;
@@ -247,7 +264,8 @@ p, li { text-wrap: pretty; }
 
 /* ---------- Hero ---------- */
 .hero { padding-top: clamp(28px, 6vh, 72px); padding-bottom: clamp(56px, 8vw, 104px); }
-.hero .sky { --sun-r: clamp(56px, 10vw, 150px); --sun-x: clamp(0px, 4vw, 64px); min-height: var(--sun-r); }
+.hero { --sun-r: clamp(56px, 10vw, 150px); --sun-x: clamp(0px, 4vw, 64px); }
+.hero .sky { min-height: var(--sun-r); }
 .hero-title { margin: 0; }
 .hero-title .rise { padding-right: calc(var(--sun-r) * 2 + var(--sun-x) + 16px); padding-bottom: 0.18em; }
 .hero-a, .hero-b { display: block; }
@@ -261,12 +279,6 @@ p, li { text-wrap: pretty; }
 
 /* ---------- Work (night, tessellated) ---------- */
 .work { padding-block: var(--section); }
-.work::after { /* tessellation: visible at the edges of the section, gone behind the work */
-  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: var(--tess-night) 0 0 / 64px 48px; opacity: 0.06;
-  -webkit-mask-image: linear-gradient(to bottom, #000 0, transparent min(22%, 360px), transparent max(78%, 100% - 360px), #000 100%);
-          mask-image: linear-gradient(to bottom, #000 0, transparent min(22%, 360px), transparent max(78%, 100% - 360px), #000 100%);
-}
 .projects { row-gap: clamp(48px, 6vw, 88px); }
 .project { grid-column: span 7; }
 .project--narrow { grid-column: span 5; }
@@ -285,7 +297,11 @@ p, li { text-wrap: pretty; }
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background: var(--tess-night) 0 0 / 64px 48px; opacity: 0.1;
 }
-.project-media[data-ready]::before { display: none; }
+.project-media[data-ready]::before, .project-media[data-loaded]::before { display: none; }
+/* The tessellation is only a placeholder: while an image loads, or if it fails. Once loaded it disappears,
+   and transparent images sit directly on the page. */
+.gallery > figure[data-loaded], .chapter-figure[data-loaded], .cover-shot[data-loaded] { background: none; }
+.gallery > figure[data-loaded]::before { display: none; }
 .project-media .poster { z-index: 0; transition: opacity .6s var(--ease-quart); }
 .project-media[data-ready] .poster { opacity: 0; }
 .lottie-stage { opacity: 0; z-index: 1; transition: opacity .8s var(--ease-quart), transform 1.1s var(--ease-out); }
@@ -425,7 +441,8 @@ p, li { text-wrap: pretty; }
 .sheet-inner { min-height: 100%; display: flex; flex-direction: column; padding: 24px clamp(20px, 4vw, 40px) 32px; }
 .sheet-close { position: relative; overflow: hidden; align-self: flex-end; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--rule-night); background: none; display: grid; place-items: center; cursor: pointer; color: var(--on-night); transition: border-color .3s, scale .5s var(--spring); }
 .sheet-close:hover { border-color: var(--on-night); }
-.sheet .sky { --sun-r: 60px; --sun-x: 0px; min-height: 60px; margin-top: auto; }
+.sheet-inner { --sun-r: 60px; --sun-x: 0px; }
+.sheet .sky { min-height: 60px; margin-top: auto; }
 .sheet-title { font-family: var(--font-display); font-weight: 600; font-size: clamp(2.25rem, 1.9rem + 1.4vw, 2.9rem); line-height: 0.95; letter-spacing: -0.02em; padding-right: 136px; padding-bottom: 0.12em; }
 .sheet .contact-sub { font-size: 1.25rem; }
 .sheet .email-row { width: 100%; border-radius: 20px; justify-content: space-between; }
@@ -477,7 +494,8 @@ p, li { text-wrap: pretty; }
 .back-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.06em; margin-bottom: clamp(8px, 2vw, 24px); }
 .back-link .icon { transition: transform .5s var(--spring); }
 .back-link:hover .icon { transform: translateX(-4px); }
-.case-hero .sky { --sun-r: clamp(56px, 12vw, 176px); --sun-x: clamp(0px, 4vw, 64px); min-height: calc(var(--sun-r) * 2); }
+.case-hero { --sun-r: clamp(56px, 12vw, 176px); --sun-x: clamp(0px, 4vw, 64px); }
+.case-hero .sky { min-height: calc(var(--sun-r) * 2); }
 .case-hero .sun { translate: 0 0; --sun-c: var(--client, var(--sun)); }
 .case-hero .rise { padding-right: calc(var(--sun-r) * 2 + var(--sun-x) + 16px); padding-bottom: 0.1em; }
 .case-summary { margin-top: 20px; max-width: 32ch; }
@@ -507,7 +525,6 @@ p, li { text-wrap: pretty; }
 .behance-link .icon--go { transition: transform .5s var(--spring); }
 .behance-link:hover .icon--go { transform: translate(2px, -2px); }
 .other-work { padding-block: var(--section); }
-.other-work::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: var(--tess-night) 0 0 / 64px 48px; opacity: 0.06; -webkit-mask-image: linear-gradient(to bottom, #000 0, transparent 40%); mask-image: linear-gradient(to bottom, #000 0, transparent 40%); }
 
 
 /* ---------- Night pages (case studies): the whole page in indigo, like the work section ---------- */
@@ -531,7 +548,8 @@ p, li { text-wrap: pretty; }
 
 /* ---------- 404 ---------- */
 .lost { min-height: calc(100dvh - var(--header-h)); display: grid; align-content: center; padding-block: 48px 72px; }
-.lost .sky { --sun-r: clamp(56px, 10vw, 140px); --sun-x: clamp(0px, 6vw, 96px); min-height: calc(var(--sun-r) * 2); }
+.lost { --sun-r: clamp(56px, 10vw, 140px); --sun-x: clamp(0px, 6vw, 96px); }
+.lost .sky { min-height: calc(var(--sun-r) * 2); }
 .lost .sun { translate: 0 82%; transition: translate 1.4s var(--spring-soft); }
 .lost .sky.has-gif .sun { translate: 0 0; }
 .sun-media { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; opacity: 0; transition: opacity .8s var(--ease-quart) .4s; }
@@ -598,7 +616,7 @@ p, li { text-wrap: pretty; }
     @keyframes title-rise { from { translate: 0 75%; } to { translate: 0 0; } }
     .titled .rise, .chapter-head .rise { animation: title-rise linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
     @keyframes settle { from { scale: 1.12; } to { scale: 1; } }
-    .project-media img, .project-media .lottie-stage, .gallery > figure img { animation: settle linear both; animation-timeline: view(); animation-range: entry 0% exit 0%; }
+    .settle img { animation: settle linear both; animation-timeline: view(); animation-range: entry 0% exit 0%; }
   }
   @supports (animation-timeline: scroll()) {
     @keyframes sunset { from { transform: translateY(0); } to { transform: translateY(46%); } }
@@ -628,7 +646,7 @@ p, li { text-wrap: pretty; }
   :root { --header-h: 64px; }
   .brand { --brand-w: 108px; }
   .hero-title .rise { padding-right: 0; }
-  .hero .sky { --sun-x: 0px; --sun-r: 48px; }
+  .hero { --sun-x: 0px; --sun-r: 48px; }
   .hero .sky .rise { position: relative; z-index: 1; }
   .hero-intro { grid-column: 1 / -1; }
   .project, .project--narrow { grid-column: 1 / -1; }
@@ -650,10 +668,12 @@ p, li { text-wrap: pretty; }
     .sheet { translate: 0 100%; }
     @starting-style { .sheet[open] { translate: 0 100%; } }
   }
-  .sheet .sky { --sun-r: 40px; min-height: 40px; }
+  .sheet-inner { --sun-r: 40px; }
+  .sheet .sky { min-height: 40px; }
   .sheet-title { padding-right: 92px; }
   .case-hero .rise { padding-right: 0; position: relative; z-index: 1; }
-  .case-hero .sky { --sun-r: 44px; min-height: calc(var(--sun-r) * 2 + 1.05em); }
+  .case-hero { --sun-r: 44px; }
+  .case-hero .sky { min-height: calc(var(--sun-r) * 2 + 1.05em); }
   .case-hero .sun { bottom: auto; top: 0; }
   .facts { grid-template-columns: 1fr; }
   .facts > div { display: grid; grid-template-columns: 7rem 1fr; gap: 12px; padding-block: 12px; border-bottom: 1px solid var(--rule); }
@@ -776,7 +796,8 @@ p, li { text-wrap: pretty; }
    (radio waves, drawn with the arch of the "n").
    ========================================================================== */
 html:has(.chapter-nav) { scroll-padding-top: calc(var(--header-h) + 72px); }
-.chapter-cover { padding-bottom: clamp(48px, 6vw, 88px); }
+.chapter-cover { padding-bottom: 0; }
+.cover-stage { padding-bottom: clamp(48px, 6vw, 88px); }
 .chapter-cover .sky { min-height: clamp(110px, 15vw, 200px); }
 .chapter-cover .rise { padding-right: calc(clamp(150px, 24vw, 340px) + 16px); }
 .waves { position: absolute; right: clamp(0px, 3vw, 48px); bottom: 0; width: clamp(150px, 24vw, 340px); height: auto; overflow: visible; }
@@ -810,7 +831,7 @@ html[data-header-hidden] .chapter-nav { top: 12px; transition: top .3s var(--eas
 .chapter--results { padding-bottom: var(--section); }
 .chapter-head { margin-bottom: clamp(40px, 5vw, 72px); }
 .chapter-head .sky { gap: clamp(14px, 2vw, 32px); }
-.chapter-no { font-family: var(--font-display); font-weight: 600; font-size: clamp(4.5rem, 2rem + 9vw, 10rem); line-height: 0.78; letter-spacing: -0.04em; color: var(--client-ink, var(--client)); translate: 0 0.05em; }
+.chapter-no { font-family: var(--font-display); font-weight: 600; font-size: clamp(2.5rem, 1.5rem + 2.6vw, 3.75rem); line-height: 0.82; letter-spacing: -0.04em; color: var(--client-ink, var(--client)); translate: 0 0.05em; }
 .tone-night .chapter-no { color: var(--client); }
 /* The client's two colours: the bright one on night, the deep one on paper (text-safe) */
 .chapter { padding-block: var(--section) 0; }
@@ -936,4 +957,70 @@ html[data-header-hidden] .chapter-nav { top: 12px; transition: top .3s var(--eas
 }
 @media (prefers-reduced-motion: reduce) {
   .site-header, .site-header[data-hidden], .chapter-nav, html[data-header-hidden] .chapter-nav, .brand-halo { transition: none; }
+}
+
+/* ---------- Case covers: a short description and Year / Company / Role (shared by every project) ---------- */
+.case-desc { margin-top: clamp(18px, 2vw, 28px); max-width: 40ch; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1rem + 0.9vw, 1.75rem); line-height: 1.2; color: var(--ink); }
+
+/* ---------- Invest in Bogotá: its own structure, marked by the agency's red dot instead of numbers ---------- */
+.statement { padding-block: var(--section) 0; }
+.statement-text { max-width: 30ch; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 1.05rem + 1.5vw, 2.4rem); line-height: 1.15; letter-spacing: -0.01em; text-wrap: pretty; }
+.case-section { padding-block: var(--section) 0; }
+.case-section.tone-night { margin-top: var(--section); padding-bottom: var(--section); }
+.dot-head { margin-bottom: clamp(36px, 4.5vw, 64px); }
+.dot-head .sky { gap: clamp(14px, 1.6vw, 22px); }
+.dot-mark { /* the client's circle, the same soft sun as the rest of the site */
+  --sun-c: var(--client); --sun-r: clamp(14px, 1.4vw, 20px);
+  position: relative; flex: none; width: calc(var(--sun-r) * 2); aspect-ratio: 1; translate: 0 50%;
+}
+.dot-mark::before {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background: linear-gradient(to bottom, color-mix(in oklch, var(--sun-c), oklch(0.9 0.16 95) 24%), var(--sun-c) 55%, color-mix(in oklch, var(--sun-c), oklch(0.52 0.17 36) 18%));
+  filter: blur(1px); box-shadow: 0 0 calc(var(--sun-r) * 0.8) calc(var(--sun-r) * 0.12) color-mix(in oklch, var(--sun-c) 50%, transparent);
+}
+.dot-mark--inline { display: inline-block; vertical-align: 0.05em; margin-right: 0.45em; width: 0.62em; translate: none; }
+.objective h3::before { background: var(--client-ink, var(--client)); }
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .dot-head .dot-mark { animation: rise-dot linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
+    @keyframes rise-dot { from { translate: 0 120%; } to { translate: 0 50%; } }
+  }
+}
+
+/* ==========================================================================
+   PROTOTYPE PROPOSALS (compare in the browser; the chosen one stays, the rest go)
+   Header:   ?header=a  band like the first version   ?header=b  fading band   ?header=c  framed pill
+   Parallax: (none) framed   ?parallax=b  full screen   ?parallax=c  curtain   ?parallax=d  expand
+   ========================================================================== */
+/* Header A: the pill sits on a band of the page colour, as in the first version: content disappears under it */
+html[data-header="a"] .site-header { background: var(--paper); padding-bottom: 8px; }
+/* Header B: the band fades out downward and blurs what passes under it */
+html[data-header="b"] .site-header { padding-bottom: 22px; }
+html[data-header="b"] .site-header::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(to bottom, var(--paper) 55%, color-mix(in oklch, var(--paper) 0%, transparent));
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent); mask-image: linear-gradient(to bottom, #000 60%, transparent);
+}
+/* Header C: the pill itself gets a frame: a fine ink line and a deeper shadow */
+html[data-header="c"] .header-inner { box-shadow: 0 0 0 1px oklch(0.257 0.09 281 / 0.16), 0 14px 34px -18px oklch(0.257 0.09 281 / 0.45); }
+
+/* Parallax B: full screen. The image takes the whole viewport and drifts slower than the page */
+html[data-parallax="b"] .cover-wrap, html[data-parallax="c"] .cover-wrap, html[data-parallax="d"] .cover-wrap { width: 100%; }
+html[data-parallax="b"] .cover-stage, html[data-parallax="c"] .cover-stage { padding-bottom: 0; }
+html[data-parallax="b"] .cover-shot, html[data-parallax="c"] .cover-shot { margin-top: clamp(40px, 5vw, 72px); height: 100svh; aspect-ratio: auto; border-radius: 0; }
+/* Parallax C: curtain. The image holds still at full screen; the chapters slide over it */
+html[data-parallax="c"] .cover-stage { position: sticky; top: 0; z-index: 0; }
+html[data-parallax="c"] .cover-shot { margin-top: 0; }
+html[data-parallax="c"] .cover-shot.parallax > img { position: absolute; top: 0; height: 100%; animation: none !important; translate: none !important; }
+html[data-parallax="c"] .chapters, html[data-parallax="c"] .other-work, html[data-parallax="c"] .contact { position: relative; z-index: 1; }
+html[data-parallax="c"] .chapters { background: var(--paper); }
+html[data-parallax="c"] .chapter-cover { padding-bottom: clamp(40px, 5vw, 72px); }
+/* Parallax D: expand. The framed image opens to the full width as you start scrolling */
+html[data-parallax="d"] .cover-shot { border-radius: 0; clip-path: inset(0 max(var(--gutter), (100% - var(--wrap)) / 2) round clamp(14px, 1.6vw, 24px)); }
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    @keyframes cover-open { to { clip-path: inset(0 0 round 0); } }
+    html[data-parallax="d"] .cover-shot { animation: cover-open linear both; animation-timeline: scroll(root); animation-range: 0 55vh; }
+  }
 }

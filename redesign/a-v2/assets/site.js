@@ -168,6 +168,13 @@
       .catch(() => {});
   }
 
+  /* Placeholders: the tessellation only holds an image's place while it loads (or if it fails).
+     Once an image has loaded, its frame drops the texture and the tint. */
+  document.querySelectorAll(".gallery > figure > img, .project-media > img, .chapter-figure > img, .cover-shot > img").forEach((img) => {
+    const mark = () => img.parentElement.setAttribute("data-loaded", "");
+    if (img.complete && img.naturalWidth) mark(); else img.addEventListener("load", mark, { once: true });
+  });
+
   /* Footer logotype: its letters rise from the bottom edge, one after another, when it comes into view */
   const endMark = document.querySelector(".end-mark[data-reveal]");
   if (endMark) {

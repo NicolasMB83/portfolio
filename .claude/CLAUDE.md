@@ -28,7 +28,9 @@ These rules come from the site owner and apply to every task in this repo.
   - CSS/JS compartidos: `redesign/a-v2/assets/` (`site.css`, `site.js`). El generador calcula el `?v=<hash>` solo.
   - Todo es local: imágenes WebP en `assets/img/`, fuentes WOFF2 en `assets/fonts/`, Lottie en `assets/vendor/`. Lo único en Framer son las 3 animaciones Lottie de portada.
   - Para publicar en la raíz: `REPO_FROM_SITE = ''`, `ABS_ROOT = '/'`, `LINK_INDEX = False`.
-- Páginas: home, `invest-in-bogota/` (galería), `radio-a-domicilio/` (plantilla por capítulos, ejemplo), `404.html` (bilingüe), `projects-a/`, `projects-b/` y `projects-c/` (alternativas de la sección de proyectos, solo EN, noindex; C es la fusión vigente).
+- Páginas: home, `invest-in-bogota/`, `radio-a-domicilio/`, `404.html` (bilingüe), `projects-a/`, `projects-b/` y `projects-c/` (alternativas de la sección de proyectos, solo EN, noindex; C es la fusión vigente).
+- Propuestas en comparación (prototipo, se quitan al publicar): `?header=a|b|c` y, en Radio a Domicilio, `?parallax=b|c|d` (script en el `<head>` que pone `data-header` / `data-parallax`).
+- Revisión de textos: `redesign/tools/review.py` (R1…R29). El generador marca cada una en el HTML; la tabla está en PROPUESTAS.md.
 - Decisiones tomadas por el dueño:
   - Textura = teselación (también como placeholder de imágenes).
   - Secciones oscuras aprobadas.
@@ -41,10 +43,17 @@ These rules come from the site owner and apply to every task in this repo.
   - Soles: todos levemente desenfocados, con brillo suave y gradiente muy sutil (amarillo cálido arriba, más quemado hacia el horizonte).
   - Le gusta la grilla actual de proyectos. De la alternativa B le gustó la grilla de tres y el revelado a color; la película en proyectos está descartada.
   - Regla de marca: el logo es geométrico y perfecto. Nada orgánico ni dibujado a mano (fue lindo, pero rompe la marca); todo efecto sale del arco, el punto y la línea.
-  - Todos los proyectos usan la misma plantilla por capítulos: portada oscura, capítulos claros con números y "Las piezas" en índigo (generador: `case_page` + `spec_*`).
+  - Cada proyecto tiene su propia estructura (cada uno es diferente), pero de la misma familia (generador: `case_cover` + `case_shell` + `rad_main` / `iib_main`).
+    - Portada común: título sobre el horizonte, descripción breve y Año / Empresa / Rol.
+    - Radio a Domicilio: capítulos numerados, con números pequeños.
+    - Invest in Bogotá: sin números, marcado con el punto rojo de la marca.
   - Nada de arcos como ventana de imagen (no le gustan); se usan marcos redondeados.
   - Tipografía igual a la versión publicada: Clash Display (700 en hero, menú, botones y títulos de proyecto), Albert Sans para el texto, DM Sans para rótulos. Fondo `#eef2ff`; píldora blanca al 82 %.
   - El hero no se parte: "I LOVE DESIGN" y la segunda línea van juntas sobre el horizonte.
+  - La línea del horizonte bajo un sol tiene opacidad 0 lejos del sol y aumenta al acercarse (`.horizon--sun`).
+  - Píldora: hover naranja en secciones e idioma (`--sun-ink`, para que el texto tenga 5:1 de contraste).
+  - Teselación solo como placeholder de imágenes que cargan o fallan; nunca para enmarcar imágenes ni en bordes de sección. La baldosa dibuja la onda continua (sin cortes en las uniones).
+  - La animación de scroll de imágenes (`.settle`) solo donde aporta. Hoy: la captura del sitio de Invest in Bogotá.
   - CTA: al pasar el cursor se dibuja el contorno del sol y luego se rellena.
   - Punto 9 aprobado e integrado en Invest in Bogotá.
   - Créditos: el dueño decide cuándo parar; no limitar el trabajo por eso.
@@ -54,9 +63,12 @@ These rules come from the site owner and apply to every task in this repo.
     - Parallax en la imagen inicial de cada proyecto.
   - Halación del logo: capa ya dibujada que solo cambia de opacidad (animar `filter` desde `none` daba un brillo negro).
 - Pendiente de aprobación (ver "Pendiente de tu decisión" en `redesign/a-v2/PROPUESTAS.md`):
+  - Encabezado (A / B / C).
+  - Parallax (A / B / C / D).
+  - Nombre de la sección de piezas.
+  - Revisión de textos R1–R29.
+  - Íconos.
   - Fusión de proyectos (`projects-c/`).
-  - Plantilla por capítulos evolucionada y sus textos nuevos.
-  - Punto 9.
   - Archivos Lottie.
   - Publicación.
 - El español debe ser una traducción fiel del inglés (mismo contenido, palabras nativas de cada idioma).
