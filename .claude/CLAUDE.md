@@ -26,6 +26,8 @@ These rules come from the site owner and apply to every task in this repo.
 - Trabajo vigente: Opción A v2 "Horizonte" en `redesign/a-v2/` (EN) y `redesign/a-v2/es/` (ES), rama `redesign`.
 - Generador: las páginas se escriben a mano en HTML; CSS/JS compartidos en `redesign/a-v2/assets/` (`site.css`, `site.js`), enlazados con `?v=<hash>` para evitar cachés viejas. Si editas CSS/JS, actualiza el hash en todas las páginas.
 - Decisiones tomadas por el dueño: textura = teselación (también como placeholder de imágenes); secciones oscuras aprobadas; panel de contacto con entrada desacelerada (sin morph); 404 con GIF aleatorio de gatos (GIPHY) dentro del sol; email `nicolasbarbosa.us@gmail.com`; título "Visual and AI Designer"; empresa "ReloQuest".
-- Pendiente de aprobación: ver la sección "Pendiente de tu decisión" en `redesign/a-v2/PROPUESTAS.md` (ReloQuest, punto 9, puntos 11-14, versión en español, textos de interfaz, dominio).
+- Pendiente de aprobación: ver "Pendiente de tu decisión" en `redesign/a-v2/PROPUESTAS.md` (propuesta película `?look=film`, punto 9, dominio) y el plan por fases en `redesign/a-v2/PLAN.md`.
+- El español debe ser una traducción fiel del inglés (mismo contenido, palabras nativas de cada idioma).
+- Casos de estudio: fondo índigo (`body.page-night`).
 - Nada se publica en `main` sin aprobación explícita.
 - Deck de Figma del dueño (Figma Slides, fileKey `A2FLZyFCZUkYItYyTG2Tgn`, portada nodo `1:2107`): fondo negro tipo película, grano, polvo/rayas, quemadura de película naranja en una esquina y el logotipo con halación (núcleo amarillo, naranja, borde magenta). El conector de Figma solo puede capturar diapositivas cuyo enlace (node-id) comparta el dueño; no puede listar las diapositivas de un deck.

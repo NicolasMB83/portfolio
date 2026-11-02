@@ -106,17 +106,21 @@
     map.forEach((_, el) => io.observe(el));
   }
 
-  /* 404: a new random GIF (tag in data-giphy-tag) rises inside the sun on every visit.
+  /* 404: a new random GIF for the search word in data-giphy-tag ("cat") rises inside the sun on every visit.
      If the API fails or the hourly limit is reached, the sun simply stays as it is.
      GIPHY's terms require the "Powered by GIPHY" credit. */
   const gifSky = document.querySelector("[data-giphy-key]");
   if (gifSky && gifSky.getAttribute("data-giphy-key")) {
     const key = gifSky.getAttribute("data-giphy-key");
     const tag = gifSky.getAttribute("data-giphy-tag") || "";
-    fetch(`https://api.giphy.com/v1/gifs/random?api_key=${encodeURIComponent(key)}&tag=${encodeURIComponent(tag)}&rating=g`, { cache: "no-store" })
+    /* Search ranks by relevance (random-by-tag only returns something "related"), so: one random pick
+       among the 200 most relevant results for the tag. One API call per visit. */
+    const offset = Math.floor(Math.random() * 200);
+    fetch(`https://api.giphy.com/v1/gifs/search?api_key=${encodeURIComponent(key)}&q=${encodeURIComponent(tag)}&limit=1&offset=${offset}&rating=g&lang=en`, { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
       .then(({ data }) => {
-        const img = data && data.images;
+        const gif = Array.isArray(data) ? data[0] : data;
+        const img = gif && gif.images;
         if (!img) return;
         const sun = gifSky.querySelector(".sun");
         let media;

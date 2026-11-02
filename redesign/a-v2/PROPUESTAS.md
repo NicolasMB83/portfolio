@@ -2,48 +2,33 @@
 
 Prototipo, no publicado. Rama `redesign`, carpeta `redesign/a-v2/` (inglés) y `redesign/a-v2/es/` (español).
 
-## ⏳ Pendiente de tu decisión (todo en un solo lugar)
+## ⏳ Pendiente de tu decisión
 
-Responde con el número y "sí", "no" o tu versión.
+### A. Propuesta "película" (inspirada en tu deck)
+Ver con `?look=film`. El contacto se vuelve la portada de tu deck: película negra, quemadura en la esquina superior y tu logo con halación saliendo del borde inferior. ¿Sí o no?
 
-### A. ReloQuest (ya visible en Career path, primera posición)
-- **Fechas:** Jan 2026 - Current
-- **Título:** "Graphic Designer, Creative" (alternativa: "Graphic Designer & Creative")
-- **Viñetas:**
-  1. Redesigned the interface of ReloQuest’s main website.
-  2. Produce brand videos and now integrate AI video tools into the production workflow.
-  3. Design social media graphics and digital media pieces.
-  4. Create print pieces such as backdrops, and mock-ups that present each design in context.
-
-### B. Punto 9 (en espera, no se muestra en la página)
-Este resumen estaba en tu CMS de Framer pero la página antigua no lo mostraba. La propuesta es ponerlo como introducción del caso de estudio de Invest in Bogotá, debajo del video:
+### B. Punto 9 (en espera, no se muestra)
 > IBB aim is to facilitate relevant international investments and attract world-class meetings and events that contribute to the socioeconomic development, competitiveness, and quality of life of Bogotá-Region. I have to develop impactful collateral to create a strong brand presence as well as keep a coherent narrative of the brand.
 
-### C. Puntos 11 a 14
-| # | Dónde | Hoy | Propuesta | Por qué |
-|---|---|---|---|---|
-| 11 | Clientes | "Organizations that have trust in me" | "Organizations that trust my work" | Más natural en inglés. |
-| 12 | Footer | "2025 Nicolas Mogollón Barbosa" | "© 2026 Nicolás Mogollón Barbosa" | Año actual y tilde en tu nombre. |
-| 13 | Descripción para Google y LinkedIn | "Welcome to my online portfolio - a showcase of innovative designs and creative web solutions." | "Nicolás Mogollón Barbosa, visual and brand designer. Campaigns, identities and digital products for MinTIC, Invest in Bogotá, Radio a Domicilio and more." | Es lo que aparece en Google y al compartir el link. |
-| 14 | Hero (opcional) | "I'm Nicolás, a multidisciplinary designer with experience in Product and Digital Design, creating campaigns on social media." | "I'm Nicolás, a multidisciplinary designer. I've designed campaigns, identities and digital products for MinTIC, Invest in Bogotá and Radio a Domicilio." | Nombres reales generan confianza más rápido que adjetivos. |
+### C. Plan de acción
+Ver `PLAN.md`: hay que elegir la alternativa de la Fase 2 y reunir el contenido de los casos.
 
-### D. Versión en español (borrador completo para revisar)
-Está en `redesign/a-v2/es/`. Todo es traducción mía y fiel al inglés. Decisiones a confirmar:
-- "PROYECTOS" en lugar de "TRABAJO".
-- "Trayectoria" por "Career path".
-- "¡Hagamos magia!".
-- "Hablemos" por "Let’s talk".
-- "Diseñador visual y de IA".
-
-### E. Textos nuevos de interfaz
-- La invitación de idioma: "¿Prefieres ver el sitio en español?" / "Prefer to read this site in English?"
-- "Volver al inicio".
-- "Powered by GIPHY".
-
-### F. Dominio
+### Dominio
 Tu CV menciona `www.nicolasmb.com`. Si está activo, conviene publicar ahí.
 
 ---
+
+## ✅ Aplicado en esta ronda
+- **ReloQuest, viñeta 3:** "Design social media graphics as well as digital and print collateral." Tu redacción ("digital and printed collateral") era correcta; ajusté "print" (término habitual en marketing) y "as well as" (evita "and… and").
+- **Invest in Bogotá:** termina en enero de 2026 ("Feb 2025 - Jan 2026"), en Career path y en el caso de estudio.
+- **Caso de estudio:** fondo índigo como las secciones oscuras del home.
+- **Puntos 11, 12 y 13:**
+  - "Organizations that trust my work".
+  - "© 2026 Nicolás Mogollón Barbosa".
+  - Nueva descripción para Google y LinkedIn.
+- **Punto 14:** rechazado; el hero no cambia.
+- **Español:** traducción fiel del inglés, frase por frase, con palabras nativas; aprobada la terminología del punto D.
+- **404:** gatos reales vía GIPHY. Ahora con búsqueda por relevancia, para que siempre sean gatos.
 
 ## Sistema visual
 
@@ -95,7 +80,8 @@ Lo que hacen las grandes empresas y recomienda Google:
 | 8 | ✅ | "its brand", "products that demand", "AI tools", "every day" |
 | 9 | ⏸ | En espera: ver sección B arriba |
 | 10 | ✅ | "Contributed to" |
-| 11-14 | ⏳ | Ver sección C arriba |
+| 11, 12, 13 | ✅ | Aplicados |
+| 14 | ❌ | Rechazado |
 | Email | ✅ | Se mantiene `nicolasbarbosa.us@gmail.com` |
 | Secciones oscuras | ✅ | Aprobadas |
 
