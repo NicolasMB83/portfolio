@@ -21,3 +21,10 @@ These rules come from the site owner and apply to every task in this repo.
 ## Delivery
 - Verify every page visually (desktop + mobile) and with automated checks (axe, overflow, no-JS, reduced motion) before reporting.
 - Do not crowd the site: every texture, animation or element needs a reason.
+
+## Estado actual (para retomar en cualquier sesión)
+- Trabajo vigente: Opción A v2 "Horizonte" en `redesign/a-v2/` (EN) y `redesign/a-v2/es/` (ES), rama `redesign`.
+- Generador: las páginas se escriben a mano en HTML; CSS/JS compartidos en `redesign/a-v2/assets/` (`site.css`, `site.js`), enlazados con `?v=<hash>` para evitar cachés viejas. Si editas CSS/JS, actualiza el hash en todas las páginas.
+- Decisiones tomadas por el dueño: textura = teselación (también como placeholder de imágenes); secciones oscuras aprobadas; panel de contacto con entrada desacelerada (sin morph); 404 con GIF aleatorio de gatos (GIPHY) dentro del sol; email `nicolasbarbosa.us@gmail.com`; título "Visual and AI Designer"; empresa "ReloQuest".
+- Pendiente de aprobación: ver la sección "Pendiente de tu decisión" en `redesign/a-v2/PROPUESTAS.md` (ReloQuest, punto 9, puntos 11-14, versión en español, textos de interfaz, dominio).
+- Nada se publica en `main` sin aprobación explícita.

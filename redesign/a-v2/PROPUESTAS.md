@@ -2,6 +2,49 @@
 
 Prototipo, no publicado. Rama `redesign`, carpeta `redesign/a-v2/` (inglés) y `redesign/a-v2/es/` (español).
 
+## ⏳ Pendiente de tu decisión (todo en un solo lugar)
+
+Responde con el número y "sí", "no" o tu versión.
+
+### A. ReloQuest (ya visible en Career path, primera posición)
+- **Fechas:** Jan 2026 - Current
+- **Título:** "Graphic Designer, Creative" (alternativa: "Graphic Designer & Creative")
+- **Viñetas:**
+  1. Redesigned the interface of ReloQuest’s main website.
+  2. Produce brand videos and now integrate AI video tools into the production workflow.
+  3. Design social media graphics and digital media pieces.
+  4. Create print pieces such as backdrops, and mock-ups that present each design in context.
+
+### B. Punto 9 (en espera, no se muestra en la página)
+Este resumen estaba en tu CMS de Framer pero la página antigua no lo mostraba. La propuesta es ponerlo como introducción del caso de estudio de Invest in Bogotá, debajo del video:
+> IBB aim is to facilitate relevant international investments and attract world-class meetings and events that contribute to the socioeconomic development, competitiveness, and quality of life of Bogotá-Region. I have to develop impactful collateral to create a strong brand presence as well as keep a coherent narrative of the brand.
+
+### C. Puntos 11 a 14
+| # | Dónde | Hoy | Propuesta | Por qué |
+|---|---|---|---|---|
+| 11 | Clientes | "Organizations that have trust in me" | "Organizations that trust my work" | Más natural en inglés. |
+| 12 | Footer | "2025 Nicolas Mogollón Barbosa" | "© 2026 Nicolás Mogollón Barbosa" | Año actual y tilde en tu nombre. |
+| 13 | Descripción para Google y LinkedIn | "Welcome to my online portfolio - a showcase of innovative designs and creative web solutions." | "Nicolás Mogollón Barbosa, visual and brand designer. Campaigns, identities and digital products for MinTIC, Invest in Bogotá, Radio a Domicilio and more." | Es lo que aparece en Google y al compartir el link. |
+| 14 | Hero (opcional) | "I'm Nicolás, a multidisciplinary designer with experience in Product and Digital Design, creating campaigns on social media." | "I'm Nicolás, a multidisciplinary designer. I've designed campaigns, identities and digital products for MinTIC, Invest in Bogotá and Radio a Domicilio." | Nombres reales generan confianza más rápido que adjetivos. |
+
+### D. Versión en español (borrador completo para revisar)
+Está en `redesign/a-v2/es/`. Todo es traducción mía y fiel al inglés. Decisiones a confirmar:
+- "PROYECTOS" en lugar de "TRABAJO".
+- "Trayectoria" por "Career path".
+- "¡Hagamos magia!".
+- "Hablemos" por "Let’s talk".
+- "Diseñador visual y de IA".
+
+### E. Textos nuevos de interfaz
+- La invitación de idioma: "¿Prefieres ver el sitio en español?" / "Prefer to read this site in English?"
+- "Volver al inicio".
+- "Powered by GIPHY".
+
+### F. Dominio
+Tu CV menciona `www.nicolasmb.com`. Si está activo, conviene publicar ahí.
+
+---
+
 ## Sistema visual
 
 **Vocabulario de formas tomado del logotipo:**
@@ -50,27 +93,11 @@ Lo que hacen las grandes empresas y recomienda Google:
 | 6 | ✅ | Fechas "Feb 2025 - Aug 2025" |
 | 7 | ✅ | Solo la tilde: "Bogotá – Region." |
 | 8 | ✅ | "its brand", "products that demand", "AI tools", "every day" |
-| 9 | ⏸ | En espera (el resumen del CMS no se muestra) |
+| 9 | ⏸ | En espera: ver sección B arriba |
 | 10 | ✅ | "Contributed to" |
-| 11-14 | Pendientes | Sin respuesta todavía |
+| 11-14 | ⏳ | Ver sección C arriba |
 | Email | ✅ | Se mantiene `nicolasbarbosa.us@gmail.com` |
 | Secciones oscuras | ✅ | Aprobadas |
-
-## Nuevas propuestas de texto (pendientes)
-
-1. **ReloQuest** (Jan 2026 - Current). Título: "Graphic Designer, Creative" (alternativa: "Graphic Designer & Creative"). Viñetas:
-   - Redesigned the interface of ReloQuest’s main website.
-   - Produce brand videos and now integrate AI video tools into the production workflow.
-   - Design social media graphics and digital media pieces.
-   - Create print pieces such as backdrops, and mock-ups that present each design in context.
-
-2. **Todo el texto en español** es un borrador mío, fiel al inglés. Revísalo en `/es/`. Algunas decisiones:
-   - "PROYECTOS" en lugar de "TRABAJO".
-   - "Trayectoria" por "Career path".
-   - "¡Hagamos magia!".
-   - "Hablemos" por "Let’s talk".
-3. **Textos nuevos de interfaz:** la invitación de idioma, "Volver al inicio" y, si activas el GIF, "Powered by GIPHY" (lo exigen los términos de GIPHY).
-4. **Dominio:** tu CV menciona `www.nicolasmb.com`. Si está activo, conviene publicar ahí y actualizar las URLs `hreflang`/canonical (hoy apuntan a `nicolasmb83.github.io/portfolio/`).
 
 ## GIF aleatorio del 404
 
@@ -80,6 +107,6 @@ Activo con tu clave de GIPHY y la palabra "cat". Cada visita o recarga pide un g
 - Si el sitio recibe mucho tráfico, se puede pedir una clave de producción en el panel de GIPHY.
 - La clave queda visible en el código público (así funcionan las claves de GIPHY en el navegador). Cualquiera podría reutilizarla y gastar ese límite. Si pasa, se genera otra y se reemplaza.
 
-## Pendiente de tu lado
+## Si ves una versión vieja
 
-- **Tu deck de Figma** (`Portfolio-indepth-01-26`): el conector de Figma no pudo conectarse desde esta sesión. Si me envías un PDF o capturas de las diapositivas con la halación y la teselación, ajusto ambas texturas para que coincidan con tu material.
+Los archivos CSS/JS ahora llevan una versión en la URL (`site.css?v=…`) que cambia con cada cambio, así que el navegador ya no puede usar una copia vieja. raw.githack puede tardar unos minutos en reflejar un cambio nuevo. Si dudas, recarga forzada: Cmd+Shift+R (Mac) o Ctrl+Shift+R (Windows).
