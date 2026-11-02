@@ -28,9 +28,10 @@ These rules come from the site owner and apply to every task in this repo.
   - CSS/JS compartidos: `redesign/a-v2/assets/` (`site.css`, `site.js`). El generador calcula el `?v=<hash>` solo.
   - Todo es local: imágenes WebP en `assets/img/`, fuentes WOFF2 en `assets/fonts/`, Lottie en `assets/vendor/`. Lo único en Framer son las 3 animaciones Lottie de portada.
   - Para publicar en la raíz: `REPO_FROM_SITE = ''`, `ABS_ROOT = '/'`, `LINK_INDEX = False`.
-- Páginas: home, `invest-in-bogota/`, `radio-a-domicilio/`, `404.html` (bilingüe), `projects-a/`, `projects-b/` y `projects-c/` (alternativas de la sección de proyectos, solo EN, noindex; C es la fusión vigente).
-- Propuestas en comparación (prototipo, se quitan al publicar): `?header=a|b|c` y, en Radio a Domicilio, `?parallax=b|c|d` (script en el `<head>` que pone `data-header` / `data-parallax`).
-- Revisión de textos: `redesign/tools/review.py` (R1…R29). El generador marca cada una en el HTML; la tabla está en PROPUESTAS.md.
+- Páginas (EN y ES): home, `invest-in-bogota/`, `radio-a-domicilio/`, `vende-digital/`, `infinited/`, `pro-surge-ja/`, `404.html` (bilingüe), `projects-a/`, `projects-b/` y `projects-c/` (alternativas de la sección de proyectos, solo EN, noindex; C es la fusión vigente).
+- Falta Colombia 4.0 (2018): no hay contenido publicado; se pidió al dueño.
+- Contenido de los casos nuevos: `redesign/tools/projects.py`, tomado del sitio publicado (capturado en el scratchpad `prev/assets/orange-point-971308.framer.app/`).
+- Revisión de textos: `redesign/tools/review.py` (R1…R41). El generador marca cada una en el HTML. El dueño decide en la página https://claude.ai/artifact/EaVz97Axgp22ehvcy5VmEH (colección `decisions` del artifact; leer con ArtifactData `list`).
 - Decisiones tomadas por el dueño:
   - Textura = teselación (también como placeholder de imágenes).
   - Secciones oscuras aprobadas.
@@ -43,7 +44,9 @@ These rules come from the site owner and apply to every task in this repo.
   - Soles: todos levemente desenfocados, con brillo suave y gradiente muy sutil (amarillo cálido arriba, más quemado hacia el horizonte).
   - Le gusta la grilla actual de proyectos. De la alternativa B le gustó la grilla de tres y el revelado a color; la película en proyectos está descartada.
   - Regla de marca: el logo es geométrico y perfecto. Nada orgánico ni dibujado a mano (fue lindo, pero rompe la marca); todo efecto sale del arco, el punto y la línea.
-  - Cada proyecto tiene su propia estructura (cada uno es diferente), pero de la misma familia (generador: `case_cover` + `case_shell` + `rad_main` / `iib_main`).
+  - Cada proyecto tiene su propia estructura (cada uno es diferente), pero de la misma familia (generador: `case_cover` + `case_shell` + `rad_main` / `iib_main` / `vd_main` / `inf_main` / `ps_main`).
+    - La forma de cada portada es geométrica, del vocabulario del logo: ondas, sol, puntos conectados, trazos que suben y franjas diagonales.
+    - La marca de cada sección usa esa misma forma.
     - Portada común: título sobre el horizonte, descripción breve y Año / Empresa / Rol.
     - Radio a Domicilio: capítulos numerados, con números pequeños.
     - Invest in Bogotá: sin números, marcado con el punto rojo de la marca.
@@ -54,7 +57,13 @@ These rules come from the site owner and apply to every task in this repo.
   - Píldora: hover naranja en secciones e idioma (`--sun-ink`, para que el texto tenga 5:1 de contraste).
   - Teselación solo como placeholder de imágenes que cargan o fallan; nunca para enmarcar imágenes ni en bordes de sección. La baldosa dibuja la onda continua (sin cortes en las uniones).
   - La animación de scroll de imágenes (`.settle`) solo donde aporta. Hoy: la captura del sitio de Invest in Bogotá.
-  - CTA: al pasar el cursor se dibuja el contorno del sol y luego se rellena.
+  - Flecha (`go()` en el generador): al pasar el cursor se dibuja el contorno del sol y luego se rellena.
+    - Se usa en botones, "View portfolio" y tarjetas de proyecto.
+    - En los enlaces de Behance, solo el contorno (`go--outline`).
+  - Encabezado: se queda la píldora actual.
+  - Parallax: telón en Radio a Domicilio (`cover-stage--curtain`).
+  - Sección de piezas: nombre descriptivo por proyecto.
+  - Servicios: cuatro soles sobre un mismo horizonte que suben al entrar en pantalla, con enlaces a proyectos (propuesta R41).
   - Punto 9 aprobado e integrado en Invest in Bogotá.
   - Créditos: el dueño decide cuándo parar; no limitar el trabajo por eso.
   - Rescatado de la primera versión (Framer, en la raíz del repo):
@@ -63,11 +72,8 @@ These rules come from the site owner and apply to every task in this repo.
     - Parallax en la imagen inicial de cada proyecto.
   - Halación del logo: capa ya dibujada que solo cambia de opacidad (animar `filter` desde `none` daba un brillo negro).
 - Pendiente de aprobación (ver "Pendiente de tu decisión" en `redesign/a-v2/PROPUESTAS.md`):
-  - Encabezado (A / B / C).
-  - Parallax (A / B / C / D).
-  - Nombre de la sección de piezas.
-  - Revisión de textos R1–R29.
-  - Íconos.
+  - Revisión de textos R1–R41 (en la página de revisión).
+  - Íconos: el dueño respondió "mantén la flecha" y no dijo nada de los demás.
   - Fusión de proyectos (`projects-c/`).
   - Archivos Lottie.
   - Publicación.

@@ -36,8 +36,13 @@ def ic(sid, cls=''):
     return f'<svg class="icon {cls}" aria-hidden="true" focusable="false"><use href="#{sid}"/></svg>'
 
 
-GO = ('<span class="go" aria-hidden="true"><svg class="go-ring" viewBox="0 0 40 40" focusable="false">'
-      '<circle cx="20" cy="20" r="18.6" pathLength="1"/></svg>' + ic('i-go') + '</span>')   # the dot of the "i" rises behind the arrow on hover
+def go(kind=''):
+    """The arrow inside the sun: on hover its outline is drawn from the horizon, then it fills (go--outline: no fill)."""
+    return (f'<span class="go{(" " + kind) if kind else ""}" aria-hidden="true"><svg class="go-ring" viewBox="0 0 40 40" focusable="false">'
+            '<circle cx="20" cy="20" r="18.6" pathLength="1"/></svg>' + ic('i-go') + '</span>')
+
+
+GO = go()   # the dot of the "i" rises behind the arrow on hover
 
 
 LOGO = (PARTS / 'frag-logo.svg').read_text().strip()
@@ -250,7 +255,7 @@ T = {
 PROJECTS = [
     dict(slug='radio-a-domicilio', title='Radio a Domicilio', role='r_art', lottie='LzoOJsiAnZTMUyRsHiyCzTp4XY', poster='rad-brand', client='#ffc845', shape='arch'),
     dict(slug='invest-in-bogota', title='Invest in Bogotá', role='r_vai', lottie='xMkFo0SEeC5T5e9mvolD6PBvXW8', poster='iib-social-grid', client='#ef491f', shape='circle'),
-    dict(slug='vende-digital', title='Vende Digital', role='r_dgd', lottie='opJXddsePYvkvZBgp7zGeH5vII8', poster=None, client='oklch(0.8 0.035 278)', shape='wide'),
+    dict(slug='vende-digital', title='Vende Digital', role='r_dgd', lottie='opJXddsePYvkvZBgp7zGeH5vII8', poster='vd-key-visual', client='oklch(0.8 0.035 278)', shape='wide'),
     dict(slug='infinited', title='Infinited', role='r_vec', img='infinited-cover', client='#1fc8c8', shape='square'),
     dict(slug='col40-2018', title='Colombia 4.0 (2018)', role='r_dgd', img='col40-cover', client='#ff6a00', shape='bowl'),
     dict(slug='pro-surge-ja', title='Pro Surge JA', role='r_ad', img='prosurge-cover', client='#4a63ff', shape='band'),
@@ -296,8 +301,6 @@ def head(lang, title, desc, alternates):
   <link rel="icon" href="@A/img/favicon-dark.png" media="(prefers-color-scheme: dark)">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="@A/fonts/clash-display-700.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="@A/fonts/albert-sans-400.woff2">
-  <!-- PROTOTIPO: comparar propuestas con ?header=a|b|c y ?parallax=b|c|d (se elimina al publicar) -->
-  <script>(function(){{var q=location.search,h=q.match(/[?&]header=([abc])/),x=q.match(/[?&]parallax=([bcd])/),d=document.documentElement;if(h)d.dataset.header=h[1];if(x)d.dataset.parallax=x[1];}})()</script>
   <link rel="stylesheet" href="@A/site.css?v={ASSET_V}">
   <script src="@A/site.js?v={ASSET_V}" defer></script>
 </head>'''
@@ -430,7 +433,7 @@ def project(t, home, slug, cls='', sizes='(max-width: 760px) 100vw, 58vw'):
     return f'''
           <li class="project {cls}">
             <a class="project-link" href="{home}{slug}/">
-              <div class="project-media"{attrs}>{media}<span class="dawn" aria-hidden="true">{ic('i-go')}</span></div>
+              <div class="project-media"{attrs}>{media}<span class="card-go">{go('go--sun')}</span></div>
               <div class="project-meta">
                 <h3 class="project-title">{p['title']}</h3>
                 <p class="project-role">{t[p['role']]}</p>
@@ -508,7 +511,7 @@ def work_tiles(t, home):
         out.append(f'''
           <li class="tile">
             <a class="project-link tile-link" href="{home}{p['slug']}/">
-              <div class="project-media tile-media"{attrs}>{media}<span class="dawn" aria-hidden="true">{ic('i-go')}</span></div>
+              <div class="project-media tile-media"{attrs}>{media}<span class="card-go">{go('go--sun')}</span></div>
               <span class="tile-line" aria-hidden="true"></span>
               <div class="project-meta tile-meta">
                 <h3 class="project-title">{p['title']}</h3>
@@ -520,6 +523,7 @@ def work_tiles(t, home):
 
 
 from review import REVIEW
+from projects import VD, INF, PS
 
 
 def mark_review(html):
@@ -609,19 +613,22 @@ def home(lang, variant='grid'):
 
         <a class="view-all" href="{FIGMA}">
           <span>{t['view']}</span>
-          {ic('i-go')}
+          {go('go--sun')}
         </a>
       </div>
     </section>
 
     <section id="about" class="about">
       <div class="wrap">
-        <ul class="services">''' + ''.join(f'''
-          <li class="service">
-            <h3 class="service-title">{t[k]}</h3>
-            <p class="service-text">{t[k + 't']}</p>
-            <div class="service-plate"><img src="@A/img/{f}.svg" width="{w}" height="{hh}" alt="" loading="lazy" decoding="async"></div>
-          </li>''' for k, f, w, hh in [('s1', 'service-graphic', 1024, 1024), ('s2', 'service-web', 797, 813), ('s3', 'service-ui', 1024, 1024), ('s4', 'service-brand', 1024, 1024)]) + f'''
+        <h2 class="sr-only">{t['nav_about']}</h2>
+        {P.format('debajo de cada servicio, enlaces a los proyectos donde lo aplicaste (contenido nuevo, por aprobar)')}
+        <ul class="svc">''' + ''.join(f'''
+          <li class="svc-item" style="--i: {i}">
+            <div class="svc-sky"><span class="svc-plate"><img src="@A/img/{f}.svg" width="{w}" height="{hh}" alt="" loading="lazy" decoding="async"></span></div>
+            <h3 class="svc-title">{t[k]}</h3>
+            <p class="svc-text">{t[k + 't']}</p>
+            <p class="svc-work">{' · '.join(f'<a href="{h}{slug}/">{PJ[slug]["title"]}</a>' for slug in work)}</p>
+          </li>''' for i, (k, f, w, hh, work) in enumerate([('s1', 'service-graphic', 1024, 1024, ('invest-in-bogota', 'vende-digital')), ('s2', 'service-web', 797, 813, ('radio-a-domicilio', 'infinited')), ('s3', 'service-ui', 1024, 1024, ('infinited', 'radio-a-domicilio')), ('s4', 'service-brand', 1024, 1024, ('pro-surge-ja', 'radio-a-domicilio'))])) + f'''
         </ul>
       </div>
       <div class="clients is-night">
@@ -659,7 +666,7 @@ def home(lang, variant='grid'):
 # ------------------------------------------------------------------ CASE STUDIES
 # Each project has its own structure (each project is different), but they share a family:
 # the same cover (title on the horizon + short description + Year / Company / Role), type, horizon and frames.
-WAVES = '''<svg class="waves" viewBox="0 0 240 120" aria-hidden="true" focusable="false">
+WAVES = '''<svg class="waves cover-shape" viewBox="0 0 240 120" aria-hidden="true" focusable="false">
             <path class="w w1" d="M96 120a24 24 0 0 1 48 0"/>
             <path class="w w2" d="M66 120a54 54 0 0 1 108 0"/>
             <path class="w w3" d="M36 120a84 84 0 0 1 168 0"/>
@@ -676,7 +683,7 @@ def fig(name, cls, sizes, alt):
 
 
 def behance_link(t, slug):
-    return f'<a class="behance-link" href="{BEHANCE[slug]}" target="_blank" rel="noopener">{ic("i-behance")} Behance<span class="sr-only"> {t["new_tab"]}</span> {ic("i-go", "icon--go")}</a>'
+    return f'<a class="behance-link" href="{BEHANCE[slug]}" target="_blank" rel="noopener">{ic("i-behance")} Behance<span class="sr-only"> {t["new_tab"]}</span> {go("go--outline")}</a>'
 
 
 def objectives_html(items):
@@ -684,7 +691,7 @@ def objectives_html(items):
             <li class="objective"><h3>{hd}</h3><p>{p}</p></li>''' for hd, p in items) + '\n          </ol>'
 
 
-def case_cover(t, h, title, shape, desc, facts, media, sun=False):
+def case_cover(t, h, title, shape, desc, facts, media, sun=False, stage=''):
     """The cover every project shares: back link, title rising from the horizon beside the client's shape,
     a short description, Year / Company / Role, and the opening image."""
     note = P.format('rótulos Year / Company / Role: pedidos por ti (antes Year / Industry / Services)')
@@ -695,7 +702,7 @@ def case_cover(t, h, title, shape, desc, facts, media, sun=False):
         <h1 class="title-lg">
           <span class="sky">{shape}<span class="rise">{title}</span></span>
         </h1>
-        <span class="horizon{' horizon--sun' if sun else ''}" aria-hidden="true"></span>
+        <span class="horizon horizon--sun" aria-hidden="true"></span>
         <p class="case-desc">{desc}</p>
         {note}
         <dl class="facts">
@@ -705,7 +712,7 @@ def case_cover(t, h, title, shape, desc, facts, media, sun=False):
         </dl>
       </div>
     </section>
-    <div class="cover-stage is-night tone-night"><div class="wrap cover-wrap">{media}</div></div>'''
+    <div class="cover-stage{(" cover-stage--" + stage) if stage else ""} is-night tone-night"><div class="wrap cover-wrap">{media}</div></div>'''
 
 
 def other_work(t, h, items):
@@ -724,7 +731,7 @@ def other_work(t, h, items):
 
 
 def case_shell(lang, slug, meta, client, client_ink, main_html):
-    t = T[lang]
+    t = dict(T[lang], _lang=lang)
     depth = 1 if lang == 'en' else 2
     h = '@H/' if lang == 'en' else '@H/es/'
     other = f'@H/es/{slug}/' if lang == 'en' else f'@H/{slug}/'
@@ -795,12 +802,11 @@ def rad_main(t, h):
           {html}
         </div>
       </section>''' for n, (k, lab, html, night) in enumerate(chs, 1))
-    cover_img = f'<figure class="cover-shot parallax">{pic("rad-brand", "(max-width: 760px) 100vw, 1320px", ra["brand"], eager=True)}</figure>'
-    return case_cover(t, h, 'Radio a Domicilio', WAVES, t['r_summary'], (t['r_year_v'], t['r_company'], t['r_art']), cover_img) + f'''
+    cover_img = f'<figure class="cover-shot">{pic("rad-brand", "(max-width: 760px) 100vw, 1320px", ra["brand"], eager=True)}</figure>'
+    return case_cover(t, h, 'Radio a Domicilio', WAVES, t['r_summary'], (t['r_year_v'], t['r_company'], t['r_art']), cover_img, stage='curtain') + f'''
 
     <div class="chapters">
       <nav class="chapter-nav" aria-label="{t['chapters_label']}">
-        {P.format('nombres de capítulo: Objectives, Process y Results vienen del CMS; el de las piezas es nuevo (ver revisión de estilo)')}
         <ol class="wrap">{rail}
         </ol>
       </nav>{sections}
@@ -867,6 +873,155 @@ def case_iib(lang):
     return case_shell(lang, 'invest-in-bogota', lambda t: (t['c_title'], t['c_desc']), '#ef491f', '#c8361a', iib_main)
 
 
+# ---------- Shapes for the other covers (geometric, from the logo's vocabulary: dot, line, stem)
+SHAPE_VD = '''<svg class="cover-shape links" viewBox="0 0 240 120" aria-hidden="true" focusable="false">
+            <path class="link-line" d="M30 106L120 32L210 106"/><circle class="w w1" cx="30" cy="106" r="13"/><circle class="w w2" cx="120" cy="32" r="18"/><circle class="w w3" cx="210" cy="106" r="13"/>
+          </svg>'''
+SHAPE_INF = '''<svg class="cover-shape stems" viewBox="0 0 240 120" aria-hidden="true" focusable="false">
+            <rect class="w w1" x="38" y="72" width="30" height="64" rx="15"/><rect class="w w2" x="105" y="38" width="30" height="98" rx="15"/><rect class="w w3" x="172" y="4" width="30" height="132" rx="15"/>
+          </svg>'''
+SHAPE_PS = '''<svg class="cover-shape bars" viewBox="0 0 240 120" aria-hidden="true" focusable="false">
+            <path class="w w1" d="M54 120L118 0H158L94 120Z"/><path class="w w2" d="M124 120L188 0H228L164 120Z"/>
+          </svg>'''
+MARK_VD = '<svg class="mark mark--links" viewBox="0 0 40 24" aria-hidden="true" focusable="false"><path d="M6 20L20 6L34 20"/><circle cx="6" cy="20" r="4"/><circle cx="20" cy="6" r="5"/><circle cx="34" cy="20" r="4"/></svg>'
+MARK_INF = '<svg class="mark mark--stems" viewBox="0 0 40 24" aria-hidden="true" focusable="false"><rect x="4" y="14" width="7" height="14" rx="3.5"/><rect x="16.5" y="8" width="7" height="20" rx="3.5"/><rect x="29" y="2" width="7" height="26" rx="3.5"/></svg>'
+MARK_PS = '<svg class="mark mark--bars" viewBox="0 0 40 24" aria-hidden="true" focusable="false"><path d="M6 24L17 0H24L13 24Z"/><path d="M19 24L30 0H37L26 24Z"/></svg>'
+
+
+def mark_head(label, hid, mark):
+    return f'''<header class="dot-head">
+          <div class="sky">{mark}<h2 id="{hid}" class="rise chapter-title">{label}</h2></div>
+          <span class="horizon" aria-hidden="true"></span>
+        </header>'''
+
+
+def section(cls, hid, head, inner):
+    return f'''
+
+    <section class="case-section{(" " + cls) if cls else ""}" aria-labelledby="{hid}">
+      <div class="wrap">
+        {head}
+        {inner}
+      </div>
+    </section>'''
+
+
+def results_block(t, text, nxt=None, slug=None):
+    items = ''.join(f'''
+                <li><h4>{hd}</h4><p>{p}</p></li>''' for hd, p in (nxt or []))
+    side = f'''
+            <div class="next">
+              <h3>{t['r_next_label']}</h3>
+              <ul>{items}
+              </ul>
+            </div>''' if nxt else ''
+    return f'''<div class="chapter-body grid">
+            <p class="results lede{' results--wide' if not nxt else ''}">{text}</p>{side}
+          </div>'''
+
+
+# ---------- Vende Digital: a campaign, "Facts that connect": its points are joined by a line
+def vd_main(t, h):
+    c = VD[t['_lang']]; a = c['alts']
+    connect = '<ol class="connect">' + ''.join(f'''
+            <li><span class="connect-dot" aria-hidden="true"></span><p>{x}</p></li>''' for x in c['obj']) + '\n          </ol>'
+    work = f'''<div class="gallery">
+            {fig('vd-key-visual', 'g-6', '(max-width: 760px) 100vw, 50vw', a['key'])}
+            {fig('vd-phone-mockup', 'g-6', '(max-width: 760px) 100vw, 50vw', a['mockup'])}
+            {fig('vd-phones', '', '(max-width: 760px) 100vw, 1320px', a['phones'])}
+            <div class="gallery-label"><h3>{t['c_social']}</h3></div>
+            {fig('vd-post-catalogo', 'g-4', '(max-width: 760px) 100vw, 33vw', a['catalogo'])}
+            {fig('vd-post-tiendas', 'g-4', '(max-width: 760px) 100vw, 33vw', a['tiendas'])}
+            {fig('vd-post-ventas', 'g-4', '(max-width: 760px) 100vw, 33vw', a['ventas'])}
+            {fig('vd-post-vitrina', 'g-6', '(max-width: 760px) 100vw, 50vw', a['vitrina'])}
+            {fig('vd-post-empresas', 'g-6', '(max-width: 760px) 100vw, 50vw', a['empresas'])}
+            {fig('vd-event', '', '(max-width: 760px) 100vw, 1320px', a['event'])}
+          </div>'''
+    cover = f'<figure class="cover-shot">{pic("vd-billboard", "(max-width: 760px) 100vw, 1320px", a["billboard"], eager=True)}</figure>'
+    return case_cover(t, h, 'Vende Digital', SHAPE_VD, c['desc'], (c['year'], c['company'], t['r_dgd']), cover) + \
+        section('', 'vd-obj', mark_head(t['c_obj'], 'vd-obj', MARK_VD), connect) + \
+        section('is-night tone-night', 'vd-work', mark_head(c['work'], 'vd-work', MARK_VD), work) + \
+        section('case-section--last', 'vd-res', mark_head(t['ch_res'], 'vd-res', MARK_VD), results_block(t, c['results'])) + \
+        other_work(t, h, [('infinited', 'project--narrow project--square', '(max-width: 760px) 100vw, 42vw'), ('col40-2018', 'project--narrow project--square', '(max-width: 760px) 100vw, 42vw')])
+
+
+# ---------- Infinited: learning as a climb; the three phases are steps that rise
+def inf_main(t, h):
+    c = INF[t['_lang']]; a = c['alts']
+    steps = '<ol class="steps">' + ''.join(f'''
+            <li class="step">
+              <span class="step-stem" aria-hidden="true"></span>
+              <h3 class="phase-title">{ph}</h3>''' + ''.join(f'''
+              <h4>{ih}</h4>
+              <p>{ip}</p>''' for ih, ip in items) + '''
+            </li>''' for ph, items in c['phases']) + '\n          </ol>'
+    posts = ''.join(fig(f'inf-post-{i}', 'g-3', '(max-width: 760px) 50vw, 25vw', alt) for i, alt in enumerate(a['posts'], 1))
+    work = f'''<div class="gallery">
+            {fig('inf-overview', '', '(max-width: 760px) 100vw, 1320px', a['overview'])}
+            {fig('inf-key-visual', 'g-7', '(max-width: 760px) 100vw, 58vw', a['key'])}
+            {fig('inf-logo', 'g-5', '(max-width: 760px) 100vw, 40vw', a['logo'])}
+            {fig('inf-escalo', '', '(max-width: 760px) 100vw, 1320px', a['escalo'])}
+            <div class="gallery-label"><h3>{t['c_social']}</h3></div>
+            {posts}
+            {fig('inf-post-crecer', 'g-6', '(max-width: 760px) 100vw, 50vw', a['crecer'])}
+            {fig('inf-post-growth', 'g-6', '(max-width: 760px) 100vw, 50vw', a['growth'])}
+            {fig('inf-post-legal', 'g-6', '(max-width: 760px) 100vw, 50vw', a['legal'])}
+            {fig('inf-computer', 'g-6', '(max-width: 760px) 100vw, 50vw', a['computer'])}
+          </div>'''
+    cover = f'<figure class="cover-shot">{pic("inf-key-visual", "(max-width: 760px) 100vw, 1320px", a["key"], eager=True)}</figure>'
+    return case_cover(t, h, 'Infinited', SHAPE_INF, c['desc'], (c['year'], c['company'], t['r_vec']), cover) + \
+        section('', 'inf-proc', mark_head(t['ch_proc'], 'inf-proc', MARK_INF), steps) + \
+        section('is-night tone-night', 'inf-work', mark_head(c['work'], 'inf-work', MARK_INF), work) + \
+        section('case-section--last', 'inf-res', mark_head(t['ch_res'], 'inf-res', MARK_INF), results_block(t, c['results'])) + \
+        other_work(t, h, [('vende-digital', '', '(max-width: 760px) 100vw, 58vw'), ('pro-surge-ja', 'project--narrow', '(max-width: 760px) 100vw, 42vw')])
+
+
+# ---------- Pro Surge JA: an identity built like its packaging: spec labels, the approach, the reveal, the verdict
+def ps_main(t, h):
+    c = PS[t['_lang']]; a = c['alts']
+    specs = '<ol class="specs">' + ''.join(f'''
+            <li class="spec"><h3>{hd}</h3><p>{p}</p></li>''' for hd, p in c['obj']) + '\n          </ol>'
+    approach = '<div class="approach">' + ''.join(f'''
+            <div class="approach-row">
+              <h3 class="phase-title">{ph}</h3>
+              <ul>''' + ''.join(f'''
+                <li><h4>{ih}</h4><p>{ip}</p></li>''' for ih, ip in items) + '''
+              </ul>
+            </div>''' for ph, items in c['phases']) + '\n          </div>'
+    work = f'''<div class="gallery">
+            {fig('ps-logo-red', 'g-6', '(max-width: 760px) 100vw, 50vw', a['logo_red'])}
+            {fig('ps-logo-navy', 'g-6', '(max-width: 760px) 100vw, 50vw', a['logo_navy'])}
+            {fig('ps-box-surge', 'g-6', '(max-width: 760px) 100vw, 50vw', a['box_surge'])}
+            {fig('ps-box-fridge', 'g-6', '(max-width: 760px) 100vw, 50vw', a['box_fridge'])}
+            {fig('ps-billboard', '', '(max-width: 760px) 100vw, 1320px', a['billboard'])}
+            <div class="gallery-label"><h3>{t['c_social']}</h3></div>
+            {fig('ps-post-surge', 'g-4', '(max-width: 760px) 100vw, 33vw', a['post_surge'])}
+            {fig('ps-post-fridge', 'g-4', '(max-width: 760px) 100vw, 33vw', a['post_fridge'])}
+            {fig('ps-post-monitor', 'g-4', '(max-width: 760px) 100vw, 33vw', a['post_monitor'])}
+          </div>'''
+    concl = f'''<p class="statement-text">{c['conclusions']}</p>'''
+    cover = f'<figure class="cover-shot">{pic("ps-overview", "(max-width: 760px) 100vw, 1320px", a["overview"], eager=True)}</figure>'
+    return case_cover(t, h, 'Pro Surge JA', SHAPE_PS, c['desc'], (c['year'], c['company'], t['r_ad']), cover) + \
+        section('', 'ps-obj', mark_head(t['c_obj'], 'ps-obj', MARK_PS), specs) + \
+        section('', 'ps-app', mark_head(c['approach'], 'ps-app', MARK_PS), approach) + \
+        section('is-night tone-night', 'ps-work', mark_head(c['work'], 'ps-work', MARK_PS), work) + \
+        section('', 'ps-res', mark_head(t['ch_res'], 'ps-res', MARK_PS), results_block(t, c['results'], c['next'])) + \
+        section('case-section--last', 'ps-concl', mark_head(c['conclusions_label'], 'ps-concl', MARK_PS), concl) + \
+        other_work(t, h, [('vende-digital', '', '(max-width: 760px) 100vw, 58vw'), ('infinited', 'project--narrow project--square', '(max-width: 760px) 100vw, 42vw')])
+
+
+def case_vd(lang):
+    return case_shell(lang, 'vende-digital', lambda t: (VD[lang]['title'], VD[lang]['meta']), '#ff00bc', '#2836d9', vd_main)
+
+
+def case_inf(lang):
+    return case_shell(lang, 'infinited', lambda t: (INF[lang]['title'], INF[lang]['meta']), '#2ccfc7', '#0b6f7a', inf_main)
+
+
+def case_ps(lang):
+    return case_shell(lang, 'pro-surge-ja', lambda t: (PS[lang]['title'], PS[lang]['meta']), '#ff4848', '#b3121b', ps_main)
+
+
 # ------------------------------------------------------------------ 404 (one file, both languages)
 def lost():
     en = T['en']
@@ -920,6 +1075,9 @@ write('invest-in-bogota/index.html', case_iib('en'))
 write('es/invest-in-bogota/index.html', case_iib('es'))
 write('radio-a-domicilio/index.html', case_rad('en'))
 write('es/radio-a-domicilio/index.html', case_rad('es'))
+for slug, fn in (('vende-digital', case_vd), ('infinited', case_inf), ('pro-surge-ja', case_ps)):
+    write(f'{slug}/index.html', fn('en'))
+    write(f'es/{slug}/index.html', fn('es'))
 write('projects-a/index.html', home('en', 'plates'))
 write('projects-b/index.html', home('en', 'sheet'))
 write('projects-c/index.html', home('en', 'tiles'))

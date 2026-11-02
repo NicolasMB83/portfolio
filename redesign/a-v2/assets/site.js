@@ -175,6 +175,13 @@
     if (img.complete && img.naturalWidth) mark(); else img.addEventListener("load", mark, { once: true });
   });
 
+  /* Services: the four plates rise from their horizon one after another, once, when the row comes into view */
+  const svc = document.querySelector(".svc");
+  if (svc && !reduceMotion.matches && "IntersectionObserver" in window) {
+    svc.classList.add("is-armed");
+    new IntersectionObserver(([e], obs) => { if (e.isIntersecting) { svc.classList.add("is-in"); obs.disconnect(); } }, { threshold: 0.35 }).observe(svc);
+  }
+
   /* Footer logotype: its letters rise from the bottom edge, one after another, when it comes into view */
   const endMark = document.querySelector(".end-mark[data-reveal]");
   if (endMark) {

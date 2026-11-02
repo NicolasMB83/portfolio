@@ -4,116 +4,53 @@ Prototipo, no publicado. Rama `redesign`, carpeta `redesign/a-v2/` (inglés) y `
 
 ## ⏳ Pendiente de tu decisión (ronda actual)
 
-### 1. Encabezado: elige una propuesta
-Abre cualquier página con el parámetro y baja un poco. Luego sube un poco para que aparezca la píldora.
+### 1. Revisión de textos: página para decidir
+Las 41 propuestas (R1–R41) están en una página donde marcas Sí o No y dejas una nota por cada una:
+**https://claude.ai/artifact/EaVz97Axgp22ehvcy5VmEH**
 
-| Propuesta | Qué es | Ver |
-|---|---|---|
-| Actual | Píldora flotante sin marco: el contenido pasa por detrás y alrededor | [ver](https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v2/index.html) |
-| A, banda | Como tu versión anterior: la píldora va sobre una banda del color del fondo; el contenido desaparece bajo la banda | [ver](https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v2/index.html?header=a) |
-| B, banda difuminada | La banda se desvanece hacia abajo y desenfoca lo que pasa por debajo | [ver](https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v2/index.html?header=b) |
-| C, píldora enmarcada | Sin banda; la píldora tiene un contorno fino y una sombra más marcada | [ver](https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v2/index.html?header=c) |
+Tus decisiones quedan guardadas y yo las leo para aplicar solo lo aprobado.
+- **R1–R29:** sitio general, Invest in Bogotá y Radio a Domicilio.
+- **R30–R40:** los tres casos nuevos.
+- **R41:** los enlaces a proyectos bajo cada servicio.
 
-### 2. Parallax de Radio a Domicilio: elige una propuesta
-Investigué los patrones más usados en portafolios y sitios premiados. Hay cuatro familias:
-- **Imagen que se mueve más lento:** el parallax clásico.
-- **Imagen fija con el contenido pasando por encima:** el "telón", con `sticky`.
-- **Imagen que se expande al hacer scroll:** con `clip-path`, muy presente en Awwwards.
-- **Portada a pantalla completa** que se asienta.
+Hay tres preguntas que solo tú puedes responder:
+- **R32:** año de Infinited: ¿2022-2023, como dice el caso, o 2021-2022, como dice la trayectoria?
+- **R37:** el objetivo "Market Research" de Pro Surge describe un comercio electrónico. ¿Cuál era el objetivo real?
+- **R41:** ¿la relación servicio → proyectos es correcta?
 
-Todas respetan "reducir movimiento".
+### 2. Los tres casos nuevos (cada uno con su estructura, misma familia)
+- **[Vende Digital](https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v2/vende-digital/index.html).** Campaña "Hechos que conectan":
+  - Los objetivos son tres puntos unidos por una línea, como el concepto.
+  - Siguen las piezas en índigo y los resultados.
+  - Marca: puntos conectados en magenta y azul de la marca.
+- **[Infinited](https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v2/infinited/index.html).** Aprendizaje como ascenso:
+  - Las tres fases del proceso son escalones que suben.
+  - Siguen las piezas y los resultados.
+  - Marca: tres trazos (la "l" del logo) que crecen, en el turquesa de la marca.
+- **[Pro Surge JA](https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v2/pro-surge-ja/index.html).** Identidad como empaque:
+  - Los objetivos son fichas técnicas con la franja roja de la caja.
+  - Siguen el enfoque en filas, las piezas, los resultados con próximos pasos y las conclusiones.
+  - Marca: las dos franjas diagonales del empaque.
 
-| Propuesta | Qué es | Ver |
-|---|---|---|
-| A, marco (actual) | La imagen, dentro de un marco redondeado, se mueve más lento que la página | [ver](https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v2/radio-a-domicilio/index.html) |
-| B, pantalla completa | La imagen ocupa el 100 % de la pantalla, de borde a borde, y se mueve más lento | [ver](https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v2/radio-a-domicilio/index.html?parallax=b) |
-| C, telón | La imagen queda fija a pantalla completa y los capítulos suben por encima, como un telón | [ver](https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v2/radio-a-domicilio/index.html?parallax=c) |
-| D, expansión | La imagen empieza enmarcada y se abre hasta el ancho completo cuando empiezas a bajar | [ver](https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v2/radio-a-domicilio/index.html?parallax=d) |
+Los textos en inglés son los publicados en tu sitio, sin cambios (sus errores están en R30–R40). El español es una traducción fiel.
 
-Mi recomendación es **D** o **A**:
-- **D** cuenta la idea de "abrirse al horizonte".
-- **A** es la más sobria.
-- **B** y **C** dan mucho protagonismo a una sola imagen; funcionan si esa imagen es muy fuerte.
+**Colombia 4.0 (2018):** no tiene página publicada ni textos. Si me envías el contenido, la construyo.
 
-### 3. Nombre de la sección de piezas ("The work")
-Las fuentes consultadas no fijan un nombre estándar, pero coinciden en que los títulos descriptivos funcionan mejor que los genéricos para quien escanea un caso en 10–30 segundos.
-
-| Opción | Inglés | Español |
-|---|---|---|
-| A (recomendada, descriptiva) | Brand, web and campaigns · Campaigns, presentations and web | Marca, web y campañas · Campañas, presentaciones y web |
-| B (genérica) | Selected work | Piezas seleccionadas |
-| C (la anterior) | The work | Las piezas |
-
-Hoy se ve la opción A: en Radio a Domicilio "Brand, web and campaigns / Marca, web y campañas"; en Invest in Bogotá "Campaigns, presentations and web / Campañas, presentaciones y web".
-
-### 4. Revisión ortográfica y de estilo (ronda 1)
-No cambié ningún texto visible. Cada propuesta está marcada en el HTML como `PROPUESTA DE TEXTO R<número>`. Respóndeme por número, por ejemplo: "sí R1–R12, no R24".
-
-| # | Dónde | Inglés actual | Inglés propuesto | Español actual | Español propuesto | Por qué |
-|---|---|---|---|---|---|---|
-| R1 | Inicio · intro | I'm Nicolás, a multidisciplinary designer with experience in Product and Digital Design, creating campaigns on social media. | **I’m Nicolás, a multidisciplinary designer with experience in product design, digital design and social media campaigns.** | Soy Nicolás, diseñador multidisciplinario con experiencia en diseño de producto y diseño digital, creando campañas para redes sociales. | **Soy Nicolás, diseñador multidisciplinario con experiencia en diseño de producto, diseño digital y campañas para redes sociales.** | EN: "creating campaigns on social media" queda colgando; las disciplinas van en minúscula; apóstrofo tipográfico. ES: mismo ajuste (el gerundio "creando" queda suelto). |
-| R2 | Contacto · título | Let's make magic! | **Let’s make magic!** | — | **—** | Apóstrofo tipográfico (’), igual que en "Let’s talk". |
-| R3 | Servicios · UI Design | I enhance the user experience with intuitive interface designs for web and mobile applications. | **Enhancing the user experience with intuitive interfaces for web and mobile apps.** | Mejoro la experiencia de usuario con diseños de interfaz intuitivos para aplicaciones web y móviles. | **Mejora de la experiencia de usuario con interfaces intuitivas para aplicaciones web y móviles.** | Los otros tres servicios están escritos sin sujeto ("Developing…", "Creating…"); este es el único en primera persona. |
-| R4 | Trayectoria · Invest in Bogotá, viñeta 1 | Design of graphic assets for national and international investment promotion events. | **Designed graphic assets for national and international investment promotion events.** | Diseño de piezas gráficas para eventos nacionales e internacionales de promoción de inversión. | **Diseñé piezas gráficas para eventos nacionales e internacionales de promoción de inversión.** | Las viñetas de un mismo cargo deben ser paralelas: verbo en pasado, como "Implemented…". |
-| R5 | Trayectoria · Invest in Bogotá, viñeta 2 | Creation of visual assets for social media campaigns, aimed at informing, promoting and attracting investors to Bogotá, the capital of Colombia. | **Created visual assets for social media campaigns that inform, promote and attract investment to Bogotá, the capital of Colombia.** | Creación de piezas visuales para campañas en redes sociales, orientadas a informar, promover y atraer inversionistas a Bogotá, la capital de Colombia. | **Creé piezas visuales para campañas en redes sociales que informan, promueven y atraen inversión a Bogotá, la capital de Colombia.** | Verbo en pasado (paralelismo) y frase más directa. |
-| R6 | Trayectoria · Invest in Bogotá, viñeta 3 | Implemented AI to support design workflow across the Design department. | **Implemented AI tools to support the design workflow across the Design department.** | Implementé IA para apoyar el flujo de trabajo de diseño en todo el departamento de Diseño. | **Implementé herramientas de IA para apoyar el flujo de trabajo en todo el departamento de Diseño.** | EN: falta el artículo ("the design workflow"). ES: se evita repetir "diseño". |
-| R7 | Trayectoria · Ondas y Ecos, viñeta 3 | Directed the narrative of the brand Radio a Domicilio. Closeness and familiarity. | **Directed the Radio a Domicilio brand narrative, built on closeness and familiarity.** | Dirigí la narrativa de la marca Radio a Domicilio. Cercanía y familiaridad. | **Dirigí la narrativa de la marca Radio a Domicilio, basada en la cercanía y la familiaridad.** | "Closeness and familiarity." es una frase sin verbo; se integra a la oración. |
-| R8 | Trayectoria · Infinited, viñeta 1 | Led cross-functional collaboration between the marketing, design and development teams to deliver campaigns aligned with the university goals. | **Led cross-functional collaboration between the marketing, design and development teams to deliver campaigns aligned with the university’s goals.** | — | **—** | Falta el posesivo: "the university’s goals". |
-| R9 | Trayectoria · Infinited, viñeta 2 | Created interactive content aligned with brand identity, leading to further improvement and organic evolution of the brand. | **Created interactive content aligned with the brand identity, helping the brand improve and evolve organically.** | Creé contenido interactivo alineado con la identidad de marca, lo que llevó a una mayor mejora y a la evolución orgánica de la marca. | **Creé contenido interactivo alineado con la identidad de marca, que ayudó a la marca a mejorar y evolucionar de forma orgánica.** | Más corta y directa; "further improvement and organic evolution" es redundante. |
-| R10 | Trayectoria · Infinited, viñeta 3 | UI prototyping and deployment optimized for the sales funnel. | **Prototyped and deployed interfaces optimized for the sales funnel.** | Prototipado y despliegue de UI optimizados para el embudo de ventas. | **Prototipé y desplegué interfaces optimizadas para el embudo de ventas.** | Paralelismo con las otras viñetas (verbo en pasado). |
-| R11 | Trayectoria · MinTIC, viñeta 1 | presentations (PPT/keynote) | **presentations (PowerPoint/Keynote)** | presentaciones (PPT/keynote) | **presentaciones (PowerPoint/Keynote)** | Nombres de producto con su grafía oficial. |
-| R12 | Trayectoria · ReloQuest, viñeta 4 | Create print pieces such as backdrops, and mock-ups that present each design in context. | **Create print pieces such as backdrops, plus mockups that show each design in context.** | Creo piezas impresas como backdrops, y mock-ups que presentan cada diseño en contexto. | **Creo piezas impresas como *backdrops*, además de *mockups* que muestran cada diseño en contexto.** | La coma antes de "and" hace pensar que los mock-ups son piezas impresas. ES: los extranjerismos van en cursiva (RAE). |
-| R13 | Invest in Bogotá · párrafo de la agencia (punto 9) | IBB aim is to facilitate relevant international investments and attract world-class meetings and events that contribute to the socioeconomic development, competitiveness, and quality of life of Bogotá-Region. I have to develop impactful collateral to create a strong brand presence as well as keep a coherent narrative of the brand. | **IBB’s aim is to facilitate relevant international investment and attract world-class meetings and events that contribute to the socioeconomic development, competitiveness and quality of life of Bogotá–Region. My role is to develop impactful collateral that builds a strong brand presence and keeps the brand’s narrative coherent.** | El objetivo de IBB es facilitar inversiones internacionales relevantes y atraer reuniones y eventos de talla mundial que contribuyan al desarrollo socioeconómico, la competitividad y la calidad de vida de Bogotá-Región. Debo desarrollar piezas de impacto para crear una presencia de marca sólida, así como mantener una narrativa coherente de la marca. | **El objetivo de IBB es facilitar inversiones internacionales relevantes y atraer reuniones y eventos de talla mundial que contribuyan al desarrollo socioeconómico, la competitividad y la calidad de vida de Bogotá–Región. Mi labor es desarrollar piezas de impacto que construyan una presencia de marca sólida y mantengan coherente su narrativa.** | Falta el posesivo ("IBB’s aim"); "I have to" suena a obligación, no a rol; "Bogotá-Region" se escribe distinto en la portada ("Bogotá – Region"): se unifica con raya corta. |
-| R14 | Invest in Bogotá · título de sección | Objectives - Challenges | **Objectives and challenges** | Objetivos - Retos | **Objetivos y retos** | Un guion no separa títulos; se usa "y". |
-| R15 | Invest in Bogotá · reto 1 | IBB has a new rebranding, making this the perfect environment to develop the brand, through creative implementations in printed, web, and social media assets the challenge is to preserve its brand while developing new ways to communicate | **IBB had just been rebranded, which made it the perfect moment to develop the brand. Through creative work for print, web and social media, the challenge is to preserve the brand while finding new ways to communicate.** | IBB tiene un nuevo rebranding, lo que hace de este el entorno perfecto para desarrollar la marca; a través de implementaciones creativas en piezas impresas, web y de redes sociales, el reto es preservar su marca mientras se desarrollan nuevas formas de comunicar | **IBB acababa de renovar su marca, lo que hizo de este el momento perfecto para desarrollarla. A través de piezas creativas impresas, web y para redes sociales, el reto es preservar la marca mientras se encuentran nuevas formas de comunicar.** | Oración demasiado larga (dos ideas unidas por comas) y sin punto final. "A new rebranding" es redundante. |
-| R16 | Invest in Bogotá · reto 2 | The biggest challenge is to keep the brand relevant, by researching every day about current trends and styles I'm able to keep the brand cohesion while creating content for web, digital and printed media. | **The biggest challenge is keeping the brand relevant. By researching current trends and styles every day, I keep the brand cohesive while creating content for web, digital and print media.** | El mayor reto es mantener la marca vigente; investigando cada día sobre tendencias y estilos actuales, logro mantener la cohesión de la marca mientras creo contenido para medios web, digitales e impresos. | **El mayor reto es mantener la marca vigente. Investigando cada día tendencias y estilos actuales, mantengo la cohesión de la marca mientras creo contenido para medios web, digitales e impresos.** | Dos oraciones en una; "researching about" sobra la preposición. |
-| R17 | Invest in Bogotá · reto 2, título | Keep sharp graphics | **Keep the graphics sharp** | — | **—** | Orden natural en inglés. |
-| R18 | Invest in Bogotá · reto 3 | Integrate AI tools into the mix in order to reduce times in production and/or develop products that demand speed, complexity and quality | **Integrate AI tools into the process to reduce production times and to develop products that demand speed, complexity and quality.** | Integrar herramientas de IA al proceso para reducir los tiempos de producción y/o desarrollar productos que exigen velocidad, complejidad y calidad | **Integrar herramientas de IA al proceso para reducir los tiempos de producción y desarrollar productos que exigen velocidad, complejidad y calidad.** | "and/or" no es recomendable en textos de presentación; falta el punto final. |
-| R19 | Casos · "Social Media" | Social Media | **Social media** | — | **—** | Mayúscula solo inicial, como el resto de rótulos ("Slides"). |
-| R20 | Radio a Domicilio · descripción | Under the slogan “Radio at Home,” we seek to create an authentic and welcoming experience | **Under the slogan “Radio at Home,” we set out to create an authentic, welcoming experience.** | Bajo el lema “Radio a Domicilio”, buscamos crear una experiencia auténtica y acogedora | **Bajo el lema “Radio a Domicilio”, buscamos crear una experiencia auténtica y acogedora.** | Falta el punto final. |
-| R21 | Radio a Domicilio · objetivo 3 | Create striking graphics that capture attention and retain users on social media. | **Creating striking graphics that capture attention and keep users engaged on social media.** | — | **—** | Paralelismo con los otros dos objetivos ("Achieving…", "Designing…"). |
-| R22 | Radio a Domicilio · proceso (tiempos verbales) | Thoroughly research audience preferences to create an aesthetic that reinvents the legacy of Radio a Domicilio and attracts new listeners. | **Researched audience preferences in depth to create an aesthetic that reinvents the legacy of Radio a Domicilio and attracts new listeners.** | Investigar a fondo las preferencias de la audiencia para crear una estética que reinvente el legado de Radio a Domicilio y atraiga nuevos oyentes. | **Investigué a fondo las preferencias de la audiencia para crear una estética que reinventara el legado de Radio a Domicilio y atrajera nuevos oyentes.** | El proceso mezcla imperativo, pasado y sustantivos; todo en pasado. |
-| R23 | Radio a Domicilio · proceso, Diseño UI/UX | I designed a clean, intuitive interface with streamlined navigation and engaging visuals to motivate users | **Designed a clean, intuitive interface with streamlined navigation and engaging visuals.** | Diseñé una interfaz limpia e intuitiva, con una navegación simplificada y visuales atractivos para motivar a los usuarios | **Diseñé una interfaz limpia e intuitiva, con navegación simplificada y visuales atractivos.** | Falta el punto final; "to motivate users" no agrega información. |
-| R24 | Radio a Domicilio · proceso, Análisis de audiencia | Examine audience preferences to define the aesthetic of Radio a Domicilio and attract new listeners. | **Analyzed how the audience responded to each visual direction to settle the final aesthetic.** | Examinar las preferencias de la audiencia para definir la estética de Radio a Domicilio y atraer nuevos oyentes. | **Analicé cómo respondía la audiencia a cada dirección visual para definir la estética final.** | Repite casi palabra por palabra el "Market and Style Study". Propongo diferenciarlo; si no corresponde a lo que hiciste, se puede quitar. |
-| R25 | Radio a Domicilio · proceso, Pruebas con usuarios | Initial testing of a controlled group of users to obtain feedback about the web interface, its use, and future implementations before launch | **Tested the web interface with a controlled group of users before launch to gather feedback on its use and on future features.** | Pruebas iniciales con un grupo controlado de usuarios para obtener retroalimentación sobre la interfaz web, su uso y futuras implementaciones antes del lanzamiento | **Probé la interfaz web con un grupo controlado de usuarios antes del lanzamiento para recoger comentarios sobre su uso y sobre funciones futuras.** | Tiempo verbal y punto final. |
-| R26 | Radio a Domicilio · proceso, Optimización web | Implemented optimizations in the user interface to enhance the navigation experience of the website on computers and mobile devices. | **Optimized the interface to improve navigation on desktop and mobile.** | Implementé optimizaciones en la interfaz de usuario para mejorar la experiencia de navegación del sitio web en computadores y dispositivos móviles. | **Optimicé la interfaz para mejorar la navegación en computador y celular.** | Más directa. |
-| R27 | Radio a Domicilio · resultados | received positive feedback and an exceptional reception in the company. | **received positive feedback and an exceptional reception within the company.** | — | **—** | "within the company" es la preposición natural. |
-| R28 | Radio a Domicilio · próximos pasos | Continuous Improvements | **Continuous improvements** | — | **—** | Mayúscula solo inicial, como los demás títulos. |
-| R29 | 404 | The page you are looking for is not found or has been moved. Please return to the main page. | **The page you’re looking for doesn’t exist or has moved. Head back to the home page.** | La página que buscas no se encuentra o ha sido movida. Por favor, regresa a la página principal. | **La página que buscas no existe o cambió de lugar. Vuelve al inicio.** | "is not found" no es natural en inglés; más corto y en el tono del sitio. |
-
-### 5. Íconos: qué dicen las normas y qué recomiendo
-Lo que dicen las normas:
-- **Un ícono solo no basta.** Las guías de usabilidad, el sistema de diseño de la Oficina de Estadísticas del Reino Unido (ONS) y los estudios que citan a NN/g coinciden en que la mayoría de los íconos solo se entienden bien con una etiqueta de texto.
-- **Excepciones:** los íconos universales (cerrar, menú, reproducir, descargar) y los logos de redes conocidas.
-- **Pestaña nueva:** un enlace que abre una pestaña nueva debe anunciarlo a lectores de pantalla (W3C, técnica G201). Ya lo apliqué en LinkedIn, Behance y el CV: "(opens in a new tab)" / "(se abre en una pestaña nueva)", no visible.
-
-Lo que hacen los portafolios destacados: usan pocos íconos. Las redes suelen ir como texto ("LinkedIn ↗") y la flecha ↗ aparece solo para indicar que el enlace sale del sitio.
-
-Mi recomendación (no aplicada, dime si sí):
-
-| Ícono | Recomendación | Por qué |
-|---|---|---|
-| ↗ del "Let’s talk" | Mantener | Es parte de la animación aprobada |
-| Copiar / ✓ copiado | Mantener | Comunica un cambio de estado |
-| Cerrar (×) y menú (≡) | Mantener | Universales |
-| Descarga del CV | Mantener | Indica que baja un archivo |
-| Logo de Behance junto a la palabra "Behance" | Quitar | Repite lo mismo dos veces |
-| Footer: círculos solo con ícono (LinkedIn, Behance, correo) | Cambiar por texto: "LinkedIn ↗ · Behance ↗ · Email" | Íconos sin etiqueta, la forma menos clara según las normas |
-
----
+### 3. Servicios rediseñados
+Antes eran cuatro filas altas con mucho espacio y poco contenido. Ahora es una sola franja:
+- **Cuatro soles sobre un mismo horizonte.** Cada ilustración vive dentro de un sol que sube desde la línea, uno tras otro (70 ms), cuando la sección entra en pantalla. Al pasar el cursor, el sol brilla y la ilustración se eleva.
+- **Debajo de la línea:** el servicio, su texto y (propuesta R41) los proyectos donde lo aplicaste, como enlaces. Así la sección dice más con menos espacio.
+- **Altura:** pasa de unos 1100 px a unos 420 px en escritorio.
 
 ## ✅ Aplicado en esta ronda
-- **Línea del horizonte bajo el sol:** es invisible lejos del sol y gana opacidad a medida que se acerca. Pasado el sol se desvanece de nuevo. Aplica en el hero, el 404, el panel de contacto y la portada de Invest in Bogotá.
-- **Cada proyecto con su propia estructura, misma familia:**
-  - Portada común: título sobre el horizonte, **descripción breve** y **Año / Empresa / Rol**.
-  - **Radio a Domicilio:** capítulos numerados (Objetivos, Proceso, piezas, Resultados). Los números son más pequeños, en proporción a secciones cortas. La descripción pasó a la portada.
-  - **Invest in Bogotá:** sin números. Párrafo de la agencia como declaración, retos y piezas, marcados con el punto rojo de su marca, que sube desde la línea.
-- **Píldora:** al pasar el cursor, las secciones y el idioma se ponen naranja. Usé un naranja un poco más profundo (`#bd4600`) para que el texto mantenga contraste 5:1; el naranja del sol daría 2,6:1.
-- **Teselación:**
-  - Se corrigió la falla: en cada unión entre baldosas el trazo se cortaba y dejaba un escalón. Ahora cada baldosa dibuja también los arcos vecinos como una sola onda continua.
-  - Solo aparece mientras una imagen carga o si falla. Se quitó de los bordes de las secciones, y cuando la imagen carga desaparece (las imágenes con fondo transparente ya no quedan enmarcadas).
-- **Animación al hacer scroll** (la imagen que se aleja): ya no está en todas. Por ahora solo en la captura del sitio de Invest in Bogotá ("5 claves legales para situar tus negocios en Bogotá").
-- **Accesibilidad:** los enlaces que abren pestaña nueva lo anuncian a lectores de pantalla.
+- **Encabezado:** se queda el actual (píldora). Se quitaron las variantes.
+- **Parallax:** telón en Radio a Domicilio. La imagen queda fija a pantalla completa y los capítulos suben por encima. Se quitaron las demás variantes.
+- **Nombre de la sección de piezas:** descriptivo en cada proyecto (por ejemplo, "Brand, web and campaigns").
+- **Flecha:** la misma animación en todos los elementos con flecha:
+  - Se dibuja el contorno del sol y luego se rellena.
+  - Va en los botones, "View portfolio" y las tarjetas de proyecto (el sol aparece en la esquina de la imagen).
+  - En los enlaces de Behance, solo el contorno.
+- **Línea del título de cada proyecto:** opacidad 0 lejos de la forma del cliente (sol, ondas, puntos, trazos, franjas) y aumenta al acercarse.
 
 ## Pendiente de rondas anteriores
 

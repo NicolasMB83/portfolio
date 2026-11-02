@@ -229,5 +229,335 @@
  "qkWj8OtoeZ8rYN3pJfoDd6GptfE.png": {
   "name": "favicon-dark",
   "file": "favicon-dark.png"
+ },
+ "v5YR0qG83TV2pgHVorNylYydnk.png": {
+  "name": "vd-billboard",
+  "w": 1200,
+  "h": 808,
+  "sizes": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "QSX0eBEvYSWAqeJzvef7yuXCZU.jpg": {
+  "name": "vd-key-visual",
+  "w": 673,
+  "h": 390,
+  "sizes": [
+   480,
+   673
+  ]
+ },
+ "9XCnqEdSAAYPVAsHAFHF0REhxKA.png": {
+  "name": "vd-phones",
+  "w": 1921,
+  "h": 886,
+  "sizes": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "XkcYT90EbWFHvxlGog1W5LJVRzY.jpg": {
+  "name": "vd-post-vitrina",
+  "w": 832,
+  "h": 833,
+  "sizes": [
+   480,
+   832
+  ]
+ },
+ "18vENJC6mHmPs89zZxl5pW0whI.jpg": {
+  "name": "vd-post-catalogo",
+  "w": 760,
+  "h": 1013,
+  "sizes": [
+   480,
+   760
+  ]
+ },
+ "ooakbTmoaJzllwSgeyFHhb4bs.jpg": {
+  "name": "vd-post-tiendas",
+  "w": 760,
+  "h": 1013,
+  "sizes": [
+   480,
+   760
+  ]
+ },
+ "fPeAU0KpEqT7ue9cXzVJHgrQek.jpg": {
+  "name": "vd-post-ventas",
+  "w": 760,
+  "h": 1013,
+  "sizes": [
+   480,
+   760
+  ]
+ },
+ "1ChTBIIPqzdStEJYfvIObpyPhUo.jpg": {
+  "name": "vd-post-empresas",
+  "w": 1201,
+  "h": 1601,
+  "sizes": [
+   480,
+   960,
+   1201
+  ]
+ },
+ "JgsqYYXCRaRs9jsIODeamNXFE68.png": {
+  "name": "vd-event",
+  "w": 1920,
+  "h": 886,
+  "sizes": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "bjp5AYhhOTWgFNkdDKuQa7F03c.png": {
+  "name": "vd-phone-mockup",
+  "w": 1200,
+  "h": 822,
+  "sizes": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "xCDDt0z2RH9KcP1ksEjuMRYCEg4.webp": {
+  "name": "inf-overview",
+  "w": 2048,
+  "h": 1195,
+  "sizes": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "IQy6lT9AkGQQ85h43gf1GpWpqY.jpg": {
+  "name": "inf-key-visual",
+  "w": 1367,
+  "h": 851,
+  "sizes": [
+   480,
+   960,
+   1367
+  ]
+ },
+ "dyOrY6XwzaRQiLYUeAFgT7pmHA8.png": {
+  "name": "inf-logo",
+  "w": 1281,
+  "h": 721,
+  "sizes": [
+   480,
+   960,
+   1281
+  ]
+ },
+ "GqvQFfaHa7KRFUqhNv7b1PaTSGU.jpg": {
+  "name": "inf-escalo",
+  "w": 1641,
+  "h": 857,
+  "sizes": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "Fhg12tP08cUFpzk2N4LjHcBTFg.jpg": {
+  "name": "inf-post-1",
+  "w": 512,
+  "h": 512,
+  "sizes": [
+   480,
+   512
+  ]
+ },
+ "wmgt5KGHVxRICknVMWR1bQCk8.jpg": {
+  "name": "inf-post-2",
+  "w": 512,
+  "h": 512,
+  "sizes": [
+   480,
+   512
+  ]
+ },
+ "ZdtxatVj0zbWRXUahUdCXWNX4.jpg": {
+  "name": "inf-post-3",
+  "w": 512,
+  "h": 512,
+  "sizes": [
+   480,
+   512
+  ]
+ },
+ "WF4dJ1MkIlLipdgIRruPUCGdnqM.jpg": {
+  "name": "inf-post-4",
+  "w": 512,
+  "h": 512,
+  "sizes": [
+   480,
+   512
+  ]
+ },
+ "VQjMt9HqagVcSGVDBgs6Ric1F8.jpg": {
+  "name": "inf-post-5",
+  "w": 512,
+  "h": 512,
+  "sizes": [
+   480,
+   512
+  ]
+ },
+ "c7uKNizlS00akYbBew4E9mATI.jpg": {
+  "name": "inf-post-6",
+  "w": 512,
+  "h": 512,
+  "sizes": [
+   480,
+   512
+  ]
+ },
+ "NV1BFvE9laSCWiLOkgOWcEccM.jpg": {
+  "name": "inf-post-7",
+  "w": 512,
+  "h": 512,
+  "sizes": [
+   480,
+   512
+  ]
+ },
+ "9jzJ3OZwZPSnDipvbWFBGcakiOQ.jpg": {
+  "name": "inf-post-8",
+  "w": 512,
+  "h": 512,
+  "sizes": [
+   480,
+   512
+  ]
+ },
+ "hDa9ESzvlUkHe4wp9H9UqRE0Y.jpg": {
+  "name": "inf-post-crecer",
+  "w": 1024,
+  "h": 1024,
+  "sizes": [
+   480,
+   960,
+   1024
+  ]
+ },
+ "DCYGBPOVS83SyEXNR30AkJ8bsYk.jpg": {
+  "name": "inf-post-growth",
+  "w": 1024,
+  "h": 1024,
+  "sizes": [
+   480,
+   960,
+   1024
+  ]
+ },
+ "3HOae2RTEU8JWumdFDb0dGoQ.jpg": {
+  "name": "inf-post-legal",
+  "w": 1367,
+  "h": 1221,
+  "sizes": [
+   480,
+   960,
+   1367
+  ]
+ },
+ "Pz0BKwYWow2PIKPp9Fuod95OstA.jpg": {
+  "name": "inf-computer",
+  "w": 1367,
+  "h": 1076,
+  "sizes": [
+   480,
+   960,
+   1367
+  ]
+ },
+ "gA92Ig3u6iXXkzN7U6Hx7MRMY.jpg": {
+  "name": "ps-overview",
+  "w": 3191,
+  "h": 1872,
+  "sizes": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "eMlLAwtNO6uWviC2JGypg1qn0.jpg": {
+  "name": "ps-box-surge",
+  "w": 549,
+  "h": 724,
+  "sizes": [
+   480,
+   549
+  ]
+ },
+ "guPky6GEcODSkWS69kN73xCNRE.jpg": {
+  "name": "ps-box-fridge",
+  "w": 549,
+  "h": 724,
+  "sizes": [
+   480,
+   549
+  ]
+ },
+ "kH2VOc5VlZgIfJ8VKEXx1ZMRfjA.jpg": {
+  "name": "ps-billboard",
+  "w": 1991,
+  "h": 781,
+  "sizes": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "kIe4TaeDYULZYdq83vzXe1veZDM.jpg": {
+  "name": "ps-logo-red",
+  "w": 621,
+  "h": 630,
+  "sizes": [
+   480,
+   621
+  ]
+ },
+ "uDLj67XchteXVv0ttGs6tdPn2Bg.jpg": {
+  "name": "ps-logo-navy",
+  "w": 621,
+  "h": 630,
+  "sizes": [
+   480,
+   621
+  ]
+ },
+ "lSeCxAnZKIEDq58L5pn3kEEDTi8.jpg": {
+  "name": "ps-post-fridge",
+  "w": 512,
+  "h": 512,
+  "sizes": [
+   480,
+   512
+  ]
+ },
+ "xAbkChUpKG2rJOdKY5b6NyZ7wdQ.jpg": {
+  "name": "ps-post-monitor",
+  "w": 512,
+  "h": 512,
+  "sizes": [
+   480,
+   512
+  ]
+ },
+ "4vMs8mh5T8IABkpI9SMon6uAm0.jpg": {
+  "name": "ps-post-surge",
+  "w": 512,
+  "h": 512,
+  "sizes": [
+   480,
+   512
+  ]
  }
 }
