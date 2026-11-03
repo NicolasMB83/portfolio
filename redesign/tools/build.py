@@ -81,12 +81,12 @@ T = {
   other_lang='es', other_short='ES', other_name='Español',
   hint_text='¿Prefieres ver el sitio en español?', hint_btn='Ver en español', hint_close='Cerrar',
   h1a='I LOVE DESIGN', h1b='and I turn that passion into results',
-  intro="I'm Nicolás, a multidisciplinary designer with experience in Product and Digital Design, creating campaigns on social media.",
+  intro="I’m Nicolás, a multidisciplinary designer with experience in product design, digital design and social media campaigns.",
   work='WORK', view='VIEW PORTFOLIO',
   r_art='Art Director', r_vai='Visual and AI Designer', r_dgd='Digital Graphic Designer', r_vec='Visual Experience Coordinator', r_ad='Art Direction',
   s1='Digital Graphic Design', s1t='Developing design concepts that encompass visual identity, color palettes, typography, and visual guidelines.',
   s2='Web Design', s2t='Navigation structure strategies, visual design, mobile device optimization, and style guides.',
-  s3='UI Design', s3t='I enhance the user experience with intuitive interface designs for web and mobile applications.',
+  s3='UI Design', s3t='Enhancing the user experience with intuitive interfaces for web and mobile apps.',
   s4='Brand Identity', s4t='Creating brand strategies, including logo design, color schemes, typography, and guidelines.',
   clients='Organizations that trust my work', career='Career path',
   roles=[
@@ -94,25 +94,25 @@ T = {
       'Redesigned the interface of ReloQuest’s main website.',
       'Produce brand videos and now integrate AI video tools into the production workflow.',
       'Design social media graphics as well as digital and print collateral.',
-      'Create print pieces such as backdrops, and mock-ups that present each design in context.'], 'ReloQuest: viñetas aprobadas salvo revisión final'),
+      'Create print pieces such as backdrops, plus mockups that show each design in context.'], None),
    ('Feb 2025 - Jan 2026', 'Visual and AI Designer', 'Invest in Bogotá', [
-      'Design of graphic assets for national and international investment promotion events.',
-      'Creation of visual assets for social media campaigns, aimed at informing, promoting and attracting investors to Bogotá, the capital of Colombia.',
-      'Implemented AI to support design workflow across the Design department.'], None),
+      'Designed graphic assets for national and international investment promotion events.',
+      'Created visual assets for social media campaigns that inform, promote and attract investment to Bogotá, the capital of Colombia.',
+      'Implemented AI tools to support the design workflow across the Design department.'], None),
    ('Jan 2023 - Sept 2024', 'Art Director', 'Ondas y Ecos S.A.S.', [
       'Redesigned the company’s visual identity across digital platforms.',
       'Implemented design strategies for web and social media.',
-      'Directed the narrative of the brand Radio a Domicilio. Closeness and familiarity.'], None),
+      'Directed the Radio a Domicilio brand narrative, built on closeness and familiarity.'], None),
    ('Nov 2021 - Nov 2022', 'Visual Experience Coordinator', 'Infinited - Area Andina University', [
-      'Led cross-functional collaboration between the marketing, design and development teams to deliver campaigns aligned with the university goals.',
-      'Created interactive content aligned with brand identity, leading to further improvement and organic evolution of the brand.',
-      'UI prototyping and deployment optimized for the sales funnel.'], None),
+      'Led cross-functional collaboration between the marketing, design and development teams to deliver campaigns aligned with the university’s goals.',
+      'Created interactive content aligned with the brand identity, helping the brand improve and evolve organically.',
+      'Prototyped and deployed interfaces optimized for sales funnels.'], None),
    ('Jun 2017 - Aug 2022', 'Digital Graphic Designer', 'Colombian Ministry of ICT (MINTIC)', [
-      'Created a wide range of graphic assets for government campaigns, including presentations (PPT/keynote), social media content, email campaigns, infographics, print materials, custom signage, branded furnishings and other specialty formats.',
+      'Created a wide range of graphic assets for government campaigns, including presentations (PowerPoint/Keynote), social media content, email campaigns, infographics, print materials, custom signage, branded furnishings and other specialty formats.',
       'Translated complex research and economic data into accessible visual materials, backed by international partnerships.',
       'Contributed to strategic planning sessions of the Digital Transformation and Economy departments.'], None),
   ],
-  magic="Let's make magic!", magic_sub='Working together to achieve greatness', cv='Download CV',
+  magic="Let’s make magic!", magic_sub='Working together to achieve greatness', cv='Download CV',
   copy='Copy', copied='Copied', copy_aria='Copy email address', close='Close',
   made='Created with passion, love, and design', rights='© 2026 Nicolás Mogollón Barbosa',
   # case study: Invest in Bogotá
@@ -120,12 +120,12 @@ T = {
   c_summary='The investment promotion agency for Bogotá&nbsp;– Region.',
   c_year='YEAR', c_company='COMPANY', c_role='ROLE', c_ind='INDUSTRY', c_srv='SERVICES', c_year_v='Feb 2025 - Jan 2026', c_ind_v='Investment',
   c_reel='SIGO presentation opener: Una idea que nace en Bogotá',
-  c_aim='IBB aim is to facilitate relevant international investments and attract world-class meetings and events that contribute to the socioeconomic development, competitiveness, and quality of life of Bogotá-Region. I have to develop impactful collateral to create a strong brand presence as well as keep a coherent narrative of the brand.',
-  c_obj='Objectives - Challenges',
-  c_ch=[('A brand to develop', 'IBB has a new rebranding, making this the perfect environment to develop the brand, through creative implementations in printed, web, and social media assets the challenge is to preserve its brand while developing new ways to communicate'),
-        ('Keep sharp graphics', "The biggest challenge is to keep the brand relevant, by researching every day about current trends and styles I'm able to keep the brand cohesion while creating content for web, digital and printed media."),
-        ('Keep evolving', 'Integrate AI tools into the mix in order to reduce times in production and/or develop products that demand speed, complexity and quality')],
-  c_social='Social Media', c_slides='Slides', c_other='Other work',
+  c_aim='IBB’s aim is to facilitate relevant international investment and attract world-class meetings and events that contribute to the socioeconomic development, competitiveness and quality of life of Bogotá–Region. My role is to develop impactful collateral that builds a strong brand presence and keeps the brand’s narrative coherent.',
+  c_obj='Objectives and challenges',
+  c_ch=[('A brand to develop', 'IBB was rebranded in the first quarter of 2025, which made it the perfect moment to develop the brand. Through creative work for print, web and social media, the challenge is to preserve the brand while finding new ways to communicate.'),
+        ('Keep the graphics sharp', "The biggest challenge is keeping the brand relevant. By researching current trends and styles every day, I keep the brand cohesive while creating content for web, digital and print media."),
+        ('Keep evolving', 'Integrate AI tools into the process to reduce production times and to develop products that demand speed, complexity and quality.')],
+  c_social='Social media', c_slides='Slides', c_other='Other work',
   alts=['Four social media pieces about Bogotá procurement rules, in red, blue and violet', 'Semana del Emprendedor poster with a Bogotá skyline photo',
         'Invest in Bogotá website pages for events and business guides', 'Presentation slide: Su mejor aliado estratégico',
         'MICE tourism post: En Bogotá, cada evento es una oportunidad', 'Post: Bogotá se vive con propósito, over the Santamaría bullring at night',
@@ -135,7 +135,7 @@ T = {
   # case study: Radio a Domicilio (content from the site's CMS; chapter labels are proposals)
   r_title='Radio a Domicilio - Nicolas MB',
   r_desc='Radio a Domicilio: art direction for a radio brand, its website, campaigns and social media.',
-  r_summary='Under the slogan “Radio at Home,” we seek to create an authentic and welcoming experience',
+  r_summary='Under the slogan “Radio at Home,” we set out to create an authentic, welcoming experience.',
   r_ind_v='Communications', r_year_v='2023-2024',
   chapters_label='Chapters',
   ch_obj='Objectives', ch_proc='Process', ch_res='Results',
@@ -143,15 +143,15 @@ T = {
   r_company='Ondas y Ecos S.A.S.', new_tab='(opens in a new tab)',
   r_obj=[('Modern essence', 'Achieving a balance between an iconic identity and a modern touch that attracts new audiences.'),
          ('Multichannel consistency', 'Designing a visual identity that is adaptable and coherent across all channels.'),
-         ('Visual engagement', 'Create striking graphics that capture attention and retain users on social media.')],
-  r_phases=[('Discovery Phase', [('Market and Style Study', 'Thoroughly research audience preferences to create an aesthetic that reinvents the legacy of Radio a Domicilio and attracts new listeners.')]),
-            ('Design and Development', [('UI/UX Design', 'I designed a clean, intuitive interface with streamlined navigation and engaging visuals to motivate users'),
-                                        ('Audience and Style Analysis', 'Examine audience preferences to define the aesthetic of Radio a Domicilio and attract new listeners.')]),
-            ('Testing and Iteration', [('User Testing', 'Initial testing of a controlled group of users to obtain feedback about the web interface, its use, and future implementations before launch'),
-                                       ('Web Optimization', 'Implemented optimizations in the user interface to enhance the navigation experience of the website on computers and mobile devices.')])],
-  r_results='“Radio a Domicilio” received positive feedback and an exceptional reception in the company. Metrics such as audience retention and participation exceeded expectations in the first three months, driven by an intuitive design and a content offering that connected with listeners of all ages.',
+         ('Visual engagement', 'Creating striking graphics that capture attention and keep users engaged on social media.')],
+  r_phases=[('Discovery Phase', [('Market and Style Study', 'Researched audience preferences in depth to create an aesthetic that reinvents the legacy of Radio a Domicilio and attracts new listeners.')]),
+            ('Design and Development', [('UI/UX Design', 'Designed a clean, intuitive interface with streamlined navigation and engaging visuals.'),
+                                        ('Audience and Style Analysis', 'Analyzed how the audience responded to each visual direction to settle the final aesthetic.')]),
+            ('Testing and Iteration', [('User Testing', 'Tested the web interface with a controlled group of users before launch to gather feedback on its use and on future features.'),
+                                       ('Web Optimization', 'Optimized the interface to improve navigation on desktop and mobile.')])],
+  r_results='“Radio a Domicilio” received positive feedback and an exceptional reception within the company. Metrics such as audience retention and participation exceeded expectations in the first three months, driven by an intuitive design and a content offering that connected with listeners of all ages.',
   r_next_label='Next steps',
-  r_next=[('Continuous Improvements', 'Planning regular updates based on audience feedback and industry trends, always seeking to enhance functionality and listener satisfaction.'),
+  r_next=[('Continuous improvements', 'Planning regular updates based on audience feedback and industry trends, always seeking to enhance functionality and listener satisfaction.'),
           ('Expansion', 'Exploring collaborations with podcasting platforms and other media to expand the presence of “Radio a Domicilio” and enrich the listener experience with exclusive content.')],
   r_web='Web', r_banners='HTML5 banners', r_banner='Animated HTML5 banner',
   r_alts=dict(
@@ -169,12 +169,12 @@ T = {
   other_lang='en', other_short='EN', other_name='English',
   hint_text='Prefer to read this site in English?', hint_btn='View in English', hint_close='Close',
   h1a='AMO EL DISEÑO', h1b='y convierto esa pasión en resultados',
-  intro='Soy Nicolás, diseñador multidisciplinario con experiencia en diseño de producto y diseño digital, creando campañas para redes sociales.',
+  intro='Soy Nicolás, diseñador multidisciplinario con experiencia en diseño de producto, diseño digital y campañas para redes sociales.',
   work='PROYECTOS', view='VER PORTAFOLIO',
   r_art='Director de arte', r_vai='Diseñador visual y de IA', r_dgd='Diseñador gráfico digital', r_vec='Coordinador de experiencia visual', r_ad='Dirección de arte',
   s1='Diseño gráfico digital', s1t='Desarrollo de conceptos de diseño que abarcan identidad visual, paletas de color, tipografía y lineamientos visuales.',
   s2='Diseño web', s2t='Estrategias de estructura de navegación, diseño visual, optimización para dispositivos móviles y guías de estilo.',
-  s3='Diseño UI', s3t='Mejoro la experiencia de usuario con diseños de interfaz intuitivos para aplicaciones web y móviles.',
+  s3='Diseño UI', s3t='Mejora de la experiencia de usuario con interfaces intuitivas para aplicaciones web y móviles.',
   s4='Identidad de marca', s4t='Creación de estrategias de marca, que incluyen diseño de logotipo, esquemas de color, tipografía y lineamientos.',
   clients='Organizaciones que confían en mi trabajo', career='Trayectoria',
   roles=[
@@ -182,21 +182,21 @@ T = {
       'Rediseñé la interfaz del sitio web principal de ReloQuest.',
       'Produzco videos de marca y ahora integro herramientas de video con IA en el flujo de producción.',
       'Diseño piezas gráficas para redes sociales, así como material publicitario digital e impreso.',
-      'Creo piezas impresas como backdrops, y mock-ups que presentan cada diseño en contexto.'], 'ReloQuest: viñetas aprobadas salvo revisión final'),
+      'Creo piezas impresas como <i>backdrops</i>, además de <i>mockups</i> que muestran cada diseño en contexto.'], None),
    ('Feb 2025 - Ene 2026', 'Diseñador visual y de IA', 'Invest in Bogotá', [
-      'Diseño de piezas gráficas para eventos nacionales e internacionales de promoción de inversión.',
-      'Creación de piezas visuales para campañas en redes sociales, orientadas a informar, promover y atraer inversionistas a Bogotá, la capital de Colombia.',
-      'Implementé IA para apoyar el flujo de trabajo de diseño en todo el departamento de Diseño.'], None),
+      'Diseñé piezas gráficas para eventos nacionales e internacionales de promoción de inversión.',
+      'Creé piezas visuales para campañas en redes sociales que informan, promueven y atraen inversión a Bogotá, la capital de Colombia.',
+      'Implementé herramientas de IA para apoyar el flujo de trabajo en todo el departamento de Diseño.'], None),
    ('Ene 2023 - Sept 2024', 'Director de arte', 'Ondas y Ecos S.A.S.', [
       'Rediseñé la identidad visual de la empresa en sus plataformas digitales.',
       'Implementé estrategias de diseño para web y redes sociales.',
-      'Dirigí la narrativa de la marca Radio a Domicilio. Cercanía y familiaridad.'], None),
+      'Dirigí la narrativa de la marca Radio a Domicilio, basada en la cercanía y la familiaridad.'], None),
    ('Nov 2021 - Nov 2022', 'Coordinador de experiencia visual', 'Infinited - Universidad del Área Andina', [
       'Lideré la colaboración interdisciplinaria entre los equipos de mercadeo, diseño y desarrollo para entregar campañas alineadas con los objetivos de la universidad.',
-      'Creé contenido interactivo alineado con la identidad de marca, lo que llevó a una mayor mejora y a la evolución orgánica de la marca.',
-      'Prototipado y despliegue de UI optimizados para el embudo de ventas.'], None),
+      'Creé contenido interactivo alineado con la identidad de marca, que ayudó a la marca a mejorar y evolucionar de forma orgánica.',
+      'Prototipé y desplegué interfaces optimizadas para embudos de ventas.'], None),
    ('Jun 2017 - Ago 2022', 'Diseñador gráfico digital', 'Ministerio TIC de Colombia (MINTIC)', [
-      'Creé una amplia gama de piezas gráficas para campañas del gobierno, incluyendo presentaciones (PPT/keynote), contenido para redes sociales, campañas de email, infografías, material impreso, señalética personalizada, mobiliario de marca y otros formatos especiales.',
+      'Creé una amplia gama de piezas gráficas para campañas del gobierno, incluyendo presentaciones (PowerPoint/Keynote), contenido para redes sociales, campañas de email, infografías, material impreso, señalética personalizada, mobiliario de marca y otros formatos especiales.',
       'Traduje investigaciones complejas y datos económicos en materiales visuales accesibles, respaldados por alianzas internacionales.',
       'Contribuí a las sesiones de planeación estratégica de los departamentos de Transformación Digital y Economía.'], None),
   ],
@@ -207,11 +207,11 @@ T = {
   c_summary='La agencia de promoción de inversión de Bogotá&nbsp;– Región.',
   c_year='AÑO', c_company='EMPRESA', c_role='ROL', c_ind='INDUSTRIA', c_srv='SERVICIOS', c_year_v='Feb 2025 - Ene 2026', c_ind_v='Inversión',
   c_reel='Apertura de la presentación de SIGO: Una idea que nace en Bogotá',
-  c_aim='El objetivo de IBB es facilitar inversiones internacionales relevantes y atraer reuniones y eventos de talla mundial que contribuyan al desarrollo socioeconómico, la competitividad y la calidad de vida de Bogotá-Región. Debo desarrollar piezas de impacto para crear una presencia de marca sólida, así como mantener una narrativa coherente de la marca.',
-  c_obj='Objetivos - Retos',
-  c_ch=[('Una marca por desarrollar', 'IBB tiene un nuevo rebranding, lo que hace de este el entorno perfecto para desarrollar la marca; a través de implementaciones creativas en piezas impresas, web y de redes sociales, el reto es preservar su marca mientras se desarrollan nuevas formas de comunicar'),
-        ('Mantener gráficas impecables', 'El mayor reto es mantener la marca vigente; investigando cada día sobre tendencias y estilos actuales, logro mantener la cohesión de la marca mientras creo contenido para medios web, digitales e impresos.'),
-        ('Seguir evolucionando', 'Integrar herramientas de IA al proceso para reducir los tiempos de producción y/o desarrollar productos que exigen velocidad, complejidad y calidad')],
+  c_aim='El objetivo de IBB es facilitar inversiones internacionales relevantes y atraer reuniones y eventos de talla mundial que contribuyan al desarrollo socioeconómico, la competitividad y la calidad de vida de Bogotá–Región. Mi labor es desarrollar piezas de impacto que construyan una presencia de marca sólida y mantengan coherente su narrativa.',
+  c_obj='Objetivos y retos',
+  c_ch=[('Una marca por desarrollar', 'IBB renovó su marca en el primer trimestre de 2025, lo que hizo de este el momento perfecto para desarrollarla. A través de piezas creativas impresas, web y para redes sociales, el reto es preservar la marca mientras se encuentran nuevas formas de comunicar.'),
+        ('Mantener gráficas impecables', 'El mayor reto es mantener la marca vigente. Investigando cada día tendencias y estilos actuales, mantengo la cohesión de la marca mientras creo contenido para medios web, digitales e impresos.'),
+        ('Seguir evolucionando', 'Integrar herramientas de IA al proceso para reducir los tiempos de producción y desarrollar productos que exigen velocidad, complejidad y calidad.')],
   c_social='Redes sociales', c_slides='Diapositivas', c_other='Otros proyectos',
   alts=['Cuatro piezas para redes sociales sobre las reglas de contratación de Bogotá, en rojo, azul y violeta', 'Afiche de la Semana del Emprendedor con el skyline de Bogotá',
         'Páginas del sitio web de Invest in Bogotá para eventos y guías de negocios', 'Diapositiva: Su mejor aliado estratégico',
@@ -221,7 +221,7 @@ T = {
         'Doble página editorial con la catedral de Bogotá y el círculo rojo'],
   r_title='Radio a Domicilio - Nicolas MB',
   r_desc='Radio a Domicilio: dirección de arte para una marca de radio, su sitio web, campañas y redes sociales.',
-  r_summary='Bajo el lema “Radio a Domicilio”, buscamos crear una experiencia auténtica y acogedora',
+  r_summary='Bajo el lema “Radio a Domicilio”, buscamos crear una experiencia auténtica y acogedora.',
   r_ind_v='Comunicaciones', r_year_v='2023-2024',
   chapters_label='Capítulos',
   ch_obj='Objetivos', ch_proc='Proceso', ch_res='Resultados',
@@ -230,11 +230,11 @@ T = {
   r_obj=[('Esencia moderna', 'Lograr un equilibrio entre una identidad icónica y un toque moderno que atraiga nuevas audiencias.'),
          ('Coherencia multicanal', 'Diseñar una identidad visual adaptable y coherente en todos los canales.'),
          ('Conexión visual', 'Crear gráficas llamativas que capten la atención y retengan a los usuarios en redes sociales.')],
-  r_phases=[('Fase de descubrimiento', [('Estudio de mercado y estilo', 'Investigar a fondo las preferencias de la audiencia para crear una estética que reinvente el legado de Radio a Domicilio y atraiga nuevos oyentes.')]),
-            ('Diseño y desarrollo', [('Diseño UI/UX', 'Diseñé una interfaz limpia e intuitiva, con una navegación simplificada y visuales atractivos para motivar a los usuarios'),
-                                     ('Análisis de audiencia y estilo', 'Examinar las preferencias de la audiencia para definir la estética de Radio a Domicilio y atraer nuevos oyentes.')]),
-            ('Pruebas e iteración', [('Pruebas con usuarios', 'Pruebas iniciales con un grupo controlado de usuarios para obtener retroalimentación sobre la interfaz web, su uso y futuras implementaciones antes del lanzamiento'),
-                                     ('Optimización web', 'Implementé optimizaciones en la interfaz de usuario para mejorar la experiencia de navegación del sitio web en computadores y dispositivos móviles.')])],
+  r_phases=[('Fase de descubrimiento', [('Estudio de mercado y estilo', 'Investigué a fondo las preferencias de la audiencia para crear una estética que reinventara el legado de Radio a Domicilio y atrajera nuevos oyentes.')]),
+            ('Diseño y desarrollo', [('Diseño UI/UX', 'Diseñé una interfaz limpia e intuitiva, con navegación simplificada y visuales atractivos.'),
+                                     ('Análisis de audiencia y estilo', 'Analicé cómo respondía la audiencia a cada dirección visual para definir la estética final.')]),
+            ('Pruebas e iteración', [('Pruebas con usuarios', 'Probé la interfaz web con un grupo controlado de usuarios antes del lanzamiento para recoger comentarios sobre su uso y sobre funciones futuras.'),
+                                     ('Optimización web', 'Optimicé la interfaz para mejorar la navegación en computador y celular.')])],
   r_results='“Radio a Domicilio” recibió comentarios positivos y una acogida excepcional en la empresa. Métricas como la retención y la participación de la audiencia superaron las expectativas en los primeros tres meses, impulsadas por un diseño intuitivo y una oferta de contenido que conectó con oyentes de todas las edades.',
   r_next_label='Próximos pasos',
   r_next=[('Mejoras continuas', 'Planear actualizaciones periódicas basadas en los comentarios de la audiencia y las tendencias del sector, buscando siempre mejorar la funcionalidad y la satisfacción de los oyentes.'),
@@ -346,7 +346,6 @@ def header(t, home, other):
 def hint(t, other):
     return f'''
   <div class="lang-hint" lang="{t['other_lang']}" data-lang-hint="{t['other_lang']}" role="region" aria-label="{t['other_name']}" hidden>
-    {P.format('sugerencia de idioma (texto nuevo)')}
     <span>{t['hint_text']}</span>
     <a class="btn btn--sun" href="{other}" hreflang="{t['other_lang']}" data-lang-switch>{t['hint_btn']}</a>
     <button class="x" type="button" data-dismiss aria-label="{t['hint_close']}">{ic('i-close')}</button>
@@ -355,7 +354,6 @@ def hint(t, other):
 
 def email_row(t):
     return f'''<div class="email-row">
-          {P.format('dirección visible + Copy/Copied (aprobado)')}
           <span class="email-address">{EMAIL}</span>
           <button class="btn copy-btn" type="button" data-copy="{EMAIL}" aria-label="{t['copy_aria']}">
             <span class="when-idle">{ic('i-copy')} {t['copy']}</span>
@@ -522,13 +520,15 @@ def work_tiles(t, home):
     return '<ul class="tiles">' + ''.join(out) + '\n        </ul>'
 
 
-from review import REVIEW
+from review import REVIEW, APPLIED
 from projects import VD, INF, PS
 
 
 def mark_review(html):
     """Style review: put <!-- PROPUESTA DE TEXTO R<n>: ... --> right before each reviewed text (never inside a tag)."""
     for n, where, en_old, en_new, es_old, es_new, why in REVIEW:
+        if n in APPLIED:
+            continue
         for old, new in ((en_old, en_new), (es_old, es_new)):
             if not old:
                 continue
@@ -621,7 +621,6 @@ def home(lang, variant='grid'):
     <section id="about" class="about">
       <div class="wrap">
         <h2 class="sr-only">{t['nav_about']}</h2>
-        {P.format('debajo de cada servicio, enlaces a los proyectos donde lo aplicaste (contenido nuevo, por aprobar)')}
         <ul class="svc">''' + ''.join(f'''
           <li class="svc-item" style="--i: {i}">
             <div class="svc-sky"><span class="svc-plate"><img src="@A/img/{f}.svg" width="{w}" height="{hh}" alt="" loading="lazy" decoding="async"></span></div>
@@ -694,7 +693,7 @@ def objectives_html(items):
 def case_cover(t, h, title, shape, desc, facts, media, sun=False, stage=''):
     """The cover every project shares: back link, title rising from the horizon beside the client's shape,
     a short description, Year / Company / Role, and the opening image."""
-    note = P.format('rótulos Year / Company / Role: pedidos por ti (antes Year / Industry / Services)')
+    note = ''
     return f'''
     <section class="case-hero chapter-cover{' chapter-cover--sun' if sun else ''} is-night tone-night">
       <div class="wrap">
@@ -1034,13 +1033,13 @@ def lost():
       <div class="sky" aria-hidden="true" data-giphy-key="DPRlJyFbg3L9PxY5AEqfssUoabElSV2k" data-giphy-tag="cat"><span class="sun"></span><span class="rise lost-code">404</span></div>
       <span class="horizon horizon--sun" aria-hidden="true"></span>
       <div class="lost-body" data-lang-block="en">
-        <p>The page you are looking for is not found or has been moved. Please return to the main page.</p>
+        <p>The page you’re looking for doesn’t exist or has moved. Head back to the home page.</p>
         <a class="btn btn--sun btn--lg" href="@H/">{ic('i-back')} Back to home</a>
         <a class="giphy-credit" href="https://giphy.com" target="_blank" rel="noopener" data-giphy-credit hidden>Powered by GIPHY</a>
       </div>
       <div class="lost-body" data-lang-block="es" lang="es" hidden>
         {ES_DRAFT}
-        <p>La página que buscas no se encuentra o ha sido movida. Por favor, regresa a la página principal.</p>
+        <p>La página que buscas no existe o cambió de lugar. Vuelve al inicio.</p>
         <a class="btn btn--sun btn--lg" href="@H/es/">{ic('i-back')} Volver al inicio</a>
       </div>
     </div>

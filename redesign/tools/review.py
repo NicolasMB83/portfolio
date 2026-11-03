@@ -1,4 +1,4 @@
-"""Spelling and style review, round 1. Proposals only: the visible copy does not change until the owner says yes.
+"""Spelling and style review, round 1 (R1–R41: all approved by the owner on 2026-11-02 and applied to the sources). Proposals only: the visible copy does not change until the owner says yes.
 Each entry: (id, where, en_old, en_new, es_old, es_new, why). build.py marks each one in the HTML with
 <!-- PROPUESTA DE TEXTO R<id>: ... --> right before the current text."""
 
@@ -224,3 +224,6 @@ SECTION_NAMES = {
         ('C (la anterior)', 'The work', 'Las piezas'),
     ],
 }
+
+# Approved and applied (R10 and R15 with the owner's own wording; R37 retitled "E-commerce", see PROPUESTAS.md).
+APPLIED = set(range(1, 42))
