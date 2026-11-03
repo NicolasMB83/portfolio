@@ -4,53 +4,32 @@ Prototipo, no publicado. Rama `redesign`, carpeta `redesign/a-v2/` (inglés) y `
 
 ## ⏳ Pendiente de tu decisión (ronda actual)
 
-### 1. Revisión de textos: página para decidir
-Las 41 propuestas (R1–R41) están en una página donde marcas Sí o No y dejas una nota por cada una:
-**https://claude.ai/artifact/EaVz97Axgp22ehvcy5VmEH**
+Lo que falta para dejar el sitio listo para publicar:
 
-Tus decisiones quedan guardadas y yo las leo para aplicar solo lo aprobado.
-- **R1–R29:** sitio general, Invest in Bogotá y Radio a Domicilio.
-- **R30–R40:** los tres casos nuevos.
-- **R41:** los enlaces a proyectos bajo cada servicio.
+1. **R37 (Pro Surge JA):** aprobaste la propuesta, pero no tenía texto definido. Como el objetivo describe un comercio electrónico, cambié su título de "Market Research" a **"E-commerce" / "Comercio electrónico"**. Si el objetivo era otro, dímelo y lo ajusto.
+2. **Rótulo "HTML5 banners" / "Banners HTML5"** en Radio a Domicilio: es el único texto nuevo que sigue marcado como propuesta.
+3. **Íconos:** ¿quito el logo de Behance que repite la palabra "Behance" y cambio los círculos de redes del footer por texto ("LinkedIn ↗ · Behance ↗ · Email")?
+4. **Sección de proyectos del inicio:** ¿se queda la grilla actual o pasa a la fusión ([projects-c](https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v2/projects-c/index.html))?
+5. **Colombia 4.0 (2018):** falta su contenido para construir la página.
+6. **Las 3 animaciones Lottie** siguen en Framer (ver más abajo).
+7. **Publicar** en nicolasmb.com.
 
-Hay tres preguntas que solo tú puedes responder:
-- **R32:** año de Infinited: ¿2022-2023, como dice el caso, o 2021-2022, como dice la trayectoria?
-- **R37:** el objetivo "Market Research" de Pro Surge describe un comercio electrónico. ¿Cuál era el objetivo real?
-- **R41:** ¿la relación servicio → proyectos es correcta?
-
-### 2. Los tres casos nuevos (cada uno con su estructura, misma familia)
-- **[Vende Digital](https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v2/vende-digital/index.html).** Campaña "Hechos que conectan":
-  - Los objetivos son tres puntos unidos por una línea, como el concepto.
-  - Siguen las piezas en índigo y los resultados.
-  - Marca: puntos conectados en magenta y azul de la marca.
-- **[Infinited](https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v2/infinited/index.html).** Aprendizaje como ascenso:
-  - Las tres fases del proceso son escalones que suben.
-  - Siguen las piezas y los resultados.
-  - Marca: tres trazos (la "l" del logo) que crecen, en el turquesa de la marca.
-- **[Pro Surge JA](https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v2/pro-surge-ja/index.html).** Identidad como empaque:
-  - Los objetivos son fichas técnicas con la franja roja de la caja.
-  - Siguen el enfoque en filas, las piezas, los resultados con próximos pasos y las conclusiones.
-  - Marca: las dos franjas diagonales del empaque.
-
-Los textos en inglés son los publicados en tu sitio, sin cambios (sus errores están en R30–R40). El español es una traducción fiel.
-
-**Colombia 4.0 (2018):** no tiene página publicada ni textos. Si me envías el contenido, la construyo.
-
-### 3. Servicios rediseñados
-Antes eran cuatro filas altas con mucho espacio y poco contenido. Ahora es una sola franja:
-- **Cuatro soles sobre un mismo horizonte.** Cada ilustración vive dentro de un sol que sube desde la línea, uno tras otro (70 ms), cuando la sección entra en pantalla. Al pasar el cursor, el sol brilla y la ilustración se eleva.
-- **Debajo de la línea:** el servicio, su texto y (propuesta R41) los proyectos donde lo aplicaste, como enlaces. Así la sección dice más con menos espacio.
-- **Altura:** pasa de unos 1100 px a unos 420 px en escritorio.
-
-## ✅ Aplicado en esta ronda
-- **Encabezado:** se queda el actual (píldora). Se quitaron las variantes.
-- **Parallax:** telón en Radio a Domicilio. La imagen queda fija a pantalla completa y los capítulos suben por encima. Se quitaron las demás variantes.
-- **Nombre de la sección de piezas:** descriptivo en cada proyecto (por ejemplo, "Brand, web and campaigns").
-- **Flecha:** la misma animación en todos los elementos con flecha:
-  - Se dibuja el contorno del sol y luego se rellena.
-  - Va en los botones, "View portfolio" y las tarjetas de proyecto (el sol aparece en la esquina de la imagen).
-  - En los enlaces de Behance, solo el contorno.
-- **Línea del título de cada proyecto:** opacidad 0 lejos de la forma del cliente (sol, ondas, puntos, trazos, franjas) y aumenta al acercarse.
+## ✅ Aplicado en esta ronda (arte final)
+- **Revisión de textos:** las 41 propuestas aprobadas, aplicadas en inglés y español.
+  - R10 y R15 con tu redacción: "sales funnels" y el rebranding en el primer trimestre de 2025.
+  - El nombre "ProSurge JA" se escribe igual en toda su página.
+  - Se quitaron los marcadores de propuesta de todo lo aprobado.
+- **Espaciado:** un solo ritmo vertical, más compacto.
+  - Entre secciones del inicio: de 158 px a 128 px (en pantallas de 1440 px).
+  - Entre secciones de un caso: 100 px.
+  - Antes de cada bloque oscuro: de 316 px a 200 px.
+- **Errores corregidos:**
+  - En la portada de los casos, una franja clara de unos 40 px aparecía entre la ficha (Año / Empresa / Rol) y la imagen. Era un margen que se escapaba de su bloque.
+  - "Other work": en Vende Digital, las dos tarjetas no llenaban el ancho. Ahora siempre son dos tarjetas iguales, con el mismo marco.
+  - Las marcas de sección (puntos, trazos, franjas) quedaban bajo la línea y se veían cortadas; ahora se apoyan en el horizonte.
+  - En celular, la segunda línea del hero ("and I turn that passion into results") pasaba por encima del sol; ahora se corta antes.
+- **Verificado:** los banners HTML5 de Radio a Domicilio funcionan; en las capturas de página completa salían vacíos, pero eso es un efecto de la captura.
+- **Pruebas:** todas las páginas en escritorio, tablet y celular, en inglés y español, con accesibilidad (axe), anchos de 320 a 2560 px, sin JavaScript y con "reducir movimiento".
 
 ## Pendiente de rondas anteriores
 

@@ -71,10 +71,16 @@ These rules come from the site owner and apply to every task in this repo.
     - Hover del CTA con círculo y flecha (reinterpretado como el punto que sube desde el horizonte).
     - Parallax en la imagen inicial de cada proyecto.
   - Halación del logo: capa ya dibujada que solo cambia de opacidad (animar `filter` desde `none` daba un brillo negro).
+- Revisión de textos R1–R41: aprobada y aplicada el 2026-11-02 (`APPLIED` en `review.py`).
+  - R10 y R15 llevan la redacción del dueño.
+  - R37 se interpretó como retitular "E-commerce"; está pendiente de que el dueño lo confirme.
+- Ritmo vertical: `--section` (inicio, máx. 128 px) y `--section-sm` (casos, máx. 104 px). El espacio de la imagen de portada vive dentro de `.cover-stage` (un margen en la imagen se escapaba y dejaba una franja clara).
 - Pendiente de aprobación (ver "Pendiente de tu decisión" en `redesign/a-v2/PROPUESTAS.md`):
-  - Revisión de textos R1–R41 (en la página de revisión).
-  - Íconos: el dueño respondió "mantén la flecha" y no dijo nada de los demás.
+  - R37 (título "E-commerce").
+  - Rótulo "HTML5 banners".
+  - Íconos (Behance repetido, redes del footer como texto).
   - Fusión de proyectos (`projects-c/`).
+  - Contenido de Colombia 4.0.
   - Archivos Lottie.
   - Publicación.
 - El español debe ser una traducción fiel del inglés (mismo contenido, palabras nativas de cada idioma).

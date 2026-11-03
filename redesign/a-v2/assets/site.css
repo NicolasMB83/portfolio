@@ -51,7 +51,8 @@
   --wrap: 1320px;
   --col-gap: clamp(12px, 1.6vw, 24px);
   --header-h: 72px;
-  --section: clamp(96px, 11vw, 160px);
+  --section: clamp(80px, 9vw, 128px);       /* between the home's sections */
+  --section-sm: clamp(64px, 7vw, 104px);    /* between the sections of a case study */
   --radius: 4px;
   --line-w: 1.5px;
 
@@ -538,6 +539,8 @@ p, li { text-wrap: pretty; }
 .behance-link .icon--go { transition: transform .5s var(--spring); }
 .behance-link:hover .icon--go { transform: translate(2px, -2px); }
 .other-work { padding-block: var(--section); }
+.other-work .project { grid-column: span 6; }
+.other-work .project-media { height: auto; aspect-ratio: 4 / 3; }
 
 
 /* ---------- Night pages (case studies): the whole page in indigo, like the work section ---------- */
@@ -804,13 +807,13 @@ p, li { text-wrap: pretty; }
    ========================================================================== */
 html:has(.chapter-nav) { scroll-padding-top: calc(var(--header-h) + 72px); }
 .chapter-cover { padding-bottom: 0; }
-.cover-stage { padding-bottom: clamp(48px, 6vw, 88px); }
+.cover-stage { padding-block: clamp(32px, 4vw, 56px) clamp(48px, 6vw, 88px); }
 .chapter-cover .sky { min-height: clamp(110px, 15vw, 200px); }
 .chapter-cover .rise { padding-right: calc(clamp(150px, 24vw, 340px) + 16px); }
 .cover-shape { position: absolute; right: clamp(0px, 3vw, 48px); bottom: 0; width: clamp(150px, 24vw, 340px); height: auto; overflow: visible; }
 .chapter-cover:not(.chapter-cover--sun) { --sun-x: clamp(0px, 3vw, 48px); --sun-r: calc(clamp(150px, 24vw, 340px) / 2); }
 .waves .w { fill: none; stroke: var(--client); stroke-width: 12; stroke-linecap: round; }
-.cover-shot { margin-top: clamp(40px, 5vw, 72px); aspect-ratio: 16 / 7; border-radius: clamp(14px, 1.6vw, 24px); background: var(--night-2); }
+.cover-shot { margin-top: 0; aspect-ratio: 16 / 7; border-radius: clamp(14px, 1.6vw, 24px); background: var(--night-2); }
 .cover-shot img { width: 100%; height: 100%; object-fit: cover; }
 
 .chapters { position: relative; }
@@ -842,13 +845,13 @@ html[data-header-hidden] .chapter-nav { top: 12px; transition: top .3s var(--eas
 .chapter-no { font-family: var(--font-display); font-weight: 600; font-size: clamp(2.5rem, 1.5rem + 2.6vw, 3.75rem); line-height: 0.82; letter-spacing: -0.04em; color: var(--client-ink, var(--client)); translate: 0 0.05em; }
 .tone-night .chapter-no { color: var(--client); }
 /* The client's two colours: the bright one on night, the deep one on paper (text-safe) */
-.chapter { padding-block: var(--section) 0; }
+.chapter { padding-block: var(--section-sm) 0; }
 .chapter.tone-night { padding-bottom: var(--section); }
 .chapter-title { padding-bottom: 0.12em; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.75rem); line-height: 1; letter-spacing: -0.015em; }
 .chapter-body { align-items: start; row-gap: 40px; }
 .chapter-intro { grid-column: 1 / span 6; }
 .chapter-text { margin-top: 28px; max-width: 52ch; font-size: 1.1875rem; line-height: 1.55; color: var(--ink-2); }
-.chapter--last { padding-bottom: var(--section); }
+.chapter--last { padding-bottom: var(--section-sm); }
 .chapter-figure { grid-column: 8 / span 5; overflow: clip; aspect-ratio: 4 / 5; border-radius: clamp(14px, 1.6vw, 24px); background: var(--night-2); }
 .chapter-figure img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -970,10 +973,10 @@ html[data-header-hidden] .chapter-nav { top: 12px; transition: top .3s var(--eas
 .case-desc { margin-top: clamp(18px, 2vw, 28px); max-width: 40ch; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1rem + 0.9vw, 1.75rem); line-height: 1.2; color: var(--ink); }
 
 /* ---------- Invest in Bogotá: its own structure, marked by the agency's red dot instead of numbers ---------- */
-.statement { padding-block: var(--section) 0; }
+.statement { padding-block: var(--section-sm) 0; }
 .statement-text { max-width: 30ch; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 1.05rem + 1.5vw, 2.4rem); line-height: 1.15; letter-spacing: -0.01em; text-wrap: pretty; }
-.case-section { padding-block: var(--section) 0; }
-.case-section.tone-night { margin-top: var(--section); padding-bottom: var(--section); }
+.case-section { padding-block: var(--section-sm) 0; }
+.case-section.tone-night, .chapter.tone-night { margin-top: var(--section-sm); padding-bottom: var(--section-sm); }
 .dot-head { margin-bottom: clamp(36px, 4.5vw, 64px); }
 .dot-head .sky { gap: clamp(14px, 1.6vw, 22px); }
 .dot-mark { /* the client's circle, the same soft sun as the rest of the site */
@@ -998,7 +1001,7 @@ html[data-header-hidden] .chapter-nav { top: 12px; transition: top .3s var(--eas
    Opening image as a curtain (chosen for Radio a Domicilio): the image holds still at full
    screen and the chapters slide up over it. Pure CSS (sticky), works without scroll timelines.
    ========================================================================== */
-.cover-stage--curtain { position: sticky; top: 0; z-index: 0; padding-bottom: 0; }
+.cover-stage--curtain { position: sticky; top: 0; z-index: 0; padding-block: 0; }
 .cover-stage--curtain .cover-wrap { width: 100%; }
 .cover-stage--curtain .cover-shot { margin-top: 0; height: 100svh; aspect-ratio: auto; border-radius: 0; }
 main:has(.cover-stage--curtain) :is(.chapters, .other-work) { position: relative; z-index: 1; }
@@ -1014,7 +1017,7 @@ main:has(.cover-stage--curtain) .chapter-cover { padding-bottom: clamp(40px, 5vw
 .cover-shape .w, .cover-shape .link-line { fill: var(--client); }
 .links .link-line { fill: none; stroke: var(--client); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; opacity: 0.55; }
 .links .w2 { fill: color-mix(in oklch, var(--client), oklch(0.9 0.16 95) 40%); }
-.mark { flex: none; width: clamp(30px, 2.6vw, 40px); height: auto; overflow: visible; translate: 0 18%; }
+.mark { flex: none; align-self: flex-end; width: clamp(28px, 2.4vw, 38px); height: auto; overflow: visible; margin-bottom: 0.16em; }
 .mark circle, .mark rect, .mark path { fill: var(--client-ink, var(--client)); }
 .mark--links path { fill: none; stroke: var(--client-ink, var(--client)); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 .tone-night .mark circle, .tone-night .mark rect, .tone-night .mark--bars path { fill: var(--client); }
@@ -1027,10 +1030,10 @@ main:has(.cover-stage--curtain) .chapter-cover { padding-bottom: clamp(40px, 5vw
   @keyframes draw-line { from { stroke-dashoffset: 300; } to { stroke-dashoffset: 0; } }
   @supports (animation-timeline: view()) {
     .dot-head .mark { animation: rise-mark linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
-    @keyframes rise-mark { from { translate: 0 110%; } to { translate: 0 18%; } }
+    @keyframes rise-mark { from { translate: 0 130%; } to { translate: 0 0; } }
   }
 }
-.case-section--last { padding-bottom: var(--section); }
+.case-section--last { padding-bottom: var(--section-sm); }
 .g-3 { grid-column: span 3 !important; }
 
 /* Vende Digital: "Facts that connect", the three points are joined by one line */
@@ -1090,5 +1093,7 @@ main:has(.cover-stage--curtain) .chapter-cover { padding-bottom: clamp(40px, 5vw
   .svc-title { margin-top: 16px; }
 }
 /* Section marks a little more visible above the line */
-.mark { translate: 0 8%; }
-@media (prefers-reduced-motion: no-preference) { @supports (animation-timeline: view()) { @keyframes rise-mark { from { translate: 0 110%; } to { translate: 0 8%; } } } }
+
+/* Phone hero: the second line wraps before the sun instead of running over it */
+@media (max-width: 760px) { .hero-b { padding-right: calc(var(--sun-r) * 2 + 8px); } }
+@media (max-width: 760px) { .other-work .project { grid-column: 1 / -1; } }
