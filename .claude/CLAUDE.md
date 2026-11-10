@@ -75,6 +75,7 @@ These rules come from the site owner and apply to every task in this repo.
   - R10 y R15 llevan la redacción del dueño.
   - R37 se interpretó como retitular "E-commerce"; está pendiente de que el dueño lo confirme.
 - Ritmo vertical: `--section` (inicio, máx. 128 px) y `--section-sm` (casos, máx. 104 px). El espacio de la imagen de portada vive dentro de `.cover-stage` (un margen en la imagen se escapaba y dejaba una franja clara).
+- Auditoría de UI y de perfil: `redesign/a-v2/AUDITORIA.md` (2026-11-10). Son propuestas, nada aplicado. Lo principal: el sitio no vende el perfil (sin cifras, sin prueba de IA, sin "sobre mí" ni testimonios) y la idea del "día en Bogotá" (Fase 1 del plan) sigue sin construir. El titular del hero no se toca (decisión del dueño).
 - Pendiente de aprobación (ver "Pendiente de tu decisión" en `redesign/a-v2/PROPUESTAS.md`):
   - R37 (título "E-commerce").
   - Rótulo "HTML5 banners".
