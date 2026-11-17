@@ -185,6 +185,33 @@
     } catch (_) {}
   }
 
+  /* Interactive charts: ARIA tabs (arrows, Home, End), one view at a time; bars grow when the chart comes into view.
+     Without JS every view is shown as a plain table. */
+  document.querySelectorAll("[data-chart]").forEach((chart) => {
+    const tabs = Array.from(chart.querySelectorAll('[role="tab"]'));
+    const panels = tabs.map((tab) => chart.querySelector("#" + tab.getAttribute("aria-controls")));
+    chart.querySelectorAll(".bars tbody tr").forEach((tr, i, all) => tr.style.setProperty("--r", Array.prototype.indexOf.call(tr.parentElement.children, tr)));
+    const select = (i, focus) => {
+      tabs.forEach((tab, j) => { const on = i === j; tab.setAttribute("aria-selected", String(on)); tab.tabIndex = on ? 0 : -1; panels[j].hidden = !on; });
+      if (focus) tabs[i].focus();
+      if (chart.classList.contains("is-in")) { chart.classList.remove("is-in"); void chart.offsetWidth; chart.classList.add("is-in"); } /* replay the growth */
+    };
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => select(i));
+      tab.addEventListener("keydown", (e) => {
+        const n = tabs.length, k = e.key;
+        const to = k === "ArrowRight" ? (i + 1) % n : k === "ArrowLeft" ? (i - 1 + n) % n : k === "Home" ? 0 : k === "End" ? n - 1 : -1;
+        if (to >= 0) { e.preventDefault(); select(to, true); }
+      });
+    });
+    chart.classList.add("is-live");
+    select(0);
+    if (!reduceMotion.matches && "IntersectionObserver" in window) {
+      chart.classList.add("is-armed");
+      new IntersectionObserver(([e], obs) => { if (e.isIntersecting) { chart.classList.add("is-in"); obs.disconnect(); } }, { threshold: 0.35 }).observe(chart);
+    }
+  });
+
   /* Services: the four plates rise from their horizon one after another, once, when the row comes into view */
   const svc = document.querySelector(".svc");
   if (svc && !reduceMotion.matches && "IntersectionObserver" in window) {

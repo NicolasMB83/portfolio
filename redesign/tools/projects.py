@@ -171,3 +171,40 @@ PS = {
     post_surge='Pieza: Surge Guard, para electrónicos de casa y oficina'),
  ),
 }
+
+
+# ---------- G3: Vende Digital in numbers (interactive chart). Public data only.
+# Source: DPL News, 22 Nov 2022, reporting MinTIC's results for "Vende en Línea" (one of Vende Digital 2022's
+# two lines, with Tiendas Virtuales; El Nuevo Siglo, 7 Aug 2022).
+VD_SOURCE_URL = 'https://dplnews.com/colombia-6-000-empresarios-llevaron-sus-negocios-al-mundo-digital-de-las-ventas-gracias-a-vende-en-linea-nacional/'
+VD_DATA = dict(
+    total=6000, municipalities=447, departments=30,
+    sectors=[('retail', 2242), ('beauty', 866), ('crafts', 830), ('services', 421), ('food', 374),
+             ('wholesale', 312), ('home', 166), ('agro', 120), ('other', 489)],   # as reported: they add up to 5,820
+    cities=[('Bogotá', 1503), ('Cali', 557), ('Medellín', 339), ('Barranquilla', 231)],
+    women=3771, men=2229,
+)
+VD_CHART = {
+ 'en': dict(
+  title='The program in numbers', tabs=('Sectors', 'Cities', 'Women'),
+  lead='Vende en Línea, one of Vende Digital’s two lines, took {total} small businesses and merchants into e-commerce, from {mun} municipalities in {dep} departments.',
+  sectors=dict(retail='Retail', beauty='Health and beauty', crafts='Manufacturing and crafts', services='Services', food='Food and beverages',
+               wholesale='Wholesale', home='Home goods', agro='Agriculture', other='Other sectors'),
+  col_sector='Sector', col_city='City', col_n='Businesses',
+  women_lead='{w} of the {total} beneficiaries were women: {pct} %.', women='Women', men='Men',
+  each_dot='Each dot is 60 businesses.',
+  note='The sector figures add up to 5,820, as reported.',
+  source='Source: MinTIC, via DPL News, 22 November 2022.', source_link='Read the source',
+  caption_s='Businesses by economic sector', caption_c='Cities with the most businesses', caption_w='Beneficiaries by gender'),
+ 'es': dict(
+  title='El programa en cifras', tabs=('Sectores', 'Ciudades', 'Mujeres'),
+  lead='Vende en Línea, una de las dos líneas de Vende Digital, llevó al comercio electrónico a {total} mipymes y comerciantes de {mun} municipios en {dep} departamentos.',
+  sectors=dict(retail='Comercio al por menor', beauty='Salud y belleza', crafts='Manufactura y artesanías', services='Servicios', food='Alimentos y bebidas',
+               wholesale='Comercio al por mayor', home='Productos para el hogar', agro='Agricultura', other='Otros sectores'),
+  col_sector='Sector', col_city='Ciudad', col_n='Empresas',
+  women_lead='{w} de los {total} beneficiarios fueron mujeres: el {pct} %.', women='Mujeres', men='Hombres',
+  each_dot='Cada punto representa 60 empresas.',
+  note='Las cifras por sector suman 5.820, tal como se publicaron.',
+  source='Fuente: MinTIC, citado por DPL News, 22 de noviembre de 2022.', source_link='Ver la fuente',
+  caption_s='Empresas por sector económico', caption_c='Ciudades con más empresas', caption_w='Beneficiarios por género'),
+}

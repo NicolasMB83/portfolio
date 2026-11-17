@@ -564,7 +564,7 @@ def work_tiles(t, home):
 
 
 from review import REVIEW, APPLIED
-from projects import VD, INF, PS
+from projects import VD, INF, PS, VD_DATA, VD_CHART, VD_SOURCE_URL
 
 
 def mark_review(html):
@@ -998,6 +998,42 @@ def results_block(t, text, nxt=None, slug=None):
           </div>'''
 
 
+def vd_chart(t):
+    """G3: the program in numbers. Each view is a real <table> (read by screen readers and shown without JS);
+    the bars are drawn on it with CSS and grow from the horizon. Tabs switch views (ARIA tabs pattern)."""
+    lang = t['_lang']; c = VD_CHART[lang]; d = VD_DATA
+    num = lambda n: f'{n:,}'.replace(',', '.' if lang == 'es' else ',')
+    def bars(rows, cap, col, mx):
+        trs = ''.join(f'''
+                <tr style="--v: {v / mx:.4f}"><th scope="row">{lab}</th><td><span class="bar" aria-hidden="true"></span><span class="bar-n">{num(v)}</span></td></tr>''' for lab, v in rows)
+        return f'''<table class="bars"><caption class="sr-only">{cap}</caption>
+              <thead class="sr-only"><tr><th scope="col">{col}</th><th scope="col">{c['col_n']}</th></tr></thead>
+              <tbody>{trs}
+              </tbody></table>'''
+    sectors = [(c['sectors'][k], v) for k, v in d['sectors']]
+    pct = round(100 * d['women'] / d['total'])
+    dots = ''.join(f'<i class="{"w" if i < round(d["women"] / 60) else "m"}" style="--i: {i}"></i>' for i in range(d['total'] // 60))
+    panels = [
+        ('s', bars(sectors, c['caption_s'], c['col_sector'], d['sectors'][0][1]) + f'<p class="chart-note">{c["note"]}</p>'),
+        ('c', bars(d['cities'], c['caption_c'], c['col_city'], d['cities'][0][1])),
+        ('w', f'''<p class="chart-big"><strong>{pct} %</strong> {c['women_lead'].format(w=num(d['women']), total=num(d['total']), pct=pct)}</p>
+              <div class="dots" aria-hidden="true">{dots}</div>
+              <p class="chart-note"><span class="key key--w"></span>{c['women']} {num(d['women'])} · <span class="key key--m"></span>{c['men']} {num(d['men'])} · {c['each_dot']}</p>
+              <table class="sr-only"><caption>{c['caption_w']}</caption><tbody><tr><th scope="row">{c['women']}</th><td>{num(d['women'])}</td></tr><tr><th scope="row">{c['men']}</th><td>{num(d['men'])}</td></tr></tbody></table>'''),
+    ]
+    tabs = ''.join(f'<button type="button" role="tab" id="vdt-{k}" aria-controls="vdp-{k}" aria-selected="{"true" if i == 0 else "false"}"{"" if i == 0 else " tabindex=\"-1\""}>{lab}</button>' for i, (k, lab) in enumerate(zip('scw', c['tabs'])))
+    body = ''.join(f'''
+            <div class="chart-panel" role="tabpanel" id="vdp-{k}" aria-labelledby="vdt-{k}" tabindex="0">
+              {html}
+            </div>''' for k, html in panels)
+    return f'''{P.format('G3: sección nueva con datos públicos del programa (textos nuevos por aprobar)')}
+          <div class="chart" data-chart>
+            <p class="chart-lead">{c['lead'].format(total=num(d['total']), mun=num(d['municipalities']), dep=d['departments'])}</p>
+            <div class="chart-tabs" role="tablist" aria-label="{c['title']}">{tabs}</div>{body}
+            <p class="chart-source">{c['source']} <a href="{VD_SOURCE_URL}" target="_blank" rel="noopener">{c['source_link']}<span class="sr-only"> {t['new_tab']}</span></a></p>
+          </div>'''
+
+
 # ---------- Vende Digital: a campaign, "Facts that connect": its points are joined by a line
 def vd_main(t, h):
     c = VD[t['_lang']]; a = c['alts']
@@ -1018,6 +1054,7 @@ def vd_main(t, h):
     cover = f'<figure class="cover-shot">{pic("vd-billboard", "(max-width: 760px) 100vw, 1320px", a["billboard"], eager=True)}</figure>'
     return case_cover(t, h, 'Vende Digital', SHAPE_VD, c['desc'], (c['year'], c['company'], t['r_dgd']), cover) + \
         section('', 'vd-obj', mark_head(t['c_obj'], 'vd-obj', MARK_VD), connect) + \
+        section('', 'vd-data', mark_head(VD_CHART[t['_lang']]['title'], 'vd-data', MARK_VD), vd_chart(t)) + \
         section('is-night tone-night', 'vd-work', mark_head(c['work'], 'vd-work', MARK_VD), work) + \
         section('case-section--last', 'vd-res', mark_head(t['ch_res'], 'vd-res', MARK_VD), results_block(t, c['results'])) + \
         other_work(t, h, [('infinited', 'project--narrow project--square', '(max-width: 760px) 100vw, 42vw'), ('pro-surge-ja', '', '(max-width: 760px) 100vw, 58vw')])

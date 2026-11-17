@@ -91,3 +91,28 @@ Solo con datos ya publicados; nada interno del empleador.
 - Teclado y textos de ayuda accesibles.
 - La animación dibuja el gráfico al entrar en pantalla y se apaga con "reducir movimiento".
 - Colores del cliente y el vocabulario del sitio (la línea del horizonte como eje, el punto como marca).
+
+## G3 hecho (17 de noviembre de 2026): Vende Digital en cifras
+
+En la página de Vende Digital (inglés y español), entre los objetivos y las piezas.
+
+**Datos:**
+- Públicos, de "Vende en Línea", una de las dos líneas de Vende Digital 2022 (la otra es Tiendas Virtuales).
+- Fuente: [DPL News, 22 de noviembre de 2022](https://dplnews.com/colombia-6-000-empresarios-llevaron-sus-negocios-al-mundo-digital-de-las-ventas-gracias-a-vende-en-linea-nacional/), con cifras del MinTIC. Las líneas del programa las confirma [El Nuevo Siglo, 7 de agosto de 2022](https://www.elnuevosiglo.com.co/articulos/07-08-2022-mintic-ayudara-empresarios-implementar-comercio-electronico).
+- Cifras: 6.000 empresas, 447 municipios, 30 departamentos, nueve sectores, cuatro ciudades y 3.771 mujeres (63 %).
+- Las cifras por sector suman 5.820, no 6.000, tal como se publicaron; el gráfico lo dice.
+
+**No se usó:**
+- El dato "6.690 beneficiarios de 31 departamentos" de tu pieza de campaña: no encontré una fuente que lo confirme.
+- Un mapa: no hay desglose público completo por departamento (solo Valle 13,9 %, Antioquia 12,6 %, Cundinamarca 6,6 % y Atlántico 6 %).
+- Las cifras de [Quiero Mi Tienda Virtual (6.920 mipymes, 31 departamentos)](https://www.mintic.gov.co/portal/715/w3-article-193928.html): son de 2021, otro programa.
+
+**Cómo funciona:**
+- Tres vistas en pestañas: sectores, ciudades y mujeres.
+- Cada vista es una tabla real, que leen los lectores de pantalla y que se ve sin JavaScript.
+- Las barras crecen desde la línea al entrar en pantalla.
+- En la vista de mujeres, cada punto (el punto de la "i") representa 60 empresas.
+- Las pestañas se manejan con las flechas del teclado.
+- Con "reducir movimiento" no hay animación.
+
+**Textos nuevos por aprobar** (marcados en el HTML): el título "The program in numbers / El programa en cifras", la frase de entrada, las etiquetas y la nota de la fuente.

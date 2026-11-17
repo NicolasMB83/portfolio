@@ -93,7 +93,9 @@ These rules come from the site owner and apply to every task in this repo.
   - Ahora: nicho editorial, de datos y de marca para instituciones de inversión y gobierno, con sistemas e IA.
   - A futuro: design engineer.
   - No publicar la velocidad personal del dueño (tiempos y horas): mostrar alcance, calidad y sistema. Las métricas técnicas del sitio sí.
-  - Gráficos interactivos candidatos G1–G6, solo con datos publicados; empezar por G4.
+  - Gráficos interactivos candidatos G1–G6, solo con datos publicados.
+  - G3 hecho en Vende Digital: `vd_chart` en `build.py`; datos y fuente en `VD_DATA` y `VD_CHART` (`projects.py`); estilos `.chart`/`.bars`/`.dots`; pestañas en `site.js` (`[data-chart]`). Es el patrón para los siguientes: tabla real con barras CSS.
+  - Red del entorno: se permitieron mintic.gov.co y medios colombianos (dplnews, larepublica, elnuevosiglo, semana, elheraldo) para leer datos públicos.
 - Revisión de textos R1–R41: aprobada y aplicada el 2026-11-02 (`APPLIED` en `review.py`).
   - R10 y R15 llevan la redacción del dueño.
   - R37 se interpretó como retitular "E-commerce"; está pendiente de que el dueño lo confirme.
