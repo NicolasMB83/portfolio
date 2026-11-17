@@ -18,7 +18,7 @@ import re, json, hashlib, pathlib, sys
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 PARTS = HERE / 'parts'
-OUT = HERE.parent / 'a-v2'
+OUT = HERE.parent / 'a-v3'   # a-v2 is frozen (see redesign/a-v2 and branch backup/a-v2-2026-11-17)
 REPO_FROM_SITE = '../../'
 ABS_ROOT = None   # set to '/' once promoted: the 404 is served at any URL, so it needs root-absolute paths
 LINK_INDEX = True  # prototype previews (raw.githack, file://) cannot open folders: link to .../index.html. False on Netlify.
@@ -75,14 +75,18 @@ ES_DRAFT = '<!-- Español: traducción fiel del inglés (aprobada la terminolog�
 # ------------------------------------------------------------------ copy
 T = {
  'en': dict(
-  title='Nicolas MB - Designer',
+  title='Nicolás Mogollón Barbosa · Visual and AI Designer',
+  work_title='Work', soon='Case study coming soon', did='What I did',
+  facts=[('9', 'years of experience'), ('5', 'organizations'), ('2', 'languages')],
+  now='Bogotá, Colombia', ai_title='AI in my workflow',
+  contact_facts='Based in Bogotá (GMT−5) · English and Spanish · Open to full-time roles and freelance projects',
   desc='Nicolás Mogollón Barbosa, visual and brand designer. Campaigns, identities and digital products for MinTIC, Invest in Bogotá, Radio a Domicilio and more.',
   nav_work='WORK', nav_about='ABOUT', nav_exp='EXPERIENCE', cta='Let’s talk', menu='Menu',
   other_lang='es', other_short='ES', other_name='Español',
   hint_text='¿Prefieres ver el sitio en español?', hint_btn='Ver en español', hint_close='Cerrar',
   h1a='I LOVE DESIGN', h1b='and I turn that passion into results',
-  intro="I’m Nicolás, a multidisciplinary designer with experience in product design, digital design and social media campaigns.",
-  work='WORK', view='VIEW PORTFOLIO',
+  intro='I’m Nicolás, a visual and AI designer based in Bogotá. For nine years I’ve turned public programs, universities and brands into identities, campaigns and websites, for MinTIC, Invest in Bogotá and ReloQuest.',
+  work='WORK', view='SEE THE FULL DECK',
   r_art='Art Director', r_vai='Visual and AI Designer', r_dgd='Digital Graphic Designer', r_vec='Visual Experience Coordinator', r_ad='Art Direction',
   s1='Digital Graphic Design', s1t='Developing design concepts that encompass visual identity, color palettes, typography, and visual guidelines.',
   s2='Web Design', s2t='Navigation structure strategies, visual design, mobile device optimization, and style guides.',
@@ -163,14 +167,18 @@ T = {
     headphones='Headphones on a yellow background crossed by a violet stripe'),
  ),
  'es': dict(
-  title='Nicolas MB - Diseñador',
+  title='Nicolás Mogollón Barbosa · Diseñador visual y de IA',
+  work_title='Proyectos', soon='Caso de estudio en preparación', did='Qué hice',
+  facts=[('9', 'años de experiencia'), ('5', 'organizaciones'), ('2', 'idiomas')],
+  now='Bogotá, Colombia', ai_title='La IA en mi flujo de trabajo',
+  contact_facts='En Bogotá (GMT−5) · Español e inglés · Disponible para empleo de tiempo completo y proyectos independientes',
   desc='Nicolás Mogollón Barbosa, diseñador visual y de marca. Campañas, identidades y productos digitales para MinTIC, Invest in Bogotá, Radio a Domicilio y más.',
   nav_work='PROYECTOS', nav_about='SOBRE MÍ', nav_exp='EXPERIENCIA', cta='Hablemos', menu='Menú',
   other_lang='en', other_short='EN', other_name='English',
   hint_text='Prefer to read this site in English?', hint_btn='View in English', hint_close='Close',
   h1a='AMO EL DISEÑO', h1b='y convierto esa pasión en resultados',
-  intro='Soy Nicolás, diseñador multidisciplinario con experiencia en diseño de producto, diseño digital y campañas para redes sociales.',
-  work='PROYECTOS', view='VER PORTAFOLIO',
+  intro='Soy Nicolás, diseñador visual y de IA en Bogotá. Desde hace nueve años convierto programas públicos, universidades y marcas en identidades, campañas y sitios web, para MinTIC, Invest in Bogotá y ReloQuest.',
+  work='PROYECTOS', view='VER LA PRESENTACIÓN COMPLETA',
   r_art='Director de arte', r_vai='Diseñador visual y de IA', r_dgd='Diseñador gráfico digital', r_vec='Coordinador de experiencia visual', r_ad='Dirección de arte',
   s1='Diseño gráfico digital', s1t='Desarrollo de conceptos de diseño que abarcan identidad visual, paletas de color, tipografía y lineamientos visuales.',
   s2='Diseño web', s2t='Estrategias de estructura de navegación, diseño visual, optimización para dispositivos móviles y guías de estilo.',
@@ -294,6 +302,12 @@ def head(lang, title, desc, alternates):
   <meta property="og:locale" content="{'en_US' if lang == 'en' else 'es_CO'}">
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{desc}">
+  <meta property="og:url" content="{canonical}">
+  <meta property="og:image" content="{BASE}assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Nicolás Mogollón Barbosa, Visual and AI Designer">
+  <meta name="twitter:image" content="{BASE}assets/og.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{title}">
   <meta name="twitter:description" content="{desc}">
@@ -397,6 +411,8 @@ def footer(t, other):
       <div class="sky"><h2 class="rise contact-title">{t['magic']}</h2></div>
       <span class="horizon" aria-hidden="true"></span>
       <p class="contact-sub">{t['magic_sub']}</p>
+      {P.format('a-v3: ciudad, idiomas y disponibilidad (confirmar la disponibilidad)')}
+      <p class="contact-facts">{t['contact_facts']}</p>
       {email_row(t)}
       <div class="contact-actions">
         <div class="cta-group">
@@ -425,18 +441,42 @@ def cover(p, sizes):
     return '', pic(p['img'], sizes)
 
 
+CARD_SHAPES = {   # each client's cover shape, small, rising from the card's bottom edge on hover
+    'radio-a-domicilio': ('#ffc845', '<path class="s" d="M96 120a24 24 0 0 1 48 0"/><path class="s" d="M66 120a54 54 0 0 1 108 0"/><path class="s" d="M36 120a84 84 0 0 1 168 0"/>'),
+    'invest-in-bogota': ('#ef491f', '<circle cx="120" cy="120" r="84"/>'),
+    'vende-digital': ('#ff00bc', '<path class="s s--thin" d="M30 106L120 32L210 106"/><circle cx="30" cy="106" r="13"/><circle cx="120" cy="32" r="18"/><circle cx="210" cy="106" r="13"/>'),
+    'infinited': ('#2ccfc7', '<rect x="38" y="72" width="30" height="64" rx="15"/><rect x="105" y="38" width="30" height="98" rx="15"/><rect x="172" y="4" width="30" height="132" rx="15"/>'),
+    'pro-surge-ja': ('#ff4848', '<path d="M54 120L118 0H158L94 120Z"/><path d="M124 120L188 0H228L164 120Z"/>'),
+}
+
+
+def card_kind(t, slug):
+    """One line per card: what the work was and when (instead of the role, which lives in the case study)."""
+    lang = 'es' if t['other_lang'] == 'en' else 'en'
+    return {'radio-a-domicilio': f"{t['work_rad']} · 2023–2024", 'invest-in-bogota': f"{t['work_iib']} · 2025",
+            'vende-digital': f"{VD[lang]['work']} · 2022", 'infinited': f"{INF[lang]['work']} · 2021–2022",
+            'pro-surge-ja': f"{PS[lang]['work']} · 2023", 'col40-2018': t['soon']}[slug]
+
+
 def project(t, home, slug, cls='', sizes='(max-width: 760px) 100vw, 58vw'):
     p = PJ[slug]
     attrs, media = cover(p, sizes)
+    shape = ''
+    if slug in CARD_SHAPES:
+        c, d = CARD_SHAPES[slug]
+        shape = f'<svg class="card-shape" style="--client: {c}" viewBox="0 0 240 120" aria-hidden="true" focusable="false">{d}</svg>'
+    live = slug in CARD_SHAPES   # Colombia 4.0 has no case study yet: a card, not a link
+    open_, close = (f'<a class="project-link" href="{home}{slug}/">', '</a>') if live else ('<div class="project-link project-link--soon">', '</div>')
+    arrow = f'<span class="card-go">{go("go--sun")}</span>' if live else ''
     return f'''
           <li class="project {cls}">
-            <a class="project-link" href="{home}{slug}/">
-              <div class="project-media"{attrs}>{media}<span class="card-go">{go('go--sun')}</span></div>
+            {open_}
+              <div class="project-media"{attrs}>{media}{shape}{arrow}</div>
               <div class="project-meta">
                 <h3 class="project-title">{p['title']}</h3>
-                <p class="project-role">{t[p['role']]}</p>
+                <p class="project-role">{card_kind(t, slug)}</p>
               </div>
-            </a>
+            {close}
           </li>'''
 
 
@@ -560,16 +600,19 @@ def page(lang, depth, body, title, desc, alternates, body_cls='', robots=None, a
 
 def roles_html(t):
     out = []
-    for dates, title, place, points, note in t['roles']:
-        pts = ''.join(f'\n                <li>{p}</li>' for p in points)
+    for n, (dates, title, place, points, note) in enumerate(t['roles']):
+        pts = ''.join(f'\n                  <li>{p}</li>' for p in points)
         out.append(f'''
-          <li class="role">{(chr(10) + '            ' + P.format(note)) if note else ''}
+          <li class="role">
             <p class="role-dates">{dates}</p>
             <div>
               <h3 class="role-title">{title}</h3>
               <p class="role-place">{place}</p>
-              <ul class="points">{pts}
-              </ul>
+              <details class="role-more"{' open' if n == 0 else ''}>
+                <summary>{t['did']}<span class="sr-only">: {title}, {place}</span></summary>
+                <ul class="points">{pts}
+                </ul>
+              </details>
             </div>
           </li>''')
     return ''.join(out)
@@ -598,7 +641,12 @@ def home(lang, variant='grid'):
           <span class="horizon horizon--sun" aria-hidden="true"></span>
         </h1>
         <div class="hero-below">
-          <p class="hero-intro body-lg">{t['intro']}</p>
+          {P.format('a-v3: texto de apoyo nuevo, línea de Bogotá y tres cifras (9 años, 5 organizaciones, 2 idiomas). Ver redesign/a-v3/CAMBIOS.md')}
+          <div class="hero-lead">
+            <p class="hero-intro body-lg">{t['intro']}</p>
+            <p class="hero-now"><span class="now-dot" aria-hidden="true"></span>{t['now']} <span data-bogota-time data-locale="{'en-US' if lang == 'en' else 'es-CO'}">(GMT−5)</span></p>
+          </div>
+          <dl class="hero-facts">{''.join(f'<div><dt>{lab}</dt><dd>{num}</dd></div>' for num, lab in t['facts'])}</dl>
         </div>
       </div>
     </section>
@@ -606,7 +654,8 @@ def home(lang, variant='grid'):
     <section id="work" class="{work_cls}" aria-labelledby="work-title">
       <div class="wrap">
         <div class="titled">
-          <div class="sky"><h2 id="work-title" class="rise display-2">{t['work']}</h2></div>
+          {P.format('a-v3: título "Work" sin mayúsculas sostenidas; cada tarjeta dice el tipo de trabajo y el año; "See the full deck" reemplaza "View portfolio"')}
+          <div class="sky"><h2 id="work-title" class="rise display-2">{t['work_title']}</h2></div>
           <span class="horizon" aria-hidden="true"></span>
         </div>
         {work_list}
@@ -630,6 +679,16 @@ def home(lang, variant='grid'):
           </li>''' for i, (k, f, w, hh, work) in enumerate([('s1', 'service-graphic', 1024, 1024, ('invest-in-bogota', 'vende-digital')), ('s2', 'service-web', 797, 813, ('radio-a-domicilio', 'infinited')), ('s3', 'service-ui', 1024, 1024, ('infinited', 'radio-a-domicilio')), ('s4', 'service-brand', 1024, 1024, ('pro-surge-ja', 'radio-a-domicilio'))])) + f'''
         </ul>
       </div>
+      <!-- La IA, con frases que ya están aprobadas en el sitio. Falta un ejemplo real: encargo, resultado de la IA y pieza final. -->
+      {P.format('a-v3: bloque nuevo "AI in my workflow"; las tres frases ya estaban aprobadas en el sitio, el título es nuevo')}
+      <div class="wrap ai" role="group" aria-labelledby="ai-title">
+        <h2 id="ai-title" class="ai-title"><span class="ai-dot" aria-hidden="true"></span>{t['ai_title']}</h2>
+        <ul class="ai-list">
+          <li><p class="ai-where">{t['roles'][0][2]}</p><p class="ai-what">{t['roles'][0][3][1]}</p></li>
+          <li><p class="ai-where">{t['roles'][1][2]}</p><p class="ai-what">{t['roles'][1][3][2]}</p></li>
+          <li><p class="ai-where">{t['roles'][1][2]}</p><p class="ai-what">{t['c_ch'][2][1]}</p></li>
+        </ul>
+      </div>
       <div class="clients is-night">
         <div class="wrap">
           <h2 class="clients-title">{t['clients']}</h2>
@@ -650,16 +709,24 @@ def home(lang, variant='grid'):
           <div class="sky"><h2 id="exp-title" class="rise display-2" style="padding-bottom:.16em">{t['career']}</h2></div>
           <span class="horizon" style="margin-inline:0" aria-hidden="true"></span>
         </div>
+        {P.format('a-v3: rótulo nuevo "What I did" / "Qué hice" para abrir las viñetas de cada cargo')}
         <ol class="roles">{roles_html(t)}
         </ol>
       </div>
     </section>
   </main>
+  <span class="day-sun" aria-hidden="true"></span>
 ''' + footer(t, other)
     alts = [('en', BASE), ('es', BASE + 'es/'), ('x-default', BASE)]
     if variant != 'grid':
         return page(lang, 1, body, t['title'], t['desc'], alts, robots='noindex')
-    return page(lang, 0 if lang == 'en' else 1, body, t['title'], t['desc'], alts)
+    person = json.dumps({'@context': 'https://schema.org', '@type': 'Person', 'name': 'Nicolás Mogollón Barbosa', 'url': BASE,
+                         'jobTitle': T[lang]['r_vai'], 'email': 'mailto:' + EMAIL, 'knowsLanguage': ['es', 'en'],
+                         'address': {'@type': 'PostalAddress', 'addressLocality': 'Bogotá', 'addressCountry': 'CO'},
+                         'worksFor': {'@type': 'Organization', 'name': 'ReloQuest'},
+                         'sameAs': ['https://www.linkedin.com/in/nicolasmb', 'https://www.behance.net/NicolasMB']}, ensure_ascii=False)
+    html = page(lang, 0 if lang == 'en' else 1, body, t['title'], t['desc'], alts)
+    return html.replace('</head>', f'  <script type="application/ld+json">{person}</script>\n</head>', 1)
 
 
 # ------------------------------------------------------------------ CASE STUDIES
@@ -941,7 +1008,7 @@ def vd_main(t, h):
         section('', 'vd-obj', mark_head(t['c_obj'], 'vd-obj', MARK_VD), connect) + \
         section('is-night tone-night', 'vd-work', mark_head(c['work'], 'vd-work', MARK_VD), work) + \
         section('case-section--last', 'vd-res', mark_head(t['ch_res'], 'vd-res', MARK_VD), results_block(t, c['results'])) + \
-        other_work(t, h, [('infinited', 'project--narrow project--square', '(max-width: 760px) 100vw, 42vw'), ('col40-2018', 'project--narrow project--square', '(max-width: 760px) 100vw, 42vw')])
+        other_work(t, h, [('infinited', 'project--narrow project--square', '(max-width: 760px) 100vw, 42vw'), ('pro-surge-ja', '', '(max-width: 760px) 100vw, 58vw')])
 
 
 # ---------- Infinited: learning as a climb; the three phases are steps that rise
@@ -1077,8 +1144,5 @@ write('es/radio-a-domicilio/index.html', case_rad('es'))
 for slug, fn in (('vende-digital', case_vd), ('infinited', case_inf), ('pro-surge-ja', case_ps)):
     write(f'{slug}/index.html', fn('en'))
     write(f'es/{slug}/index.html', fn('es'))
-write('projects-a/index.html', home('en', 'plates'))
-write('projects-b/index.html', home('en', 'sheet'))
-write('projects-c/index.html', home('en', 'tiles'))
 write('404.html', lost())
 print('built', ASSET_V, sorted(str(p.relative_to(OUT)) for p in OUT.rglob('*.html')))

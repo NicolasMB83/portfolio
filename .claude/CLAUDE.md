@@ -23,9 +23,21 @@ These rules come from the site owner and apply to every task in this repo.
 - Do not crowd the site: every texture, animation or element needs a reason.
 
 ## Estado actual (para retomar en cualquier sesión)
-- Trabajo vigente: Opción A v2 "Horizonte" en `redesign/a-v2/` (EN) y `redesign/a-v2/es/` (ES), rama `redesign`.
-- Generador: `python3 redesign/tools/build.py` escribe todas las páginas; sus piezas (logo, íconos Phosphor, quemadura SVG, manifiesto de imágenes) están en `redesign/tools/parts/`. No edites el HTML generado a mano: edita el generador.
-  - CSS/JS compartidos: `redesign/a-v2/assets/` (`site.css`, `site.js`). El generador calcula el `?v=<hash>` solo.
+- Trabajo vigente: versión a futuro **a-v3** en `redesign/a-v3/` (EN) y `redesign/a-v3/es/` (ES), rama `redesign`. Detalle y textos por aprobar (V1–V11): `redesign/a-v3/CAMBIOS.md`.
+- Versión anterior **a-v2** ("Horizonte"): congelada en `redesign/a-v2/` y en la rama `backup/a-v2-2026-11-17`. No se regenera; allí siguen PROPUESTAS.md, PLAN.md y AUDITORIA.md.
+- a-v3 añade sobre a-v2:
+  - Hero con texto de apoyo específico, tres cifras y la hora de Bogotá (`[data-bogota-time]`).
+  - Sol del día ligado al scroll (`.day-sun`, solo en el inicio).
+  - Forma del cliente en las tarjetas (`CARD_SHAPES`) y línea de tipo de trabajo + año (`card_kind`).
+  - Bloque de IA con frases ya aprobadas.
+  - Trayectoria plegable con `<details>` (el título del cargo queda fuera del `summary`).
+  - Línea de datos en el contacto.
+  - Títulos de sección a 52 px.
+  - `assets/og.png`, título de página con nombre y cargo, y JSON-LD de persona.
+  - La tarjeta de Colombia 4.0 no es enlace.
+  - Sin las páginas `projects-a/b/c`.
+- Generador: `python3 redesign/tools/build.py` escribe todas las páginas de **a-v3** (`OUT`); sus piezas (logo, íconos Phosphor, quemadura SVG, manifiesto de imágenes) están en `redesign/tools/parts/`. No edites el HTML generado a mano: edita el generador.
+  - CSS/JS compartidos: `redesign/a-v3/assets/` (`site.css`, `site.js`). El generador calcula el `?v=<hash>` solo.
   - Todo es local: imágenes WebP en `assets/img/`, fuentes WOFF2 en `assets/fonts/`, Lottie en `assets/vendor/`. Lo único en Framer son las 3 animaciones Lottie de portada.
   - Para publicar en la raíz: `REPO_FROM_SITE = ''`, `ABS_ROOT = '/'`, `LINK_INDEX = False`.
 - Páginas (EN y ES): home, `invest-in-bogota/`, `radio-a-domicilio/`, `vende-digital/`, `infinited/`, `pro-surge-ja/`, `404.html` (bilingüe), `projects-a/`, `projects-b/` y `projects-c/` (alternativas de la sección de proyectos, solo EN, noindex; C es la fusión vigente).
@@ -91,5 +103,5 @@ These rules come from the site owner and apply to every task in this repo.
 - Red del entorno: `framerusercontent.com` y `*.framer.app` están bloqueados. Para descargar las Lottie, el dueño debe permitirlos en Network access.
 - Nada se publica en `main` sin aprobación explícita. El sitio en vivo es `https://nicolasmb.com/` (Netlify, se actualiza desde `main` en minutos).
 - Deck de Figma del dueño (Figma Slides, fileKey `A2FLZyFCZUkYItYyTG2Tgn`, portada nodo `1:2107`): fondo negro tipo película, grano, polvo/rayas, quemadura de película naranja en una esquina y el logotipo con halación (núcleo amarillo, naranja, borde magenta). El conector de Figma solo puede capturar diapositivas cuyo enlace (node-id) comparta el dueño; no puede listar las diapositivas de un deck.
-- Vista previa: `https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v2/index.html`. Puede tardar unos minutos en reflejar un cambio; si dudas, recarga forzada.
+- Vista previa: `https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v3/index.html` (a-v2: misma ruta con `a-v2`). Puede tardar unos minutos en reflejar un cambio; si dudas, recarga forzada.
 - Lección técnica: un contenedor con `overflow: hidden` se vuelve contenedor de scroll y congela las animaciones `view()` de sus hijos. Usa `overflow: clip`.
