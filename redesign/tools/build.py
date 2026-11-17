@@ -313,10 +313,13 @@ def head(lang, title, desc, alternates):
   <meta name="twitter:description" content="{desc}">
   <link rel="icon" href="@A/img/favicon-light.png" media="(prefers-color-scheme: light)">
   <link rel="icon" href="@A/img/favicon-dark.png" media="(prefers-color-scheme: dark)">
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="@A/fonts/clash-display-700.woff2">
+  <meta name="color-scheme" content="light">
+  <link rel="apple-touch-icon" href="@A/img/apple-touch-icon.png">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="@A/fonts/clash-display-@W.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="@A/fonts/albert-sans-400.woff2">
   <link rel="stylesheet" href="@A/site.css?v={ASSET_V}">
   <script src="@A/site.js?v={ASSET_V}" defer></script>
+  <script type="speculationrules">{{"prerender":[{{"where":{{"and":[{{"href_matches":"/*"}},{{"not":{{"href_matches":"/*.pdf"}}}},{{"not":{{"selector_matches":"[target=_blank]"}}}}]}},"eagerness":"moderate"}}]}}</script>
 </head>'''
 
 
@@ -591,6 +594,7 @@ def page(lang, depth, body, title, desc, alternates, body_cls='', robots=None, a
         html = html.replace('<meta name="theme-color" content="#f6f7fd">', '<meta name="theme-color" content="#101025">')
     if robots:
         html = html.replace('  <link rel="canonical"', f'  <meta name="robots" content="{robots}">\n  <link rel="canonical"', 1)
+    html = html.replace('clash-display-@W', 'clash-display-600' if 'page-chapters' in body_cls else 'clash-display-700')
     html = html.replace('@A/', up + 'assets/').replace('@R/', up + REPO_FROM_SITE).replace('@H/', up or './')
     html = mark_review(html)
     if LINK_INDEX:
@@ -808,7 +812,15 @@ def case_shell(lang, slug, meta, client, client_ink, main_html):
   </main>
 ''' + footer(t, other)
     alts = [('en', BASE + f'{slug}/'), ('es', BASE + f'es/{slug}/'), ('x-default', BASE + f'{slug}/')]
-    return page(lang, depth, body, meta(t)[0], meta(t)[1], alts, 'page-chapters')
+    url = dict(alts)[lang]
+    ld = json.dumps({'@context': 'https://schema.org', '@graph': [
+        {'@type': 'CreativeWork', 'name': PJ[slug]['title'], 'description': meta(t)[1], 'url': url, 'inLanguage': lang,
+         'author': {'@type': 'Person', 'name': 'Nicolás Mogollón Barbosa', 'url': BASE}},
+        {'@type': 'BreadcrumbList', 'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': t['work_title'], 'item': BASE + ('' if lang == 'en' else 'es/')},
+            {'@type': 'ListItem', 'position': 2, 'name': PJ[slug]['title'], 'item': url}]}]}, ensure_ascii=False)
+    html = page(lang, depth, body, meta(t)[0], meta(t)[1], alts, 'page-chapters')
+    return html.replace('</head>', f'  <script type="application/ld+json">{ld}</script>\n</head>', 1)
 
 
 # ---------- Radio a Domicilio: a story told in numbered chapters (objectives, process, pieces, results)
@@ -1146,3 +1158,24 @@ for slug, fn in (('vende-digital', case_vd), ('infinited', case_inf), ('pro-surg
     write(f'es/{slug}/index.html', fn('es'))
 write('404.html', lost())
 print('built', ASSET_V, sorted(str(p.relative_to(OUT)) for p in OUT.rglob('*.html')))
+
+SLUGS = ['', 'invest-in-bogota/', 'radio-a-domicilio/', 'vende-digital/', 'infinited/', 'pro-surge-ja/']
+urls = ''.join(f'''
+  <url><loc>{BASE}{sl}</loc><xhtml:link rel="alternate" hreflang="en" href="{BASE}{sl}"/><xhtml:link rel="alternate" hreflang="es" href="{BASE}es/{sl}"/></url>
+  <url><loc>{BASE}es/{sl}</loc><xhtml:link rel="alternate" hreflang="en" href="{BASE}{sl}"/><xhtml:link rel="alternate" hreflang="es" href="{BASE}es/{sl}"/></url>''' for sl in SLUGS)
+write('sitemap.xml', f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">{urls}\n</urlset>\n')
+write('robots.txt', f'User-agent: *\nAllow: /\n\nSitemap: {BASE}sitemap.xml\n')
+write('_headers', '''# Netlify headers. Assets never change under the same URL: site.css and site.js carry ?v=<hash>;
+# an image or font that changes must get a new file name.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000
+  # Report-only until it is checked on the live site (it cannot be tested before publishing):
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' 'inline-speculation-rules'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.giphy.com; media-src 'self' https://*.giphy.com; connect-src 'self' https://api.giphy.com https://framerusercontent.com; frame-src 'self'; base-uri 'self'; form-action 'none'
+''')

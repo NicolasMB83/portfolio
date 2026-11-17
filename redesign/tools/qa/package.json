@@ -1,0 +1,14 @@
+{
+  "name": "portfolio-qa",
+  "private": true,
+  "description": "Checks for the portfolio: accessibility (axe), overflow at 9 widths, no-JS, reduced motion; weight and paint timings; before/after captures. Playwright is the one preinstalled on the machine (NODE_PATH).",
+  "scripts": {
+    "serve": "cd ../../.. && python3 -m http.server 8765 --bind 127.0.0.1",
+    "qa": "node qa.js",
+    "measure": "node measure.js",
+    "snap": "node snap.js"
+  },
+  "devDependencies": {
+    "axe-core": "4.10.2"
+  }
+}

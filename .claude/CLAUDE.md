@@ -36,6 +36,12 @@ These rules come from the site owner and apply to every task in this repo.
   - `assets/og.png`, título de página con nombre y cargo, y JSON-LD de persona.
   - La tarjeta de Colombia 4.0 no es enlace.
   - Sin las páginas `projects-a/b/c`.
+- Pruebas (dentro del repo, `redesign/tools/qa/`): servir el repo en el puerto 8765 y correr con `NODE_PATH=/opt/node22/lib/node_modules` (Playwright del sistema; `npm install` ahí solo trae axe-core).
+  - `node qa.js`: axe, anchos, sin JS, movimiento reducido.
+  - `node measure.js`: peso, LCP, CLS.
+  - `node snap.js <carpeta>` + `python3 diff.py antes después`: comparación píxel a píxel antes de refactorizar.
+  - `python3 redesign/tools/prune_css.py`: quita CSS sin uso (luego regenerar).
+- El generador también escribe `sitemap.xml`, `robots.txt` y `_headers` (Netlify). La CSP está en modo solo-informe: verificarla tras publicar. Una imagen o fuente que cambie debe cambiar de nombre (caché de un año).
 - Generador: `python3 redesign/tools/build.py` escribe todas las páginas de **a-v3** (`OUT`); sus piezas (logo, íconos Phosphor, quemadura SVG, manifiesto de imágenes) están en `redesign/tools/parts/`. No edites el HTML generado a mano: edita el generador.
   - CSS/JS compartidos: `redesign/a-v3/assets/` (`site.css`, `site.js`). El generador calcula el `?v=<hash>` solo.
   - Todo es local: imágenes WebP en `assets/img/`, fuentes WOFF2 en `assets/fonts/`, Lottie en `assets/vendor/`. Lo único en Framer son las 3 animaciones Lottie de portada.

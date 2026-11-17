@@ -593,7 +593,8 @@ p, li { text-wrap: pretty; }
   .hero .horizon { animation: draw 1.1s var(--ease-out) both; }
   .hero .rise { animation: surface 1.2s var(--ease-out) .25s both; }
   .hero .sun { animation: sunrise 1.6s var(--ease-out) .45s both; }
-  .hero-lead, .hero-facts { animation: fade-up 1s var(--ease-out) .7s backwards; }
+  /* the intro is the largest text on first paint: it must not wait behind a fade (it was delaying LCP to 1.9 s) */
+  .hero-facts { animation: fade-up 1s var(--ease-out) .7s backwards; }
   .hero-facts { animation-delay: .82s; }
 
   .case-hero .horizon { animation: draw 1.1s var(--ease-out) both; }
@@ -1066,3 +1067,17 @@ main:has(.cover-stage--curtain) .chapter-cover { padding-bottom: clamp(40px, 5vw
 .hero-facts > div { justify-content: flex-end; } /* numbers share one top line, whatever their labels wrap to */
 .ai-title { align-self: start; padding-top: 18px; }
 @media (max-width: 1080px) { .hero-facts { grid-column: 1 / -1; justify-content: flex-start; } .ai-title { padding-top: 0; } }
+
+/* ---------- Robustness: high-contrast mode and print ---------- */
+@media (forced-colors: active) {
+  .horizon, .horizon.horizon--sun { background: CanvasText; }
+  .sun::before, .day-sun, .svc-plate, .ai-dot, .now-dot, .dot-mark::before, .phase-dot::before { forced-color-adjust: none; }
+  .btn, .header-inner, .email-row { border: 1px solid ButtonText; }
+}
+@media print {
+  .site-header, .menu, .lang-hint, .day-sun, .vt-horizon, .chapter-nav, .card-go, .end-mark, body::after { display: none !important; }
+  .cover-stage--curtain { position: static; } .cover-stage--curtain .cover-shot { height: auto; aspect-ratio: 16 / 7; }
+  .role-more > .points { display: grid !important; }
+  .is-night, .tone-night, .contact { background: none !important; color: #000 !important; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.8em; word-break: break-all; }
+}

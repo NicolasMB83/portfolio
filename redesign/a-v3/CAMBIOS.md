@@ -73,6 +73,31 @@ Tres datos que debes confirmar:
 | Redibujar las ilustraciones de servicios y atenuar animaciones | Son decisiones tuyas. |
 | Analítica | Requiere abrir una cuenta (Plausible o Umami). |
 
+## Base técnica (24 de noviembre de 2026)
+
+Nada de esto cambia cómo se ve el sitio: las capturas de las 8 páginas, en escritorio y celular, son idénticas píxel a píxel antes y después.
+
+| Qué | Antes | Ahora |
+|---|---|---|
+| Pintado del texto principal del inicio (LCP, en local) | 1880 ms | 344 ms |
+| Saltos de diseño al cargar (CLS) | 0 | 0 |
+| CSS | 84 KB, con estilos de prototipos descartados | 76 KB, sin reglas que ninguna página use |
+
+- **Pintado más rápido:** el texto de apoyo del hero esperaba detrás de una animación de aparición; ya no. Cada página precarga el peso de fuente que pinta primero (700 en el inicio, 600 en los casos).
+- **Navegación instantánea:** al posar el cursor o tocar un enlace interno, Chrome y Edge preparan la página siguiente. Los demás navegadores lo ignoran sin efecto.
+- **Buscadores:** `sitemap.xml` con las 12 páginas y sus dos idiomas, `robots.txt`, y datos estructurados en cada caso (la obra, su autor y su lugar en el sitio).
+- **Servidor (Netlify):** archivo `_headers` con caché de un año para `assets/` y cabeceras de seguridad. La política de contenido (CSP) va en modo "solo informar" hasta verificarla en el sitio publicado, porque no se puede probar antes.
+- **Robustez:** estilos para modo de alto contraste y para imprimir; ícono para la pantalla de inicio del celular.
+- **Pruebas dentro del repositorio** (`redesign/tools/qa/`): antes vivían en una carpeta temporal que se puede borrar.
+  - `qa.js`: accesibilidad, anchos de 320 a 2560 px, sin JavaScript y movimiento reducido.
+  - `measure.js`: peso, peticiones, LCP y CLS por página.
+  - `snap.js` y `diff.py`: capturas de referencia y comparación píxel a píxel, para refactorizar sin miedo.
+  - `prune_css.py` (en `redesign/tools/`): quita el CSS que ninguna página usa.
+
+Regla nueva: una imagen o fuente que cambie debe cambiar de nombre, porque el navegador la guarda un año.
+
+Fuentes: [umbrales de Core Web Vitals 2026](https://corewebvitals.io/core-web-vitals) (LCP ≤ 2,5 s, INP ≤ 200 ms, CLS ≤ 0,1), [Chrome: prerender con reglas de especulación](https://developer.chrome.com/docs/web-platform/prerender-pages), [caché en Netlify](https://netli.fyi/blog/netlify-headers-and-caching). Una fuente no oficial dice que Netlify puede duplicar `Cache-Control`; hay que comprobarlo al publicar.
+
 ## Fuentes de esta ronda
 
 - Imagen para compartir: [guía 2026 de tamaños](https://dev.to/grabbit/open-graph-image-sizes-and-dimensions-the-complete-2026-guide-1k16) y [env.dev](https://env.dev/guides/opengraph-image-sizes). 1200 × 630 px sirve en todas las plataformas. Las fuentes no coinciden en el límite de WhatsApp (300 o 600 KB); la imagen pesa 65 KB.
