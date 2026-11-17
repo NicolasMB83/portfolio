@@ -89,6 +89,11 @@ These rules come from the site owner and apply to every task in this repo.
     - Hover del CTA con círculo y flecha (reinterpretado como el punto que sube desde el horizonte).
     - Parallax en la imagen inicial de cada proyecto.
   - Halación del logo: capa ya dibujada que solo cambia de opacidad (animar `filter` desde `none` daba un brillo negro).
+- Rumbo (decidido 2026-11-17, ver `redesign/a-v3/RUMBO.md`):
+  - Ahora: nicho editorial, de datos y de marca para instituciones de inversión y gobierno, con sistemas e IA.
+  - A futuro: design engineer.
+  - No publicar la velocidad personal del dueño (tiempos y horas): mostrar alcance, calidad y sistema. Las métricas técnicas del sitio sí.
+  - Gráficos interactivos candidatos G1–G6, solo con datos publicados; empezar por G4.
 - Revisión de textos R1–R41: aprobada y aplicada el 2026-11-02 (`APPLIED` en `review.py`).
   - R10 y R15 llevan la redacción del dueño.
   - R37 se interpretó como retitular "E-commerce"; está pendiente de que el dueño lo confirme.

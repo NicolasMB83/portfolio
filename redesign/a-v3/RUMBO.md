@@ -65,3 +65,29 @@ A y B no se excluyen: A es lo que ya puedes demostrar hoy; B es hacia dónde cre
 3. Tres o cuatro cifras de resultado reales.
 4. Un ejemplo de flujo con IA con sus pasos.
 5. Confirmar que se puede contar este sitio como caso de estudio.
+
+## Decisiones (17 de noviembre de 2026)
+- **Posicionamiento:** el nicho ahora (diseño editorial, de datos y de marca para instituciones de inversión y gobierno, producido con sistemas e IA) y design engineer a futuro.
+- **Velocidad:** no se publica cuánto tardas. Se muestra alcance, calidad, consistencia y sistema; el tiempo ahorrado se convierte en lo que permitió hacer. Las métricas técnicas del sitio (por ejemplo, que pinta en 0,3 s) sí se pueden mostrar, porque hablan del producto, no de tu ritmo.
+
+## Gráficos interactivos: candidatos
+
+Solo con datos ya publicados; nada interno del empleador.
+
+| # | Producto | Gráfico | Por qué |
+|---|---|---|---|
+| G1 | Informe IED (Invest in Bogotá) | Flujo de inversión por año, con origen y sector al pasar el cursor | El caso estrella del nicho: inversión con datos y sistema |
+| G2 | Bogotá Business Insights (ciencias de la vida, MAVA, aeronáutica) | Comparador de sectores: elegir un sector y ver sus indicadores | Muestra el sistema editorial de varios capítulos |
+| G3 | Vende Digital | Mapa de Colombia con los 6.690 beneficiarios en 31 departamentos | El dato ya está en tus piezas publicadas; el mapa se explica solo |
+| G4 | Invest in Bogotá, diapositiva de datos | Colombia frente a mercados de Latinoamérica (crecimiento del PIB y población) | Ya existe como diapositiva estática; la versión interactiva es el antes y después perfecto |
+| G5 | Informe MICE | Eventos y delegados por año o por tipo | Complementa G1 si se quiere una segunda pieza |
+| G6 | Guía Legal de Inversión | La ruta para invertir, paso a paso | No es un gráfico de datos; es una interacción de proceso |
+
+**Orden recomendado:** G4 (más rápido, porque los datos ya están en el sitio), luego G1 y luego G3.
+
+**Técnica:**
+- SVG dibujado por el generador, sin librerías, para que el sitio siga liviano.
+- Tabla con los mismos datos para lectores de pantalla y sin JavaScript.
+- Teclado y textos de ayuda accesibles.
+- La animación dibuja el gráfico al entrar en pantalla y se apaga con "reducir movimiento".
+- Colores del cliente y el vocabulario del sitio (la línea del horizonte como eje, el punto como marca).
