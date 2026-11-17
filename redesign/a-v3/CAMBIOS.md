@@ -73,7 +73,7 @@ Tres datos que debes confirmar:
 | Redibujar las ilustraciones de servicios y atenuar animaciones | Son decisiones tuyas. |
 | Analítica | Requiere abrir una cuenta (Plausible o Umami). |
 
-## Base técnica (24 de noviembre de 2026)
+## Base técnica (17 de noviembre de 2026)
 
 Nada de esto cambia cómo se ve el sitio: las capturas de las 8 páginas, en escritorio y celular, son idénticas píxel a píxel antes y después.
 
