@@ -12,6 +12,11 @@ VD = {
        'Created cohesive visual assets that maintain a consistent style.'],
   work='Campaign, social media and events',
   results='The new graphic identity was successfully launched, meeting organizational requirements and achieving national distribution. The program <strong>Vende Digital 2022</strong> stands out for its positive impact on strengthening micro, small, and medium enterprises (SMEs) in Colombia through electronic commerce. As of today, the initiative continues to integrate with Colombia’s digital transformation and e-commerce strategies, helping more SMEs adapt to the digital ecosystem and improve competitiveness.',
+  reflect=dict(
+    title='Reflection',
+    lede='I’m grateful to have helped launch a program that gives small and mid-sized businesses the tools to thrive in a growing, competitive economy.',
+    items=[('What I contributed', 'I gave the 2022 edition its visual voice: the narrative theme “Facts that Connect,” a logo that builds on the 2021 version, and a campaign system that carried the program across the country, from billboards to social media and events.'),
+           ('What I take away', 'Putting my creativity at the service of the community made me feel part of a bigger purpose. It also showed me that design can make communication clearer, and clear communication is what ultimately helps people build new capabilities.')]),
   alts=dict(
     billboard='Vende Digital billboard on a city street: El comercio electrónico es la ventana comercial más grande del mundo',
     key='Vende Digital key visual: a woman carrying shipping boxes next to the logo',
@@ -34,6 +39,11 @@ VD = {
        'Creé piezas visuales cohesionadas que mantienen un estilo coherente.'],
   work='Campaña, redes sociales y eventos',
   results='La nueva identidad gráfica se lanzó con éxito, cumplió los requisitos de la organización y logró distribución nacional. El programa <strong>Vende Digital 2022</strong> se destaca por su impacto positivo en el fortalecimiento de las micro, pequeñas y medianas empresas (mipymes) de Colombia a través del comercio electrónico. Hoy, la iniciativa sigue integrándose a las estrategias de transformación digital y de comercio electrónico del país, y ayuda a más mipymes a adaptarse al ecosistema digital y a mejorar su competitividad.',
+  reflect=dict(
+    title='Reflexión',
+    lede='Agradezco haber ayudado a lanzar un programa que les da a las pequeñas y medianas empresas herramientas para prosperar en una economía creciente y competitiva.',
+    items=[('Lo que aporté', 'Le di a la edición 2022 su voz visual: el eje narrativo “Hechos que conectan”, un logo que parte de la versión 2021 y un sistema de campaña que llevó el programa a todo el país, de las vallas a las redes sociales y los eventos.'),
+           ('Lo que me llevo', 'Poner mi creatividad al servicio de la comunidad me hizo sentir parte de un propósito más grande. También me mostró que el diseño puede hacer más clara la comunicación, y una comunicación clara es lo que, al final, ayuda a las personas a desarrollar nuevas capacidades.')]),
   alts=dict(
     billboard='Valla de Vende Digital en una calle: El comercio electrónico es la ventana comercial más grande del mundo',
     key='Pieza principal de Vende Digital: una mujer cargando cajas de envío junto al logo',

@@ -1051,12 +1051,21 @@ def vd_main(t, h):
             {fig('vd-post-empresas', 'g-6', '(max-width: 760px) 100vw, 50vw', a['empresas'])}
             {fig('vd-event', '', '(max-width: 760px) 100vw, 1320px', a['event'])}
           </div>'''
+    r = c['reflect']
+    reflect = f'''{P.format('Reflexión nueva: lo que aporté y lo que me llevo (textos por aprobar)')}
+          <div class="chapter-body grid">
+            <p class="reflect-lede">{r['lede']}</p>
+            <ul class="reflect-list">''' + ''.join(f'''
+              <li><h3>{hd}</h3><p>{tx}</p></li>''' for hd, tx in r['items']) + '''
+            </ul>
+          </div>'''
     cover = f'<figure class="cover-shot">{pic("vd-billboard", "(max-width: 760px) 100vw, 1320px", a["billboard"], eager=True)}</figure>'
     return case_cover(t, h, 'Vende Digital', SHAPE_VD, c['desc'], (c['year'], c['company'], t['r_dgd']), cover) + \
         section('', 'vd-obj', mark_head(t['c_obj'], 'vd-obj', MARK_VD), connect) + \
         section('', 'vd-data', mark_head(VD_CHART[t['_lang']]['title'], 'vd-data', MARK_VD), vd_chart(t)) + \
         section('is-night tone-night', 'vd-work', mark_head(c['work'], 'vd-work', MARK_VD), work) + \
-        section('case-section--last', 'vd-res', mark_head(t['ch_res'], 'vd-res', MARK_VD), results_block(t, c['results'])) + \
+        section('', 'vd-res', mark_head(t['ch_res'], 'vd-res', MARK_VD), results_block(t, c['results'])) + \
+        section('case-section--last', 'vd-ref', mark_head(r['title'], 'vd-ref', MARK_VD), reflect) + \
         other_work(t, h, [('infinited', 'project--narrow project--square', '(max-width: 760px) 100vw, 42vw'), ('pro-surge-ja', '', '(max-width: 760px) 100vw, 58vw')])
 
 

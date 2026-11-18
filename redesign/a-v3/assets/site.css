@@ -1135,3 +1135,13 @@ main:has(.cover-stage--curtain) .chapter-cover { padding-bottom: clamp(40px, 5vw
   .dots { gap: 4px; }
 }
 @media (forced-colors: active) { .bar, .dots i, .key { forced-color-adjust: none; } }
+
+/* Reflection (Vende Digital): one grateful sentence, then what I gave and what I take away */
+.reflect-lede { grid-column: 1 / span 7; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.375rem, 1rem + 1.3vw, 2.125rem); line-height: 1.2; text-wrap: pretty; }
+.reflect-list { grid-column: 9 / span 4; }
+.reflect-list li { padding-block: 18px; border-bottom: 1px solid var(--rule); }
+.reflect-list li:first-child { padding-top: 0; }
+.reflect-list li:last-child { border-bottom: 0; }
+.reflect-list h3 { font-size: 0.875rem; font-weight: 600; letter-spacing: 0.04em; color: var(--client-ink, var(--ink-2)); }
+.reflect-list p { margin-top: 8px; color: var(--ink-2); }
+@media (max-width: 1080px) { .reflect-lede, .reflect-list { grid-column: 1 / -1; } }
