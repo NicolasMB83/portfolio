@@ -503,6 +503,10 @@ p, li { text-wrap: pretty; }
 
 /* ---------- Case study ---------- */
 .case-hero { padding-top: clamp(24px, 5vh, 56px); }
+/* Case studies open on a dark cover: the pill floats over it, as it floats over the hero on the home page,
+   instead of sitting on a light strip of its own. The cover takes back the space with padding. */
+.page-chapters .site-header { margin-bottom: calc(-1 * var(--header-h)); }
+.page-chapters .case-hero { padding-top: calc(var(--header-h) + clamp(24px, 5vh, 56px)); }
 .back-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.06em; margin-bottom: clamp(8px, 2vw, 24px); }
 .back-link .icon { transition: transform .5s var(--spring); }
 .back-link:hover .icon { transform: translateX(-4px); }
