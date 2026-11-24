@@ -17,7 +17,7 @@ El proyecto de Higgsfield es el puente: todo lo que generes ahí lo puedo leer y
 
 - Workspace: `5c1a64f1-6561-4d59-bd0a-1943cfe7eb69`
 - Proyecto: `f583b208-3bef-49c8-8b24-e278a2a235e0` (carpeta por defecto: el mismo id)
-- Referencias ya subidas (media_id):
+- Referencias ya subidas (media_id), en el orden en que aparecen en el proyecto (la primera subida es la de Vende Digital, **no** la de la plaza):
   - Pieza principal de Vende Digital: `a59db8dd-fca7-4ff5-9219-1329f7cedda5`
   - Valla de Vende Digital: `d987b2e8-e621-4983-938b-ea4efcb66c62`
   - Pieza "Bogotá se vive con propósito" (Invest in Bogotá): `a21c561a-052c-4f1c-aa4f-35db7c3d0468`
@@ -73,6 +73,8 @@ Use Higgsfield. Workspace 5c1a64f1-6561-4d59-bd0a-1943cfe7eb69, project f583b208
 ```
 
 ### Paso 0: la plaza limpia (para las tres opciones)
+
+**Ojo:** la imagen de este paso es la pieza de Invest in Bogotá, `a21c561a-052c-4f1c-aa4f-35db7c3d0468` (la tercera subida al proyecto). No sirve `a59db8dd…`, que es la pieza de Vende Digital. Las opciones A, B y C no usan la pieza original: usan la imagen que salga de este paso (su id de trabajo, *job id*), que es su @Image1.
 
 Adjuntar en este orden: 1. la pieza original (media `a21c561a-052c-4f1c-aa4f-35db7c3d0468`).
 
