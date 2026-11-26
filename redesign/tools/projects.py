@@ -26,7 +26,7 @@ VD = {
   reflect=dict(
     title='Reflection',
     lede='I’m grateful to have helped launch a program that gives small and mid-sized businesses the tools to thrive in a growing, competitive economy.',
-    items=[('What I contributed', 'I gave the 2022 edition its visual voice: the narrative theme “Facts that Connect,” a logo that builds on the 2021 version, and a campaign system that carried the program across the country, from billboards to social media and events.'),
+    items=[('What I contributed', 'I updated the logo so the program could join the ministry’s new system without losing what people recognized, and I carried it across the campaign, from billboards to social media and events.'),
            ('What I take away', 'Putting my creativity at the service of the community made me feel part of a bigger purpose. It also showed me that design can make communication clearer, and clear communication is what ultimately helps people build new capabilities.')]),
   alts=dict(
     billboard='Vende Digital billboard on a city street: El comercio electrónico es la ventana comercial más grande del mundo',
@@ -64,7 +64,7 @@ VD = {
   reflect=dict(
     title='Reflexión',
     lede='Agradezco haber ayudado a lanzar un programa que les da a las pequeñas y medianas empresas herramientas para prosperar en una economía creciente y competitiva.',
-    items=[('Lo que aporté', 'Le di a la edición 2022 su voz visual: el eje narrativo “Hechos que conectan”, un logo que parte de la versión 2021 y un sistema de campaña que llevó el programa a todo el país, de las vallas a las redes sociales y los eventos.'),
+    items=[('Lo que aporté', 'Actualicé el logo para que el programa entrara al nuevo sistema del ministerio sin perder lo que la gente reconocía, y lo llevé a toda la campaña, de las vallas a las redes sociales y los eventos.'),
            ('Lo que me llevo', 'Poner mi creatividad al servicio de la comunidad me hizo sentir parte de un propósito más grande. También me mostró que el diseño puede hacer más clara la comunicación, y una comunicación clara es lo que, al final, ayuda a las personas a desarrollar nuevas capacidades.')]),
   alts=dict(
     billboard='Valla de Vende Digital en una calle: El comercio electrónico es la ventana comercial más grande del mundo',

@@ -119,4 +119,4 @@ En la página de Vende Digital (inglés y español), entre los objetivos y las p
 
 ## G3 retirado de Vende Digital (2026-11-26)
 
-El dueño decidió que el caso muestre su trabajo y no los datos del programa. Vende Digital ahora se cuenta en cuatro actos (el cambio, qué conservé y qué cambié con un comparador del logo 2021 → 2022, las piezas, y resultados con la reflexión). La función `vd_chart` y los estilos `.chart` siguen en el código como patrón para un gráfico futuro, solo donde los datos expliquen una decisión del dueño.
+El dueño decidió que el caso muestre su trabajo y no los datos del programa. Vende Digital ahora se cuenta en cuatro actos (el cambio, qué conservé y qué cambié con un comparador del logo 2021 → 2022, las piezas, y resultados con la reflexión). La función `vd_chart` sigue en `build.py` como patrón (los estilos `.chart` se podaron el 2026-11-26; recuperarlos del historial de git, commit d891409) para un gráfico futuro, solo donde los datos expliquen una decisión del dueño.

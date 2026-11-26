@@ -975,8 +975,10 @@ MARK_PS = '<svg class="mark mark--bars" viewBox="0 0 40 24" aria-hidden="true" f
 
 
 def mark_head(label, hid, mark):
+    # The client's shape lives on the cover only (owner, 2026-11-26: repeating it on every heading was overuse);
+    # section titles are marked by the horizon line alone. `mark` is kept in the signature for the callers.
     return f'''<header class="dot-head">
-          <div class="sky">{mark}<h2 id="{hid}" class="rise chapter-title">{label}</h2></div>
+          <div class="sky"><h2 id="{hid}" class="rise chapter-title">{label}</h2></div>
           <span class="horizon" aria-hidden="true"></span>
         </header>'''
 
