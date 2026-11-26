@@ -128,6 +128,9 @@ p, li { text-wrap: pretty; }
 /* ---------- Horizon primitives ---------- */
 .horizon { --h-c: var(--line); display: block; height: var(--line-w); background: var(--h-c); margin-inline: calc(50% - 50vw); transform-origin: left center; }
 .horizon--night { --h-c: var(--on-night); }
+/* Section titles: the line stays inside the text column and fades out to the right, so it marks the title
+   without cutting the page in two (owner, 2026-11-26). Only a line under a sun keeps running edge to edge. */
+.horizon:not(.horizon--sun) { margin-inline: 0; background: linear-gradient(90deg, color-mix(in oklch, var(--h-c) 55%, transparent), transparent 80%); }
 /* Under a sun, the line is invisible far from it and gains opacity as it approaches the sun;
    past the sun it fades again toward the edge. --sun-at: the sun's centre, measured from the line's left end. */
 .horizon.horizon--sun {
@@ -1116,25 +1119,20 @@ main:has(.cover-stage--curtain) .chapter-cover { padding-bottom: clamp(40px, 5vw
 /* Infinited: infinity from two of the logo's rings */
 .cover-shape.rings .w { fill: none; stroke: var(--client); stroke-width: 20; }
 
-/* Before/after of a logo (Vende Digital 2020 → 2022): one white card, the logos aligned on "Vende".
-   The divider is the logo's "i" (a stem with a dot); the range input covers the card, so you drag the image itself. */
-.compare { max-width: 880px; margin: clamp(48px, 6vw, 88px) auto 0; }
-.compare-stage { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.compare-before, .compare-after { position: relative; overflow: clip; border-radius: var(--radius); background: #fff; box-shadow: 0 0 0 1px var(--rule); }
-.compare-stage img { display: block; width: 100%; height: auto; }
-.compare-tag { position: absolute; top: 16px; left: 16px; font-family: var(--font-label); font-weight: 600; font-size: 0.8125rem; letter-spacing: 0.04em; color: var(--ink-2); }
-.compare-handle, .compare-range { display: none; }
-.compare.is-ready .compare-stage { display: block; border-radius: var(--radius); box-shadow: 0 0 0 1px var(--rule), 0 24px 48px -32px oklch(0.257 0.09 281 / 0.35); }
-.compare.is-ready .compare-before, .compare.is-ready .compare-after { box-shadow: none; }
-.compare.is-ready .compare-before { position: absolute; inset: 0; z-index: 1; clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
-.compare.is-ready .compare-after .compare-tag { left: auto; right: 16px; }
-.compare.is-ready .compare-handle { z-index: 2; display: block; position: absolute; top: 14%; bottom: 14%; left: var(--pos); width: 3px; translate: -50% 0; border-radius: 2px; background: var(--ink); pointer-events: none; }
-.compare.is-ready .compare-handle::after { content: ""; position: absolute; left: 50%; top: -18px; width: 16px; height: 16px; translate: -50% 0; border-radius: 50%; background: var(--client, var(--sun)); transition: scale .3s var(--spring); }
-.compare.is-ready .compare-range { display: block; position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
-.compare.is-ready .compare-stage:has(.compare-range:focus-visible) { outline: 3px solid var(--client-ink, var(--ink)); outline-offset: 4px; }
-.compare.is-ready .compare-stage:has(.compare-range:is(:hover, :focus-visible, :active)) .compare-handle::after { scale: 1.35; }
-.compare-caption { margin-top: 14px; text-align: center; font-family: var(--font-label); font-size: 0.875rem; color: var(--ink-2); }
-@media (max-width: 760px) { .compare-stage { grid-template-columns: 1fr; } }
+/* Vende Digital: the same main banner in each system, side by side, each in its own context. */
+.editions { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2vw, 28px); }
+.editions + .objectives { margin-top: clamp(40px, 5vw, 72px); }
+.edition { margin: 0; }
+.edition img { display: block; width: 100%; height: auto; border-radius: var(--radius); box-shadow: 0 0 0 1px var(--rule); }
+.edition figcaption { display: flex; gap: 10px; align-items: baseline; margin-top: 14px; font-family: var(--font-label); font-size: 0.875rem; color: var(--ink-2); }
+.edition figcaption b { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h3); color: var(--ink); }
+@media (max-width: 760px) { .editions { grid-template-columns: 1fr; } }
+
+/* Stories shown on clean, straight phones over the system's topographic lines (drawn as a vector, tools/topo.py). */
+.phones { grid-column: 1 / -1; display: flex; justify-content: center; align-items: center; gap: clamp(14px, 3vw, 48px); padding: clamp(32px, 5vw, 72px) clamp(16px, 4vw, 56px); border-radius: var(--radius); background: #fdebfb url("img/vd-topo.svg") center / cover; }
+.phone { position: relative; flex: 0 1 clamp(96px, 20vw, 280px); margin: 0; padding: clamp(4px, 0.6vw, 9px); border-radius: clamp(18px, 2.6vw, 40px); background: #14141c; box-shadow: inset 0 0 0 1.5px #3a3a46, 0 40px 60px -30px oklch(0.3 0.1 330 / 0.45), 0 12px 24px -12px oklch(0.3 0.1 330 / 0.35); }
+.phone img { display: block; width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: cover; border-radius: clamp(14px, 2.1vw, 32px); }
+.phone:nth-child(2) { translate: 0 calc(-1 * clamp(10px, 2vw, 28px)); }
 
 /* Justified rows: images keep their proportions and share one height (nothing is cropped). */
 .jrow { grid-column: 1 / -1; display: flex; gap: var(--col-gap); align-items: flex-start; }

@@ -669,5 +669,54 @@
    720,
    1440
   ]
+ },
+ "local:vd-banner-2020": {
+  "name": "vd-banner-2020",
+  "w": 961,
+  "h": 401,
+  "sizes": [
+   480,
+   961
+  ]
+ },
+ "local:vd-banner-2022": {
+  "name": "vd-banner-2022",
+  "w": 1200,
+  "h": 501,
+  "sizes": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "local:vd-story-1": {
+  "name": "vd-story-1",
+  "w": 1080,
+  "h": 1919,
+  "sizes": [
+   360,
+   720,
+   1080
+  ]
+ },
+ "local:vd-story-2": {
+  "name": "vd-story-2",
+  "w": 1080,
+  "h": 1920,
+  "sizes": [
+   360,
+   720,
+   1080
+  ]
+ },
+ "local:vd-story-3": {
+  "name": "vd-story-3",
+  "w": 1080,
+  "h": 1919,
+  "sizes": [
+   360,
+   720,
+   1080
+  ]
  }
 }

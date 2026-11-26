@@ -1046,27 +1046,28 @@ def vd_chart(t):
 
 
 # ---------- Vende Digital: a campaign, "Facts that connect": its points are joined by a line
-def compare(st):
-    """Before/after of a logo, both cut out on the same white card and aligned on "Vende". A native range input
-    covers the card (drag anywhere, click, arrow keys; read as a slider). The divider is the logo's "i": a stem
-    with a dot. Without JS both logos sit side by side."""
+def editions(st):
+    """The same main banner in each system, side by side, each in its own context (owner, 2026-11-26:
+    the pink background and topographic lines are part of the story)."""
+    (y1, l1, a1), (y2, l2, a2) = st['editions']
     return f'''
-          <figure class="compare" data-compare>
-            <div class="compare-stage" style="--pos: 50%">
-              <div class="compare-before">{pic('vd-logo-launch', '(max-width: 760px) 100vw, 880px', st['compare_before'])}<span class="compare-tag">2020</span></div>
-              <div class="compare-after">{pic('vd-logo-update', '(max-width: 760px) 100vw, 880px', st['compare_after'])}<span class="compare-tag">2022</span></div>
-              <span class="compare-handle" aria-hidden="true"></span>
-              <input class="compare-range" type="range" min="0" max="100" value="50" aria-label="{st['compare_label']}" hidden>
-            </div>
-            <figcaption class="compare-caption" hidden>{st['compare_caption']}</figcaption>
-          </figure>'''
+          <div class="editions">
+            <figure class="edition">{pic('vd-banner-2020', '(max-width: 760px) 100vw, 640px', a1)}<figcaption><b>{y1}</b> {l1}</figcaption></figure>
+            <figure class="edition">{pic('vd-banner-2022', '(max-width: 760px) 100vw, 640px', a2)}<figcaption><b>{y2}</b> {l2}</figcaption></figure>
+          </div>'''
+
+
+def phones(names, alt):
+    """Stories on clean, straight phones (HTML, not a stock mockup) over the system's topographic lines."""
+    items = ''.join(f'''<figure class="phone">{pic(n, '(max-width: 760px) 30vw, 280px', alt if k == 0 else '')}</figure>''' for k, n in enumerate(names))
+    return f'<div class="phones">{items}</div>'
 
 
 def vd_main(t, h):
-    c = VD[t['_lang']]; a = c['alts']
+    c = VD[t['_lang']]; a = c['alts']; st = c['story']
     work = f'''<div class="gallery">
             {jrow([('vd-key-visual', a['key']), ('vd-phone-mockup', a['mockup'])])}
-            {fig('vd-phones', '', '(max-width: 760px) 100vw, 1320px', a['phones'])}
+            {phones(['vd-story-1', 'vd-story-2', 'vd-story-3'], st['stories'])}
             <div class="gallery-label"><h3>{t['c_social']}</h3></div>
             {jrow([('vd-post-catalogo', a['catalogo']), ('vd-post-tiendas', a['tiendas']), ('vd-post-ventas', a['ventas']), ('vd-post-empresas', a['empresas']), ('vd-post-vitrina', a['vitrina'])], 'jrow--posts')}
             {fig('vd-event', '', '(max-width: 760px) 100vw, 1320px', a['event'])}
@@ -1080,11 +1081,10 @@ def vd_main(t, h):
             </ul>
           </div>'''
     cover = f'<figure class="cover-shot">{pic("vd-billboard", "(max-width: 760px) 100vw, 1320px", a["billboard"], eager=True)}</figure>'
-    st = c['story']
     change = f'''{P.format('Vende Digital en cuatro actos (2026-11-26): textos nuevos de El cambio, Qué conservé y qué cambié, y el comparador')}
           <p class="statement-text">{st['change']}</p>'''
-    update = '<ol class="objectives">' + ''.join(f'''
-            <li class="objective"><h3>{hd}</h3><p>{tx}</p></li>''' for hd, tx in st['update']) + '\n          </ol>' + compare(st)
+    update = editions(st) + '<ol class="objectives">' + ''.join(f'''
+            <li class="objective"><h3>{hd}</h3><p>{tx}</p></li>''' for hd, tx in st['update']) + '\n          </ol>'
     return case_cover(t, h, 'Vende Digital', SHAPE_VD, c['desc'], (c['year'], c['company'], t['r_dgd']), cover) + \
         section('', 'vd-change', mark_head(st['change_title'], 'vd-change', MARK_VD), change) + \
         section('', 'vd-update', mark_head(st['update_title'], 'vd-update', MARK_VD), update) + \
