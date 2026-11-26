@@ -124,3 +124,4 @@ These rules come from the site owner and apply to every task in this repo.
 - Narrativa (2026-11-26): el dueño eligió "Un día en Bogotá" con el sol como narrador, en tres pasos: (1) frase central en tres opciones para que elija, (2) prototipo del inicio como página aparte, (3) casos en cuatro actos. Pendiente: proponer las tres frases.
 - Ubicación (2026-11-26): el público es internacional y cobra en dólares. Se quitó Bogotá y Colombia del hero, del contacto y del JSON-LD; queda solo "GMT−5" en el contacto (las vacantes remotas de EE. UU. piden horas en común). "Invest in Bogotá" sigue porque es un cliente.
 - Forma de Infinited: el infinito hecho con dos anillos del logo (`.rings`), en lugar de los trazos que suben.
+- Tarjetas del inicio (2026-11-26): ya no sube la forma del cliente al pasar el cursor; solo queda la flecha (el dueño: basta con una microanimación, y algunos fondos ya se mueven).

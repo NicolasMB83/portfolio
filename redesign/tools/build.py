@@ -444,7 +444,7 @@ def cover(p, sizes):
     return '', pic(p['img'], sizes)
 
 
-CARD_SHAPES = {   # each client's cover shape, small, rising from the card's bottom edge on hover
+CARD_SHAPES = {   # projects with a case study (the shapes are kept for reference; cards no longer show them)
     'radio-a-domicilio': ('#ffc845', '<path class="s" d="M96 120a24 24 0 0 1 48 0"/><path class="s" d="M66 120a54 54 0 0 1 108 0"/><path class="s" d="M36 120a84 84 0 0 1 168 0"/>'),
     'invest-in-bogota': ('#ef491f', '<circle cx="120" cy="120" r="84"/>'),
     'vende-digital': ('#ff00bc', '<path class="s s--thin" d="M30 106L120 32L210 106"/><circle cx="30" cy="106" r="13"/><circle cx="120" cy="32" r="18"/><circle cx="210" cy="106" r="13"/>'),
@@ -465,10 +465,7 @@ def card_kind(t, slug):
 def project(t, home, slug, cls='', sizes='(max-width: 760px) 100vw, 58vw'):
     p = PJ[slug]
     attrs, media = cover(p, sizes)
-    shape = ''
-    if slug in CARD_SHAPES:
-        c, d = CARD_SHAPES[slug]
-        shape = f'<svg class="card-shape" style="--client: {c}" viewBox="0 0 240 120" aria-hidden="true" focusable="false">{d}</svg>'
+    shape = ''   # the client's shape no longer rises on hover (owner, 2026-11-26): the arrow is enough
     live = slug in CARD_SHAPES
     open_, close = (f'<a class="project-link" href="{home}{slug}/">', '</a>') if live else ('<div class="project-link project-link--soon">', '</div>')
     arrow = f'<span class="card-go">{go("go--sun")}</span>' if live else ''
