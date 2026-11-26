@@ -264,7 +264,7 @@ p, li { text-wrap: pretty; }
 .menu-toggle { display: none; }
 
 /* ---------- Hero ---------- */
-.hero { padding-top: clamp(28px, 6vh, 72px); padding-bottom: clamp(56px, 8vw, 104px); }
+.hero { padding-top: clamp(28px, 6vh, 72px); padding-bottom: clamp(40px, 4.5vw, 64px); }
 .hero { --sun-r: clamp(56px, 10vw, 150px); --sun-x: clamp(0px, 4vw, 64px); }
 .hero .sky { min-height: var(--sun-r); }
 .hero-title { margin: 0; }
@@ -280,7 +280,10 @@ p, li { text-wrap: pretty; }
 .titled .sky { padding-top: 0.15em; }
 
 /* ---------- Work (night, tessellated) ---------- */
-.work { padding-block: var(--section); }
+/* Work comes first after the hero and starts closer to it, so the first projects show on the first screen
+   (laptops from 1280 × 720 and phones): the visitor sees work within seconds, not after a scroll. */
+.work { padding-block: clamp(48px, 5vw, 72px) var(--section); }
+.work .titled { margin-bottom: clamp(28px, 3vw, 44px); }
 .projects { row-gap: clamp(48px, 6vw, 88px); }
 .project { grid-column: span 7; }
 .project--narrow { grid-column: span 5; }
