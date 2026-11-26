@@ -26,7 +26,7 @@ These rules come from the site owner and apply to every task in this repo.
 - Trabajo vigente: versión a futuro **a-v3** en `redesign/a-v3/` (EN) y `redesign/a-v3/es/` (ES), rama `redesign`. Detalle y textos por aprobar (V1–V11): `redesign/a-v3/CAMBIOS.md`.
 - Versión anterior **a-v2** ("Horizonte"): congelada en `redesign/a-v2/` y en la rama `backup/a-v2-2026-11-17`. No se regenera; allí siguen PROPUESTAS.md, PLAN.md y AUDITORIA.md.
 - a-v3 añade sobre a-v2:
-  - Hero con texto de apoyo específico, tres cifras y la hora de Bogotá (`[data-bogota-time]`).
+  - Hero con texto de apoyo específico y tres cifras. La hora de Bogotá se retiró.
   - Sol del día ligado al scroll (`.day-sun`, solo en el inicio).
   - Forma del cliente en las tarjetas (`CARD_SHAPES`) y línea de tipo de trabajo + año (`card_kind`).
   - Bloque de IA con frases ya aprobadas.
@@ -122,3 +122,5 @@ These rules come from the site owner and apply to every task in this repo.
 - Referente Louis Paquet (2026-11-26): punto 1 hecho, los proyectos se ven en la primera pantalla (menos aire bajo el hero y sobre "Work"; primera tarjeta a 588 px en 1280 × 720 y a 650 px en 390 × 844). Quedan por decidir: 2 (cada caso en cuatro actos), 3 (recortar animaciones), 4 (más gráficos con datos), 5 (credencial al frente) y 6 (paso de un caso al siguiente como corte de película).
 - Regla del dueño (2026-11-26): lo más fuerte del sitio es el sistema de diseño que sale del logo (arcos, punto, astas): con esas formas se construye un universo entero. El horizonte importa, pero el sistema del logo manda.
 - Narrativa (2026-11-26): el dueño eligió "Un día en Bogotá" con el sol como narrador, en tres pasos: (1) frase central en tres opciones para que elija, (2) prototipo del inicio como página aparte, (3) casos en cuatro actos. Pendiente: proponer las tres frases.
+- Ubicación (2026-11-26): el público es internacional y cobra en dólares. Se quitó Bogotá y Colombia del hero, del contacto y del JSON-LD; queda solo "GMT−5" en el contacto (las vacantes remotas de EE. UU. piden horas en común). "Invest in Bogotá" sigue porque es un cliente.
+- Forma de Infinited: el infinito hecho con dos anillos del logo (`.rings`), en lugar de los trazos que suben.

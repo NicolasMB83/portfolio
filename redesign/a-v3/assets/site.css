@@ -1013,8 +1013,6 @@ main:has(.cover-stage--curtain) .chapter-cover { padding-bottom: clamp(40px, 5vw
    a-v3: the profile up front, and the site as one day in Bogotá
    ========================================================================== */
 /* Hero support: who, where, and three facts */
-.hero-now { margin-top: 14px; display: flex; align-items: center; gap: 8px; font-family: var(--font-label); font-weight: 500; font-size: 0.875rem; color: var(--ink-2); font-variant-numeric: tabular-nums; }
-.now-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sun); box-shadow: 0 0 0 4px color-mix(in oklch, var(--sun) 22%, transparent); }
 .hero-facts { grid-column: 8 / span 5; margin: 0; display: flex; justify-content: flex-end; gap: clamp(24px, 3.4vw, 56px); align-self: start; }
 .hero-facts > div { display: flex; flex-direction: column-reverse; gap: 6px; }
 .hero-facts dd { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: clamp(2rem, 1.4rem + 1.6vw, 2.75rem); line-height: 0.9; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
@@ -1045,8 +1043,6 @@ main:has(.cover-stage--curtain) .chapter-cover { padding-bottom: clamp(40px, 5vw
 .card-shape .s--thin { stroke-width: 7; }
 .project-link:is(:hover, :focus-visible) .card-shape { translate: 0 0; }
 @media (hover: none) { .card-shape { display: none; } }
-.project-link--soon { cursor: default; }
-.project-link--soon .project-media img { filter: saturate(0.5); }
 
 /* Career: who, where and when stay visible; what I did folds. The marker is a sun that is up when open. */
 .role-more { margin-top: 12px; }
@@ -1078,7 +1074,7 @@ main:has(.cover-stage--curtain) .chapter-cover { padding-bottom: clamp(40px, 5vw
 /* ---------- Robustness: high-contrast mode and print ---------- */
 @media (forced-colors: active) {
   .horizon, .horizon.horizon--sun { background: CanvasText; }
-  .sun::before, .day-sun, .svc-plate, .ai-dot, .now-dot, .dot-mark::before, .phase-dot::before { forced-color-adjust: none; }
+.sun::before, .day-sun, .svc-plate, .ai-dot, .dot-mark::before, .phase-dot::before { forced-color-adjust: none; }
   .btn, .header-inner, .email-row { border: 1px solid ButtonText; }
 }
 @media print {
@@ -1159,3 +1155,8 @@ main:has(.cover-stage--curtain) .chapter-cover { padding-bottom: clamp(40px, 5vw
 .big-figure { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 16px; margin-bottom: clamp(24px, 3vw, 40px); }
 .big-figure-n { font-family: var(--font-display); font-weight: 700; font-size: clamp(3.5rem, 2rem + 6vw, 7.5rem); line-height: 0.9; letter-spacing: -0.03em; color: var(--client-ink, var(--ink)); font-variant-numeric: tabular-nums; }
 .big-figure-l { font-family: var(--font-label); font-weight: 500; font-size: clamp(1rem, 0.9rem + 0.4vw, 1.25rem); color: var(--ink-2); }
+
+/* Infinited: infinity from two of the logo's rings */
+.cover-shape.rings .w { fill: none; stroke: var(--client); stroke-width: 20; }
+.mark--rings circle { fill: none; stroke: var(--client-ink, var(--client)); stroke-width: 3.4; }
+.tone-night .mark--rings circle { fill: none; stroke: var(--client); }

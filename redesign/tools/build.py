@@ -79,13 +79,13 @@ T = {
   work_title='Work', soon='Case study coming soon', did='What I did',
   facts=[('9', 'years of experience'), ('5', 'organizations'), ('2', 'languages')],
   now='Bogotá, Colombia', ai_title='AI in my workflow',
-  contact_facts='Based in Bogotá (GMT−5) · English and Spanish · Open to full-time roles and freelance projects',
+  contact_facts='GMT−5 · English and Spanish · Open to full-time roles and freelance projects',
   desc='Nicolás Mogollón Barbosa, visual and brand designer. Campaigns, identities and digital products for MinTIC, Invest in Bogotá, Radio a Domicilio and more.',
   nav_work='WORK', nav_about='ABOUT', nav_exp='EXPERIENCE', cta='Let’s talk', menu='Menu',
   other_lang='es', other_short='ES', other_name='Español',
   hint_text='¿Prefieres ver el sitio en español?', hint_btn='Ver en español', hint_close='Cerrar',
   h1a='I LOVE DESIGN', h1b='and I turn that passion into results',
-  intro='I’m Nicolás, a visual and AI designer based in Bogotá. For nine years I’ve turned public programs, universities and brands into identities, campaigns and websites, for MinTIC, Invest in Bogotá and ReloQuest.',
+  intro='I’m Nicolás, a visual and AI designer. For nine years I’ve turned public programs, universities and brands into identities, campaigns and websites, for MinTIC, Invest in Bogotá and ReloQuest.',
   work='WORK', view='SEE THE FULL DECK',
   r_art='Art Director', r_vai='Visual and AI Designer', r_dgd='Digital Graphic Designer', r_vec='Visual Experience Coordinator', r_ad='Art Direction',
   s1='Digital Graphic Design', s1t='Developing design concepts that encompass visual identity, color palettes, typography, and visual guidelines.',
@@ -171,13 +171,13 @@ T = {
   work_title='Proyectos', soon='Caso de estudio en preparación', did='Qué hice',
   facts=[('9', 'años de experiencia'), ('5', 'organizaciones'), ('2', 'idiomas')],
   now='Bogotá, Colombia', ai_title='La IA en mi flujo de trabajo',
-  contact_facts='En Bogotá (GMT−5) · Español e inglés · Disponible para empleo de tiempo completo y proyectos independientes',
+  contact_facts='GMT−5 · Español e inglés · Disponible para empleo de tiempo completo y proyectos independientes',
   desc='Nicolás Mogollón Barbosa, diseñador visual y de marca. Campañas, identidades y productos digitales para MinTIC, Invest in Bogotá, Radio a Domicilio y más.',
   nav_work='PROYECTOS', nav_about='SOBRE MÍ', nav_exp='EXPERIENCIA', cta='Hablemos', menu='Menú',
   other_lang='en', other_short='EN', other_name='English',
   hint_text='Prefer to read this site in English?', hint_btn='View in English', hint_close='Close',
   h1a='AMO EL DISEÑO', h1b='y convierto esa pasión en resultados',
-  intro='Soy Nicolás, diseñador visual y de IA en Bogotá. Desde hace nueve años convierto programas públicos, universidades y marcas en identidades, campañas y sitios web, para MinTIC, Invest in Bogotá y ReloQuest.',
+  intro='Soy Nicolás, diseñador visual y de IA. Desde hace nueve años convierto programas públicos, universidades y marcas en identidades, campañas y sitios web, para MinTIC, Invest in Bogotá y ReloQuest.',
   work='PROYECTOS', view='VER LA PRESENTACIÓN COMPLETA',
   r_art='Director de arte', r_vai='Diseñador visual y de IA', r_dgd='Diseñador gráfico digital', r_vec='Coordinador de experiencia visual', r_ad='Dirección de arte',
   s1='Diseño gráfico digital', s1t='Desarrollo de conceptos de diseño que abarcan identidad visual, paletas de color, tipografía y lineamientos visuales.',
@@ -414,7 +414,7 @@ def footer(t, other):
       <div class="sky"><h2 class="rise contact-title">{t['magic']}</h2></div>
       <span class="horizon" aria-hidden="true"></span>
       <p class="contact-sub">{t['magic_sub']}</p>
-      {P.format('a-v3: ciudad, idiomas y disponibilidad (confirmar la disponibilidad)')}
+      {P.format('a-v3: zona horaria, idiomas y disponibilidad (sin la ciudad, 2026-11-26; confirmar la disponibilidad)')}
       <p class="contact-facts">{t['contact_facts']}</p>
       {email_row(t)}
       <div class="contact-actions">
@@ -448,7 +448,7 @@ CARD_SHAPES = {   # each client's cover shape, small, rising from the card's bot
     'radio-a-domicilio': ('#ffc845', '<path class="s" d="M96 120a24 24 0 0 1 48 0"/><path class="s" d="M66 120a54 54 0 0 1 108 0"/><path class="s" d="M36 120a84 84 0 0 1 168 0"/>'),
     'invest-in-bogota': ('#ef491f', '<circle cx="120" cy="120" r="84"/>'),
     'vende-digital': ('#ff00bc', '<path class="s s--thin" d="M30 106L120 32L210 106"/><circle cx="30" cy="106" r="13"/><circle cx="120" cy="32" r="18"/><circle cx="210" cy="106" r="13"/>'),
-    'infinited': ('#2ccfc7', '<rect x="38" y="72" width="30" height="64" rx="15"/><rect x="105" y="38" width="30" height="98" rx="15"/><rect x="172" y="4" width="30" height="132" rx="15"/>'),
+    'infinited': ('#2ccfc7', '<circle class="s" cx="84" cy="74" r="36"/><circle class="s" cx="156" cy="74" r="36"/>'),
     'pro-surge-ja': ('#ff4848', '<path d="M54 120L118 0H158L94 120Z"/><path d="M124 120L188 0H228L164 120Z"/>'),
     'col40-2018': ('#ff66f0', '<path d="M36 120A84 84 0 0 1 204 120H168A48 48 0 0 0 72 120Z"/><circle cx="120" cy="104" r="16"/>'),
 }
@@ -646,10 +646,9 @@ def home(lang, variant='grid'):
           <span class="horizon horizon--sun" aria-hidden="true"></span>
         </h1>
         <div class="hero-below">
-          {P.format('a-v3: texto de apoyo nuevo, línea de Bogotá y tres cifras (9 años, 5 organizaciones, 2 idiomas). Ver redesign/a-v3/CAMBIOS.md')}
+          {P.format('a-v3: texto de apoyo nuevo (sin la ciudad, 2026-11-26) y tres cifras (9 años, 5 organizaciones, 2 idiomas). Ver redesign/a-v3/CAMBIOS.md')}
           <div class="hero-lead">
             <p class="hero-intro body-lg">{t['intro']}</p>
-            <p class="hero-now"><span class="now-dot" aria-hidden="true"></span>{t['now']} <span data-bogota-time data-locale="{'en-US' if lang == 'en' else 'es-CO'}">(GMT−5)</span></p>
           </div>
           <dl class="hero-facts">{''.join(f'<div><dt>{lab}</dt><dd>{num}</dd></div>' for num, lab in t['facts'])}</dl>
         </div>
@@ -727,7 +726,6 @@ def home(lang, variant='grid'):
         return page(lang, 1, body, t['title'], t['desc'], alts, robots='noindex')
     person = json.dumps({'@context': 'https://schema.org', '@type': 'Person', 'name': 'Nicolás Mogollón Barbosa', 'url': BASE,
                          'jobTitle': T[lang]['r_vai'], 'email': 'mailto:' + EMAIL, 'knowsLanguage': ['es', 'en'],
-                         'address': {'@type': 'PostalAddress', 'addressLocality': 'Bogotá', 'addressCountry': 'CO'},
                          'worksFor': {'@type': 'Organization', 'name': 'ReloQuest'},
                          'sameAs': ['https://www.linkedin.com/in/nicolasmb', 'https://www.behance.net/NicolasMB']}, ensure_ascii=False)
     html = page(lang, 0 if lang == 'en' else 1, body, t['title'], t['desc'], alts)
@@ -956,14 +954,14 @@ def case_iib(lang):
 SHAPE_VD = '''<svg class="cover-shape links" viewBox="0 0 240 120" aria-hidden="true" focusable="false">
             <path class="link-line" d="M30 106L120 32L210 106"/><circle class="w w1" cx="30" cy="106" r="13"/><circle class="w w2" cx="120" cy="32" r="18"/><circle class="w w3" cx="210" cy="106" r="13"/>
           </svg>'''
-SHAPE_INF = '''<svg class="cover-shape stems" viewBox="0 0 240 120" aria-hidden="true" focusable="false">
-            <rect class="w w1" x="38" y="72" width="30" height="64" rx="15"/><rect class="w w2" x="105" y="38" width="30" height="98" rx="15"/><rect class="w w3" x="172" y="4" width="30" height="132" rx="15"/>
+SHAPE_INF = '''<svg class="cover-shape rings" viewBox="0 0 240 120" aria-hidden="true" focusable="false">
+            <circle class="w w1" cx="84" cy="74" r="36"/><circle class="w w2" cx="156" cy="74" r="36"/>
           </svg>'''
 SHAPE_PS = '''<svg class="cover-shape bars" viewBox="0 0 240 120" aria-hidden="true" focusable="false">
             <path class="w w1" d="M54 120L118 0H158L94 120Z"/><path class="w w2" d="M124 120L188 0H228L164 120Z"/>
           </svg>'''
 MARK_VD = '<svg class="mark mark--links" viewBox="0 0 40 24" aria-hidden="true" focusable="false"><path d="M6 20L20 6L34 20"/><circle cx="6" cy="20" r="4"/><circle cx="20" cy="6" r="5"/><circle cx="34" cy="20" r="4"/></svg>'
-MARK_INF = '<svg class="mark mark--stems" viewBox="0 0 40 24" aria-hidden="true" focusable="false"><rect x="4" y="14" width="7" height="14" rx="3.5"/><rect x="16.5" y="8" width="7" height="20" rx="3.5"/><rect x="29" y="2" width="7" height="26" rx="3.5"/></svg>'
+MARK_INF = '<svg class="mark mark--rings" viewBox="0 0 40 24" aria-hidden="true" focusable="false"><circle cx="13" cy="14" r="7"/><circle cx="27" cy="14" r="7"/></svg>'
 SHAPE_COL = '''<svg class="cover-shape gate" viewBox="0 0 240 120" aria-hidden="true" focusable="false">
             <path class="w w1" d="M36 120A84 84 0 0 1 204 120H168A48 48 0 0 0 72 120Z"/><circle class="w w2" cx="120" cy="104" r="16"/>
           </svg>'''

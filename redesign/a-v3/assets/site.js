@@ -175,16 +175,6 @@
     if (img.complete && img.naturalWidth) mark(); else img.addEventListener("load", mark, { once: true });
   });
 
-  /* Bogotá's local time next to the hero text: tells a visitor abroad the time zone at a glance */
-  const clock = document.querySelector("[data-bogota-time]");
-  if (clock && window.Intl) {
-    try {
-      const fmt = new Intl.DateTimeFormat(clock.dataset.locale || "en-US", { timeZone: "America/Bogota", hour: "numeric", minute: "2-digit" });
-      const tick = () => { clock.textContent = "· " + fmt.format(new Date()) + " (GMT−5)"; };
-      tick(); setInterval(tick, 30000);
-    } catch (_) {}
-  }
-
   /* Interactive charts: ARIA tabs (arrows, Home, End), one view at a time; bars grow when the chart comes into view.
      Without JS every view is shown as a plain table. */
   document.querySelectorAll("[data-chart]").forEach((chart) => {
