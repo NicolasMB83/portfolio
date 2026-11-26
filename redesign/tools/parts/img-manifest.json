@@ -652,22 +652,22 @@
    1920
   ]
  },
- "local:vd-logo-2021": {
-  "name": "vd-logo-2021",
-  "w": 960,
-  "h": 480,
+ "local:vd-logo-launch": {
+  "name": "vd-logo-launch",
+  "w": 1440,
+  "h": 720,
   "sizes": [
-   480,
-   960
+   720,
+   1440
   ]
  },
- "local:vd-logo-2022": {
-  "name": "vd-logo-2022",
-  "w": 960,
-  "h": 480,
+ "local:vd-logo-update": {
+  "name": "vd-logo-update",
+  "w": 1440,
+  "h": 720,
   "sizes": [
-   480,
-   960
+   720,
+   1440
   ]
  }
 }

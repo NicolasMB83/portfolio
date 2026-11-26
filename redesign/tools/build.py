@@ -743,6 +743,14 @@ BEHANCE = {'radio-a-domicilio': 'https://www.behance.net/gallery/190745145/Radio
            'invest-in-bogota': 'https://www.behance.net/gallery/230400817/Invest-in-Bogota'}
 
 
+def jrow(items, cls=''):
+    """A justified row: every image keeps its own proportions and all share one height (no cropping).
+    Each figure grows in proportion to its aspect ratio. On phones the row wraps into two columns."""
+    total = sum(MANIFEST[n]['w'] / MANIFEST[n]['h'] for n, _ in items)
+    figs = ''.join(f'''<figure style="--ar: {MANIFEST[n]['w'] / MANIFEST[n]['h']:.4f}">{pic(n, f"(max-width: 760px) 50vw, {round(100 * MANIFEST[n]['w'] / MANIFEST[n]['h'] / total)}vw", alt)}</figure>''' for n, alt in items)
+    return f'<div class="jrow{(" " + cls) if cls else ""}">{figs}</div>'
+
+
 def fig(name, cls, sizes, alt):
     c = f' class="{cls}"' if cls else ''
     return f'<figure{c}>{pic(name, sizes, alt)}</figure>'
@@ -1037,16 +1045,17 @@ def vd_chart(t):
 
 # ---------- Vende Digital: a campaign, "Facts that connect": its points are joined by a line
 def compare(st):
-    """Before/after of a logo: a native range input (keyboard, click on the track, screen-reader slider) moves
-    a line with a dot (the logo's "i") that reveals the earlier version. Without JS both images sit side by side."""
+    """Before/after of a logo, both cut out on the same white card and aligned on "Vende". A native range input
+    covers the card (drag anywhere, click, arrow keys; read as a slider). The divider is the logo's "i": a stem
+    with a dot. Without JS both logos sit side by side."""
     return f'''
           <figure class="compare" data-compare>
             <div class="compare-stage" style="--pos: 50%">
-              <div class="compare-before">{pic('vd-logo-2021', '(max-width: 760px) 100vw, 960px', st['compare_before'])}<span class="compare-tag">2021</span></div>
-              <div class="compare-after">{pic('vd-logo-2022', '(max-width: 760px) 100vw, 960px', st['compare_after'])}<span class="compare-tag">2022</span></div>
+              <div class="compare-before">{pic('vd-logo-launch', '(max-width: 760px) 100vw, 880px', st['compare_before'])}<span class="compare-tag">2020</span></div>
+              <div class="compare-after">{pic('vd-logo-update', '(max-width: 760px) 100vw, 880px', st['compare_after'])}<span class="compare-tag">2022</span></div>
               <span class="compare-handle" aria-hidden="true"></span>
+              <input class="compare-range" type="range" min="0" max="100" value="50" aria-label="{st['compare_label']}" hidden>
             </div>
-            <input class="compare-range" type="range" min="0" max="100" value="50" aria-label="{st['compare_label']}" hidden>
             <figcaption class="compare-caption" hidden>{st['compare_caption']}</figcaption>
           </figure>'''
 
@@ -1054,15 +1063,10 @@ def compare(st):
 def vd_main(t, h):
     c = VD[t['_lang']]; a = c['alts']
     work = f'''<div class="gallery">
-            {fig('vd-key-visual', 'g-6', '(max-width: 760px) 100vw, 50vw', a['key'])}
-            {fig('vd-phone-mockup', 'g-6', '(max-width: 760px) 100vw, 50vw', a['mockup'])}
+            {jrow([('vd-key-visual', a['key']), ('vd-phone-mockup', a['mockup'])])}
             {fig('vd-phones', '', '(max-width: 760px) 100vw, 1320px', a['phones'])}
             <div class="gallery-label"><h3>{t['c_social']}</h3></div>
-            {fig('vd-post-catalogo', 'g-4', '(max-width: 760px) 100vw, 33vw', a['catalogo'])}
-            {fig('vd-post-tiendas', 'g-4', '(max-width: 760px) 100vw, 33vw', a['tiendas'])}
-            {fig('vd-post-ventas', 'g-4', '(max-width: 760px) 100vw, 33vw', a['ventas'])}
-            {fig('vd-post-vitrina', 'g-6', '(max-width: 760px) 100vw, 50vw', a['vitrina'])}
-            {fig('vd-post-empresas', 'g-6', '(max-width: 760px) 100vw, 50vw', a['empresas'])}
+            {jrow([('vd-post-catalogo', a['catalogo']), ('vd-post-tiendas', a['tiendas']), ('vd-post-ventas', a['ventas']), ('vd-post-empresas', a['empresas']), ('vd-post-vitrina', a['vitrina'])], 'jrow--posts')}
             {fig('vd-event', '', '(max-width: 760px) 100vw, 1320px', a['event'])}
           </div>'''
     r = c['reflect']

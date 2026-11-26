@@ -1155,18 +1155,33 @@ main:has(.cover-stage--curtain) .chapter-cover { padding-bottom: clamp(40px, 5vw
 .mark--rings circle { fill: none; stroke: var(--client-ink, var(--client)); stroke-width: 3.4; }
 .tone-night .mark--rings circle { fill: none; stroke: var(--client); }
 
-/* Before/after of a logo (Vende Digital 2021 → 2022). The divider is the logo's "i": a stem with a dot. */
-.compare { max-width: 960px; margin: clamp(40px, 5vw, 72px) auto 0; }
+/* Before/after of a logo (Vende Digital 2020 → 2022): one white card, the logos aligned on "Vende".
+   The divider is the logo's "i" (a stem with a dot); the range input covers the card, so you drag the image itself. */
+.compare { max-width: 880px; margin: clamp(48px, 6vw, 88px) auto 0; }
 .compare-stage { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.compare-stage img { display: block; width: 100%; height: auto; border-radius: var(--radius, 16px); }
-.compare-before, .compare-after { position: relative; }
-.compare-tag { position: absolute; top: 12px; left: 12px; padding: 4px 10px; border-radius: 999px; background: rgb(255 255 255 / 0.9); font-family: var(--font-label); font-weight: 600; font-size: 0.8125rem; color: var(--ink); }
-.compare-handle { display: none; }
-.compare.is-ready .compare-stage { display: block; gap: 0; }
+.compare-before, .compare-after { position: relative; overflow: clip; border-radius: var(--radius); background: #fff; box-shadow: 0 0 0 1px var(--rule); }
+.compare-stage img { display: block; width: 100%; height: auto; }
+.compare-tag { position: absolute; top: 16px; left: 16px; font-family: var(--font-label); font-weight: 600; font-size: 0.8125rem; letter-spacing: 0.04em; color: var(--ink-2); }
+.compare-handle, .compare-range { display: none; }
+.compare.is-ready .compare-stage { display: block; border-radius: var(--radius); box-shadow: 0 0 0 1px var(--rule), 0 24px 48px -32px oklch(0.257 0.09 281 / 0.35); }
+.compare.is-ready .compare-before, .compare.is-ready .compare-after { box-shadow: none; }
 .compare.is-ready .compare-before { position: absolute; inset: 0; z-index: 1; clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
-.compare.is-ready .compare-after .compare-tag { left: auto; right: 12px; }
-.compare.is-ready .compare-handle { z-index: 2; display: block; position: absolute; top: 0; bottom: 0; left: var(--pos); width: 4px; translate: -50% 0; border-radius: 2px; background: var(--client-ink, var(--ink)); pointer-events: none; }
-.compare.is-ready .compare-handle::after { content: ""; position: absolute; left: 50%; top: 50%; width: 22px; height: 22px; translate: -50% -50%; border-radius: 50%; background: var(--client, var(--sun)); box-shadow: 0 0 0 4px var(--client-ink, var(--ink)); }
-.compare-range { display: block; width: 100%; margin-top: 16px; accent-color: var(--client-ink, var(--ink)); cursor: ew-resize; }
-.compare-caption { margin-top: 8px; font-size: 0.875rem; color: var(--ink-2); }
+.compare.is-ready .compare-after .compare-tag { left: auto; right: 16px; }
+.compare.is-ready .compare-handle { z-index: 2; display: block; position: absolute; top: 14%; bottom: 14%; left: var(--pos); width: 3px; translate: -50% 0; border-radius: 2px; background: var(--ink); pointer-events: none; }
+.compare.is-ready .compare-handle::after { content: ""; position: absolute; left: 50%; top: -18px; width: 16px; height: 16px; translate: -50% 0; border-radius: 50%; background: var(--client, var(--sun)); transition: scale .3s var(--spring); }
+.compare.is-ready .compare-range { display: block; position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
+.compare.is-ready .compare-stage:has(.compare-range:focus-visible) { outline: 3px solid var(--client-ink, var(--ink)); outline-offset: 4px; }
+.compare.is-ready .compare-stage:has(.compare-range:is(:hover, :focus-visible, :active)) .compare-handle::after { scale: 1.35; }
+.compare-caption { margin-top: 14px; text-align: center; font-family: var(--font-label); font-size: 0.875rem; color: var(--ink-2); }
 @media (max-width: 760px) { .compare-stage { grid-template-columns: 1fr; } }
+
+/* Justified rows: images keep their proportions and share one height (nothing is cropped). */
+.jrow { grid-column: 1 / -1; display: flex; gap: var(--col-gap); align-items: flex-start; }
+.jrow > figure { flex: var(--ar) 1 0; min-width: 0; aspect-ratio: var(--ar); overflow: clip; border-radius: var(--radius); background: var(--paper-2); }
+.jrow > figure img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.jrow--posts { gap: clamp(10px, 1.2vw, 16px); }
+@media (max-width: 760px) {
+  .jrow { flex-wrap: wrap; gap: 12px; }
+  .jrow > figure { flex: 1 1 100%; }
+  .jrow--posts > figure { flex: 0 0 calc(50% - 6px); }
+}
