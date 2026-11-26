@@ -32,7 +32,7 @@ These rules come from the site owner and apply to every task in this repo.
   - Bloque de IA con frases ya aprobadas.
   - Trayectoria plegable con `<details>` (el título del cargo queda fuera del `summary`).
   - Línea de datos en el contacto.
-  - Títulos de sección a 52 px.
+  - Títulos de sección a `--fs-h2` (≈44 px; antes 52).
   - `assets/og.png`, título de página con nombre y cargo, y JSON-LD de persona.
   - La tarjeta de Colombia 4.0 no es enlace.
   - Sin las páginas `projects-a/b/c`.
@@ -131,3 +131,6 @@ These rules come from the site owner and apply to every task in this repo.
 - Íconos: la forma del cliente va solo en la portada. Los títulos de sección ya no llevan marca (`mark_head` la ignora) y los objetivos ya no llevan el arco como viñeta. Excepción que sigue: los soles pequeños de las fases de Radio a Domicilio.
 - Vende Digital (2026-11-26, tarde): el comparador se reemplazó por "dos ediciones": el mismo banner principal en cada sistema, lado a lado y en su contexto (2020: `vd-banner-2020`, de MinTIC; 2022: `vd-banner-2022`, de Behance). El mockup de celulares flotantes (falso) se reemplazó por tres historias en celulares rectos hechos en HTML (`phones()`, `.phone`) sobre líneas topográficas vectoriales propias (`tools/topo.py` → `assets/img/vd-topo.svg`).
 - Horizonte: solo va de lado a lado bajo un sol (portadas, hero). Las líneas bajo los títulos de sección quedan dentro de la columna y se desvanecen a la derecha (`.horizon:not(.horizon--sun)`).
+- Galerías sin recorte en todos los casos (2026-11-26): las filas de dos o más imágenes usan `jrow()` (misma altura, cada imagen con su proporción). Filas de tres o más: dos columnas en celular.
+- Escala del inicio (2026-11-26): títulos de sección y "AI in my workflow" a `--fs-h2`; cifras del hero a 32 px; "See the full deck" a `--fs-lead`; servicios, cargos, clientes y frases de IA a `--fs-h3`. El titular del hero no cambió.
+- Traspaso para la sesión siguiente: `redesign/a-v3/TRASPASO.md`.

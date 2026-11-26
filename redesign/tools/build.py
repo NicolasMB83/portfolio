@@ -748,6 +748,7 @@ def jrow(items, cls=''):
     Each figure grows in proportion to its aspect ratio. On phones the row wraps into two columns."""
     total = sum(MANIFEST[n]['w'] / MANIFEST[n]['h'] for n, _ in items)
     figs = ''.join(f'''<figure style="--ar: {MANIFEST[n]['w'] / MANIFEST[n]['h']:.4f}">{pic(n, f"(max-width: 760px) 50vw, {round(100 * MANIFEST[n]['w'] / MANIFEST[n]['h'] / total)}vw", alt)}</figure>''' for n, alt in items)
+    if not cls and len(items) >= 3: cls = 'jrow--posts'   # rows of three or more pieces: two columns on phones
     return f'<div class="jrow{(" " + cls) if cls else ""}">{figs}</div>'
 
 
@@ -850,12 +851,10 @@ def rad_main(t, h):
                 <figcaption>{w} × {hh}</figcaption>
               </figure>''' for k, w, hh in BANNERS)
     work = f'''<div class="gallery">
-            {fig('rad-web', 'g-7', '(max-width: 760px) 100vw, 58vw', ra['web'])}
-            {fig('rad-studio', 'g-5', '(max-width: 760px) 100vw, 40vw', ra['studio'])}
+            {jrow([('rad-web', ra['web']), ('rad-studio', ra['studio'])])}
             {fig('rad-campaign', '', '(max-width: 760px) 100vw, 1320px', ra['campaign'])}
             <div class="gallery-label"><h3>{t['c_social']}</h3></div>
-            {fig('rad-social', 'g-7', '(max-width: 760px) 100vw, 58vw', ra['social'])}
-            {fig('rad-headphones', 'g-5', '(max-width: 760px) 100vw, 40vw', ra['headphones'])}
+            {jrow([('rad-social', ra['social']), ('rad-headphones', ra['headphones'])])}
             <div class="gallery-label">{P.format('“HTML5 banners” es un rótulo nuevo')}<h3>{t['r_banners']}</h3></div>
             <div class="banners">{banners}
             </div>
@@ -912,16 +911,11 @@ def iib_main(t, h):
             {fig('iib-web', 'settle', '(max-width: 760px) 100vw, 1320px', a[2])}
             {fig('iib-social-grid', '', '(max-width: 760px) 100vw, 1320px', a[0])}
             <div class="gallery-label"><h3>{t['c_social']}</h3></div>
-            {fig('iib-mice', 'g-4', '(max-width: 760px) 100vw, 33vw', a[4])}
-            {fig('iib-semana-emprendedor', 'g-4', '(max-width: 760px) 100vw, 33vw', a[1])}
-            {fig('iib-convention-bureau', 'g-4', '(max-width: 760px) 100vw, 33vw', a[6])}
+            {jrow([('iib-mice', a[4]), ('iib-semana-emprendedor', a[1]), ('iib-convention-bureau', a[6]), ('iib-bogota-proposito', a[5])])}
             <div class="gallery-label"><h3>{t['c_slides']}</h3></div>
             {fig('iib-slide-aliado', '', '(max-width: 760px) 100vw, 1320px', a[3])}
-            {fig('iib-scaleup', 'g-7', '(max-width: 760px) 100vw, 58vw', a[7])}
-            {fig('iib-data-slide', 'g-5', '(max-width: 760px) 100vw, 40vw', a[8])}
-            {fig('iib-abc-guide', 'g-6', '(max-width: 760px) 100vw, 50vw', a[9])}
-            {fig('iib-editorial-spread', 'g-6', '(max-width: 760px) 100vw, 50vw', a[10])}
-            {fig('iib-bogota-proposito', 'g-4', '(max-width: 760px) 100vw, 33vw', a[5])}
+            {jrow([('iib-scaleup', a[7]), ('iib-data-slide', a[8])])}
+            {jrow([('iib-abc-guide', a[9]), ('iib-editorial-spread', a[10])])}
             <div class="gallery-label"><h3 class="sr-only">Behance</h3>{behance_link(t, 'invest-in-bogota')}</div>
           </div>'''
     return case_cover(t, h, 'Invest in Bogotá', '<span class="sun" aria-hidden="true"></span>', t['c_summary'], (t['c_year_v'], 'Invest in Bogotá', t['r_vai']), reel, sun=True) + f'''
@@ -1107,15 +1101,12 @@ def inf_main(t, h):
     posts = ''.join(fig(f'inf-post-{i}', 'g-3', '(max-width: 760px) 50vw, 25vw', alt) for i, alt in enumerate(a['posts'], 1))
     work = f'''<div class="gallery">
             {fig('inf-overview', '', '(max-width: 760px) 100vw, 1320px', a['overview'])}
-            {fig('inf-key-visual', 'g-7', '(max-width: 760px) 100vw, 58vw', a['key'])}
-            {fig('inf-logo', 'g-5', '(max-width: 760px) 100vw, 40vw', a['logo'])}
+            {jrow([('inf-key-visual', a['key']), ('inf-logo', a['logo'])])}
             {fig('inf-escalo', '', '(max-width: 760px) 100vw, 1320px', a['escalo'])}
             <div class="gallery-label"><h3>{t['c_social']}</h3></div>
             {posts}
-            {fig('inf-post-crecer', 'g-6', '(max-width: 760px) 100vw, 50vw', a['crecer'])}
-            {fig('inf-post-growth', 'g-6', '(max-width: 760px) 100vw, 50vw', a['growth'])}
-            {fig('inf-post-legal', 'g-6', '(max-width: 760px) 100vw, 50vw', a['legal'])}
-            {fig('inf-computer', 'g-6', '(max-width: 760px) 100vw, 50vw', a['computer'])}
+            {jrow([('inf-post-crecer', a['crecer']), ('inf-post-growth', a['growth'])])}
+            {jrow([('inf-post-legal', a['legal']), ('inf-computer', a['computer'])])}
           </div>'''
     cover = f'<figure class="cover-shot">{pic("inf-key-visual", "(max-width: 760px) 100vw, 1320px", a["key"], eager=True)}</figure>'
     return case_cover(t, h, 'Infinited', SHAPE_INF, c['desc'], (c['year'], c['company'], t['r_vec']), cover) + \
@@ -1138,15 +1129,11 @@ def ps_main(t, h):
               </ul>
             </div>''' for ph, items in c['phases']) + '\n          </div>'
     work = f'''<div class="gallery">
-            {fig('ps-logo-red', 'g-6', '(max-width: 760px) 100vw, 50vw', a['logo_red'])}
-            {fig('ps-logo-navy', 'g-6', '(max-width: 760px) 100vw, 50vw', a['logo_navy'])}
-            {fig('ps-box-surge', 'g-6', '(max-width: 760px) 100vw, 50vw', a['box_surge'])}
-            {fig('ps-box-fridge', 'g-6', '(max-width: 760px) 100vw, 50vw', a['box_fridge'])}
+            {jrow([('ps-logo-red', a['logo_red']), ('ps-logo-navy', a['logo_navy'])])}
+            {jrow([('ps-box-surge', a['box_surge']), ('ps-box-fridge', a['box_fridge'])])}
             {fig('ps-billboard', '', '(max-width: 760px) 100vw, 1320px', a['billboard'])}
             <div class="gallery-label"><h3>{t['c_social']}</h3></div>
-            {fig('ps-post-surge', 'g-4', '(max-width: 760px) 100vw, 33vw', a['post_surge'])}
-            {fig('ps-post-fridge', 'g-4', '(max-width: 760px) 100vw, 33vw', a['post_fridge'])}
-            {fig('ps-post-monitor', 'g-4', '(max-width: 760px) 100vw, 33vw', a['post_monitor'])}
+            {jrow([('ps-post-surge', a['post_surge']), ('ps-post-fridge', a['post_fridge']), ('ps-post-monitor', a['post_monitor'])])}
           </div>'''
     concl = f'''<p class="statement-text">{c['conclusions']}</p>'''
     cover = f'<figure class="cover-shot">{pic("ps-overview", "(max-width: 760px) 100vw, 1320px", a["overview"], eager=True)}</figure>'
@@ -1172,13 +1159,9 @@ def col_main(t, h):
             </div>''' for ph, items in c['phases']) + '\n          </div>'
     work = f'''<div class="gallery">
             {fig('col40-phones', '', '(max-width: 760px) 100vw, 1320px', a['phones'])}
-            {fig('col40-post-videogames', 'g-4', '(max-width: 760px) 100vw, 33vw', a['videogames'])}
-            {fig('col40-post-regions', 'g-4', '(max-width: 760px) 100vw, 33vw', a['regions'])}
-            {fig('col40-post-security', 'g-4', '(max-width: 760px) 100vw, 33vw', a['security'])}
-            {fig('col40-badge', 'g-6', '(max-width: 760px) 100vw, 50vw', a['badge'])}
-            {fig('col40-stage', 'g-6', '(max-width: 760px) 100vw, 50vw', a['stage'])}
-            {fig('col40-talk', 'g-6', '(max-width: 760px) 100vw, 50vw', a['talk'])}
-            {fig('col40-venue', 'g-6', '(max-width: 760px) 100vw, 50vw', a['venue'])}
+            {jrow([('col40-post-videogames', a['videogames']), ('col40-post-regions', a['regions']), ('col40-post-security', a['security'])])}
+            {jrow([('col40-badge', a['badge']), ('col40-stage', a['stage'])])}
+            {jrow([('col40-talk', a['talk']), ('col40-venue', a['venue'])])}
           </div>'''
     n = '62.000' if t['_lang'] == 'es' else '62,000'
     figure = f'''{P.format('Colombia 4.0: cifra destacada tomada del texto publicado; "attendees" / "asistentes" es un rótulo nuevo')}
