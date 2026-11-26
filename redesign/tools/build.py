@@ -999,7 +999,8 @@ def results_block(t, text, nxt=None, slug=None):
 
 
 def vd_chart(t):
-    """G3: the program in numbers. Each view is a real <table> (read by screen readers and shown without JS);
+    """Not used since 2026-11-26 (the owner chose to show his work, not the program's data); kept as the pattern
+    for future data views. G3: the program in numbers. Each view is a real <table> (read by screen readers and shown without JS);
     the bars are drawn on it with CSS and grow from the horizon. Tabs switch views (ARIA tabs pattern)."""
     lang = t['_lang']; c = VD_CHART[lang]; d = VD_DATA
     num = lambda n: f'{n:,}'.replace(',', '.' if lang == 'es' else ',')
@@ -1035,10 +1036,23 @@ def vd_chart(t):
 
 
 # ---------- Vende Digital: a campaign, "Facts that connect": its points are joined by a line
+def compare(st):
+    """Before/after of a logo: a native range input (keyboard, click on the track, screen-reader slider) moves
+    a line with a dot (the logo's "i") that reveals the earlier version. Without JS both images sit side by side."""
+    return f'''
+          <figure class="compare" data-compare>
+            <div class="compare-stage" style="--pos: 50%">
+              <div class="compare-before">{pic('vd-logo-2021', '(max-width: 760px) 100vw, 960px', st['compare_before'])}<span class="compare-tag">2021</span></div>
+              <div class="compare-after">{pic('vd-logo-2022', '(max-width: 760px) 100vw, 960px', st['compare_after'])}<span class="compare-tag">2022</span></div>
+              <span class="compare-handle" aria-hidden="true"></span>
+            </div>
+            <input class="compare-range" type="range" min="0" max="100" value="50" aria-label="{st['compare_label']}" hidden>
+            <figcaption class="compare-caption" hidden>{st['compare_caption']}</figcaption>
+          </figure>'''
+
+
 def vd_main(t, h):
     c = VD[t['_lang']]; a = c['alts']
-    connect = '<ol class="connect">' + ''.join(f'''
-            <li><span class="connect-dot" aria-hidden="true"></span><p>{x}</p></li>''' for x in c['obj']) + '\n          </ol>'
     work = f'''<div class="gallery">
             {fig('vd-key-visual', 'g-6', '(max-width: 760px) 100vw, 50vw', a['key'])}
             {fig('vd-phone-mockup', 'g-6', '(max-width: 760px) 100vw, 50vw', a['mockup'])}
@@ -1060,9 +1074,14 @@ def vd_main(t, h):
             </ul>
           </div>'''
     cover = f'<figure class="cover-shot">{pic("vd-billboard", "(max-width: 760px) 100vw, 1320px", a["billboard"], eager=True)}</figure>'
+    st = c['story']
+    change = f'''{P.format('Vende Digital en cuatro actos (2026-11-26): textos nuevos de El cambio, Qué conservé y qué cambié, y el comparador')}
+          <p class="statement-text">{st['change']}</p>'''
+    update = '<ol class="objectives">' + ''.join(f'''
+            <li class="objective"><h3>{hd}</h3><p>{tx}</p></li>''' for hd, tx in st['update']) + '\n          </ol>' + compare(st)
     return case_cover(t, h, 'Vende Digital', SHAPE_VD, c['desc'], (c['year'], c['company'], t['r_dgd']), cover) + \
-        section('', 'vd-obj', mark_head(t['c_obj'], 'vd-obj', MARK_VD), connect) + \
-        section('', 'vd-data', mark_head(VD_CHART[t['_lang']]['title'], 'vd-data', MARK_VD), vd_chart(t)) + \
+        section('', 'vd-change', mark_head(st['change_title'], 'vd-change', MARK_VD), change) + \
+        section('', 'vd-update', mark_head(st['update_title'], 'vd-update', MARK_VD), update) + \
         section('is-night tone-night', 'vd-work', mark_head(c['work'], 'vd-work', MARK_VD), work) + \
         section('', 'vd-res', mark_head(t['ch_res'], 'vd-res', MARK_VD), results_block(t, c['results'])) + \
         section('case-section--last', 'vd-ref', mark_head(r['title'], 'vd-ref', MARK_VD), reflect) + \

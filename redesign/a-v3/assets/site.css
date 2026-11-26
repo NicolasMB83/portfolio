@@ -1154,3 +1154,19 @@ main:has(.cover-stage--curtain) .chapter-cover { padding-bottom: clamp(40px, 5vw
 .cover-shape.rings .w { fill: none; stroke: var(--client); stroke-width: 20; }
 .mark--rings circle { fill: none; stroke: var(--client-ink, var(--client)); stroke-width: 3.4; }
 .tone-night .mark--rings circle { fill: none; stroke: var(--client); }
+
+/* Before/after of a logo (Vende Digital 2021 → 2022). The divider is the logo's "i": a stem with a dot. */
+.compare { max-width: 960px; margin: clamp(40px, 5vw, 72px) auto 0; }
+.compare-stage { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.compare-stage img { display: block; width: 100%; height: auto; border-radius: var(--radius, 16px); }
+.compare-before, .compare-after { position: relative; }
+.compare-tag { position: absolute; top: 12px; left: 12px; padding: 4px 10px; border-radius: 999px; background: rgb(255 255 255 / 0.9); font-family: var(--font-label); font-weight: 600; font-size: 0.8125rem; color: var(--ink); }
+.compare-handle { display: none; }
+.compare.is-ready .compare-stage { display: block; gap: 0; }
+.compare.is-ready .compare-before { position: absolute; inset: 0; z-index: 1; clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+.compare.is-ready .compare-after .compare-tag { left: auto; right: 12px; }
+.compare.is-ready .compare-handle { z-index: 2; display: block; position: absolute; top: 0; bottom: 0; left: var(--pos); width: 4px; translate: -50% 0; border-radius: 2px; background: var(--client-ink, var(--ink)); pointer-events: none; }
+.compare.is-ready .compare-handle::after { content: ""; position: absolute; left: 50%; top: 50%; width: 22px; height: 22px; translate: -50% -50%; border-radius: 50%; background: var(--client, var(--sun)); box-shadow: 0 0 0 4px var(--client-ink, var(--ink)); }
+.compare-range { display: block; width: 100%; margin-top: 16px; accent-color: var(--client-ink, var(--ink)); cursor: ew-resize; }
+.compare-caption { margin-top: 8px; font-size: 0.875rem; color: var(--ink-2); }
+@media (max-width: 760px) { .compare-stage { grid-template-columns: 1fr; } }

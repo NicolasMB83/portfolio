@@ -116,3 +116,7 @@ En la página de Vende Digital (inglés y español), entre los objetivos y las p
 - Con "reducir movimiento" no hay animación.
 
 **Textos nuevos por aprobar** (marcados en el HTML): el título "The program in numbers / El programa en cifras", la frase de entrada, las etiquetas y la nota de la fuente.
+
+## G3 retirado de Vende Digital (2026-11-26)
+
+El dueño decidió que el caso muestre su trabajo y no los datos del programa. Vende Digital ahora se cuenta en cuatro actos (el cambio, qué conservé y qué cambié con un comparador del logo 2021 → 2022, las piezas, y resultados con la reflexión). La función `vd_chart` y los estilos `.chart` siguen en el código como patrón para un gráfico futuro, solo donde los datos expliquen una decisión del dueño.

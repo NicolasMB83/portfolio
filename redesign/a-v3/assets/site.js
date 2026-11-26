@@ -175,6 +175,18 @@
     if (img.complete && img.naturalWidth) mark(); else img.addEventListener("load", mark, { once: true });
   });
 
+  /* Before/after compare: the range input drives --pos; the divider follows. Without JS both images show side by side. */
+  document.querySelectorAll("[data-compare]").forEach((fig) => {
+    const stage = fig.querySelector(".compare-stage");
+    const range = fig.querySelector(".compare-range");
+    const cap = fig.querySelector(".compare-caption");
+    if (!stage || !range) return;
+    range.hidden = false; if (cap) cap.hidden = false;
+    fig.classList.add("is-ready");
+    const set = () => stage.style.setProperty("--pos", range.value + "%");
+    range.addEventListener("input", set); set();
+  });
+
   /* Interactive charts: ARIA tabs (arrows, Home, End), one view at a time; bars grow when the chart comes into view.
      Without JS every view is shown as a plain table. */
   document.querySelectorAll("[data-chart]").forEach((chart) => {
