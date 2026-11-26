@@ -1152,3 +1152,10 @@ main:has(.cover-stage--curtain) .chapter-cover { padding-bottom: clamp(40px, 5vw
 .reflect-list h3 { font-size: 0.875rem; font-weight: 600; letter-spacing: 0.04em; color: var(--client-ink, var(--ink-2)); }
 .reflect-list p { margin-top: 8px; color: var(--ink-2); }
 @media (max-width: 1080px) { .reflect-lede, .reflect-list { grid-column: 1 / -1; } }
+
+/* Colombia 4.0: the gate (the logo's arch, also the Corferias arch) and the crowd as one big figure */
+.mark--gate path, .mark--gate circle { fill: var(--client-ink, var(--client)); }
+.tone-night .mark--gate path, .tone-night .mark--gate circle { fill: var(--client); }
+.big-figure { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 16px; margin-bottom: clamp(24px, 3vw, 40px); }
+.big-figure-n { font-family: var(--font-display); font-weight: 700; font-size: clamp(3.5rem, 2rem + 6vw, 7.5rem); line-height: 0.9; letter-spacing: -0.03em; color: var(--client-ink, var(--ink)); font-variant-numeric: tabular-nums; }
+.big-figure-l { font-family: var(--font-label); font-weight: 500; font-size: clamp(1rem, 0.9rem + 0.4vw, 1.25rem); color: var(--ink-2); }

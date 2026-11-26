@@ -218,3 +218,68 @@ VD_CHART = {
   source='Fuente: MinTIC, citado por DPL News, 22 de noviembre de 2022.', source_link='Ver la fuente',
   caption_s='Empresas por sector económico', caption_c='Ciudades con más empresas', caption_w='Beneficiarios por género'),
 }
+
+# Colombia 4.0 (2018): English as published on the Framer site (orange-point-971308.framer.app/col40-2018), unchanged;
+# the duration ("8 weeks") is left out on purpose (the site does not publish working times). Spanish: faithful translation.
+COL = {
+ 'en': dict(
+  title='Colombia 4.0 (2018) - Nicolas MB',
+  meta='Colombia 4.0 (2018): graphic content for the event where the creative industry meets digital technology.',
+  desc='The event where the creative industry meets digital technology. I was part of the design team, where I developed graphic content based on the official key visual.',
+  year='2018', company='Colombian Ministry of ICT (MINTIC)',
+  obj=[('Brand Cohesion', 'Designed graphic elements that maintained the essence of Colombia 4.0.'),
+       ('Event Coverage', 'Created real-time graphics and social media posts during the event.'),
+       ('Agenda and Guests', 'Supported agenda development and designed materials for invited speakers.')],
+  approach='My approach',
+  phases=[('Discovery Phase', [
+              ('Graphic Concept Ideation', 'I developed graphic proposals for the event Colombia 4.0.'),
+              ('Concept Development', 'Based on the selected graphic proposal, the construction of the graphic universe and its applications across different media begins.')]),
+          ('Design and Development', [
+              ('Development of Pieces for Social Media', 'Designed promotional materials for social media before, during, and after the event.'),
+              ('Agenda and Speakers Design', 'Part of COl40’s success lies in the quality of its speakers, bringing in current references from the creative world, designing promotional pieces for the speakers was a fundamental part of promoting the event on social media.'),
+              ('Event and management', 'During the event, additional material were required for promotion at key moments, photos during presentations to encourage potential attendees to interact and boost social media engagement and metrics.')])],
+  work='Social media, speakers and the event',
+  attendees='attendees',
+  results='Colombia 4.0 sustained its position as the leading technology and digital economy event in Latin America, attracting over 62,000 attendees. Topics included AI, software development, animation, video games, music, and entrepreneurship. Graphic assets for the event were key to conveying the vibrant and innovative identity, and I subsequently supported the 2019, 2020, and 2021 editions by creating graphic materials for social media along the whole Ministry of ICT design team.',
+  alts=dict(
+    arch='Colombia 4.0 at night: the crowd under the Corferias arch, with the Colombian flag and the event stage',
+    phones='Colombia 4.0 social media pieces on a phone and in a grid of posts',
+    videogames='Post: Video games, with the speakers Luis Villegas, Mario Wynands and Johnny Casamissina',
+    regions='Post: Regiones Digitales, the Thursday agenda with a talk, a panel and a workshop',
+    security='Post: Digital security, with the speakers Yossi Sassi, Nicholas Davis and Antonio Ramos',
+    badge='Colombia 4.0 2018 identification card hanging from a lanyard',
+    stage='The Colombia 4.0 live stage with the audience in front',
+    talk='A panel talk on the new media stage at Colombia 4.0',
+    venue='The entrance of a Colombia 4.0 pavilion dressed in the event’s colors'),
+ ),
+ 'es': dict(
+  title='Colombia 4.0 (2018) - Nicolas MB',
+  meta='Colombia 4.0 (2018): contenido gráfico para el evento donde la industria creativa se encuentra con la tecnología digital.',
+  desc='El evento donde la industria creativa se encuentra con la tecnología digital. Fui parte del equipo de diseño y desarrollé contenido gráfico a partir del key visual oficial.',
+  year='2018', company='Ministerio TIC de Colombia (MINTIC)',
+  obj=[('Coherencia de marca', 'Diseñé elementos gráficos que mantuvieron la esencia de Colombia 4.0.'),
+       ('Cubrimiento del evento', 'Creé gráficas en tiempo real y publicaciones para redes sociales durante el evento.'),
+       ('Agenda e invitados', 'Apoyé el desarrollo de la agenda y diseñé materiales para los conferencistas invitados.')],
+  approach='Mi enfoque',
+  phases=[('Fase de descubrimiento', [
+              ('Ideación del concepto gráfico', 'Desarrollé propuestas gráficas para el evento Colombia 4.0.'),
+              ('Desarrollo del concepto', 'A partir de la propuesta gráfica elegida, comienza la construcción del universo gráfico y sus aplicaciones en distintos medios.')]),
+          ('Diseño y desarrollo', [
+              ('Desarrollo de piezas para redes sociales', 'Diseñé material promocional para redes sociales antes, durante y después del evento.'),
+              ('Diseño de agenda y conferencistas', 'Parte del éxito de Col40 está en la calidad de sus conferencistas, referentes actuales del mundo creativo; diseñar piezas promocionales para ellos fue fundamental para promocionar el evento en redes sociales.'),
+              ('Evento y gestión', 'Durante el evento se necesitó material adicional para promocionar los momentos clave y fotos durante las presentaciones, para animar a los posibles asistentes a interactuar y aumentar la interacción y las métricas en redes sociales.')])],
+  work='Redes sociales, conferencistas y el evento',
+  attendees='asistentes',
+  results='Colombia 4.0 mantuvo su lugar como el principal evento de tecnología y economía digital de América Latina, con más de 62.000 asistentes. Los temas incluyeron IA, desarrollo de software, animación, videojuegos, música y emprendimiento. Las piezas gráficas del evento fueron clave para transmitir su identidad vibrante e innovadora, y después apoyé las ediciones de 2019, 2020 y 2021 creando material gráfico para redes sociales junto a todo el equipo de diseño del Ministerio TIC.',
+  alts=dict(
+    arch='Colombia 4.0 de noche: el público bajo el arco de Corferias, con la bandera de Colombia y la tarima del evento',
+    phones='Piezas de Colombia 4.0 para redes sociales en un celular y en una cuadrícula de publicaciones',
+    videogames='Pieza: Videojuegos, con los conferencistas Luis Villegas, Mario Wynands y Johnny Casamissina',
+    regions='Pieza: Regiones Digitales, la agenda del jueves con una charla, un panel y un taller',
+    security='Pieza: Seguridad digital, con los conferencistas Yossi Sassi, Nicholas Davis y Antonio Ramos',
+    badge='Escarapela de Colombia 4.0 2018 colgada de una cinta',
+    stage='La tarima en vivo de Colombia 4.0 con el público al frente',
+    talk='Un panel en el escenario de nuevos medios de Colombia 4.0',
+    venue='La entrada de un pabellón de Colombia 4.0 vestida con los colores del evento'),
+ ),
+}

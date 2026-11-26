@@ -3,7 +3,7 @@ const fs = require('fs');
 const base = process.env.QA_BASE || 'http://127.0.0.1:8765/redesign/a-v3/';
 const axe = fs.readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
 const route = (ctx) => ctx.route(/framerusercontent\.com|giphy\.com/, r => r.abort());
-const pages = process.argv[2] ? process.argv[2].split(',') : ['', 'es/', 'invest-in-bogota/', 'es/invest-in-bogota/', 'radio-a-domicilio/', 'es/radio-a-domicilio/', 'vende-digital/', 'es/vende-digital/', 'infinited/', 'es/infinited/', 'pro-surge-ja/', 'es/pro-surge-ja/', '404.html'];
+const pages = process.argv[2] ? process.argv[2].split(',') : ['', 'es/', 'invest-in-bogota/', 'es/invest-in-bogota/', 'radio-a-domicilio/', 'es/radio-a-domicilio/', 'vende-digital/', 'es/vende-digital/', 'infinited/', 'es/infinited/', 'pro-surge-ja/', 'es/pro-surge-ja/', 'col40-2018/', 'es/col40-2018/', '404.html'];
 const fmt = (v) => v.map(v => `${v.impact} ${v.id} (${v.nodes.length}): ${v.nodes.slice(0, 2).map(n => n.target.join(' ')).join(' | ')}`);
 (async () => {
   const b = await chromium.launch();

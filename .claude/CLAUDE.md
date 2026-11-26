@@ -47,7 +47,7 @@ These rules come from the site owner and apply to every task in this repo.
   - Todo es local: imágenes WebP en `assets/img/`, fuentes WOFF2 en `assets/fonts/`, Lottie en `assets/vendor/`. Lo único en Framer son las 3 animaciones Lottie de portada.
   - Para publicar en la raíz: `REPO_FROM_SITE = ''`, `ABS_ROOT = '/'`, `LINK_INDEX = False`.
 - Páginas (EN y ES): home, `invest-in-bogota/`, `radio-a-domicilio/`, `vende-digital/`, `infinited/`, `pro-surge-ja/`, `404.html` (bilingüe), `projects-a/`, `projects-b/` y `projects-c/` (alternativas de la sección de proyectos, solo EN, noindex; C es la fusión vigente).
-- Falta Colombia 4.0 (2018): no hay contenido publicado; se pidió al dueño.
+- Colombia 4.0 (2018): caso hecho (`col40-2018/`, `col_main` en `build.py`, `COL` en `projects.py`). El contenido vive solo en Framer (`orange-point-971308.framer.app/col40-2018`); en `nicolasmb.com` da 404 porque `main` no tiene esa carpeta. Forma: la puerta (arco grueso del logo + punto, también el arco de Corferias). Behance tiene 29 piezas más (galería 210660311).
 - Contenido de los casos nuevos: `redesign/tools/projects.py`, tomado del sitio publicado (capturado en el scratchpad `prev/assets/orange-point-971308.framer.app/`).
 - Revisión de textos: `redesign/tools/review.py` (R1…R41). El generador marca cada una en el HTML. El dueño decide en la página https://claude.ai/artifact/EaVz97Axgp22ehvcy5VmEH (colección `decisions` del artifact; leer con ArtifactData `list`).
 - Decisiones tomadas por el dueño:
@@ -106,14 +106,13 @@ These rules come from the site owner and apply to every task in this repo.
   - Rótulo "HTML5 banners".
   - Íconos (Behance repetido, redes del footer como texto).
   - Fusión de proyectos (`projects-c/`).
-  - Contenido de Colombia 4.0.
   - Archivos Lottie.
   - Publicación.
 - El español debe ser una traducción fiel del inglés (mismo contenido, palabras nativas de cada idioma).
 - Casos de estudio:
   - Todos son páginas claras con secciones `is-night tone-night`.
   - Color del cliente: `--client` (sobre oscuro) y `--client-ink` (sobre blanco).
-- Red del entorno: `framerusercontent.com` y `*.framer.app` están bloqueados. Para descargar las Lottie, el dueño debe permitirlos en Network access.
+- Red del entorno: ya se permiten `framerusercontent.com`, `orange-point-971308.framer.app`, Behance y nicolasmb.com (2026-11-26). Las 3 Lottie de portada ya se pueden bajar y alojar en local.
 - Nada se publica en `main` sin aprobación explícita. El sitio en vivo es `https://nicolasmb.com/` (Netlify, se actualiza desde `main` en minutos).
 - Deck de Figma del dueño (Figma Slides, fileKey `A2FLZyFCZUkYItYyTG2Tgn`, portada nodo `1:2107`): fondo negro tipo película, grano, polvo/rayas, quemadura de película naranja en una esquina y el logotipo con halación (núcleo amarillo, naranja, borde magenta). El conector de Figma solo puede capturar diapositivas cuyo enlace (node-id) comparta el dueño; no puede listar las diapositivas de un deck.
 - Vista previa: `https://raw.githack.com/NicolasMB83/portfolio/redesign/redesign/a-v3/index.html` (a-v2: misma ruta con `a-v2`). Puede tardar unos minutos en reflejar un cambio; si dudas, recarga forzada.
@@ -121,3 +120,5 @@ These rules come from the site owner and apply to every task in this repo.
 - Higgsfield (storytelling con IA, prueba hasta el 2026-11-27): la prueba ilimitada no funciona en Claude Code, solo en chat de Claude, Cowork o ChatGPT. El dueño genera allí; el puente es el proyecto de Higgsfield `f583b208-3bef-49c8-8b24-e278a2a235e0` (workspace `5c1a64f1-6561-4d59-bd0a-1943cfe7eb69`), que se lee y se baja desde aquí (hosts `upload.higgsfield.ai` y `d2ol7oe51mr4n9.cloudfront.net` permitidos). Prompts y reglas: `redesign/a-v3/HIGGSFIELD.md`. Sin texto, logos ni la cara de la modelo de Vende Digital en lo generado.
 - Encabezado en los casos: la píldora flota sobre la portada oscura (como en el inicio) y se queda blanca al 82 % (el dueño dijo "déjalos").
 - Referente Louis Paquet (2026-11-26): punto 1 hecho, los proyectos se ven en la primera pantalla (menos aire bajo el hero y sobre "Work"; primera tarjeta a 588 px en 1280 × 720 y a 650 px en 390 × 844). Quedan por decidir: 2 (cada caso en cuatro actos), 3 (recortar animaciones), 4 (más gráficos con datos), 5 (credencial al frente) y 6 (paso de un caso al siguiente como corte de película).
+- Regla del dueño (2026-11-26): lo más fuerte del sitio es el sistema de diseño que sale del logo (arcos, punto, astas): con esas formas se construye un universo entero. El horizonte importa, pero el sistema del logo manda.
+- Narrativa (2026-11-26): el dueño eligió "Un día en Bogotá" con el sol como narrador, en tres pasos: (1) frase central en tres opciones para que elija, (2) prototipo del inicio como página aparte, (3) casos en cuatro actos. Pendiente: proponer las tres frases.

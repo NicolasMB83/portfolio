@@ -450,6 +450,7 @@ CARD_SHAPES = {   # each client's cover shape, small, rising from the card's bot
     'vende-digital': ('#ff00bc', '<path class="s s--thin" d="M30 106L120 32L210 106"/><circle cx="30" cy="106" r="13"/><circle cx="120" cy="32" r="18"/><circle cx="210" cy="106" r="13"/>'),
     'infinited': ('#2ccfc7', '<rect x="38" y="72" width="30" height="64" rx="15"/><rect x="105" y="38" width="30" height="98" rx="15"/><rect x="172" y="4" width="30" height="132" rx="15"/>'),
     'pro-surge-ja': ('#ff4848', '<path d="M54 120L118 0H158L94 120Z"/><path d="M124 120L188 0H228L164 120Z"/>'),
+    'col40-2018': ('#ff66f0', '<path d="M36 120A84 84 0 0 1 204 120H168A48 48 0 0 0 72 120Z"/><circle cx="120" cy="104" r="16"/>'),
 }
 
 
@@ -458,7 +459,7 @@ def card_kind(t, slug):
     lang = 'es' if t['other_lang'] == 'en' else 'en'
     return {'radio-a-domicilio': f"{t['work_rad']} · 2023–2024", 'invest-in-bogota': f"{t['work_iib']} · 2025",
             'vende-digital': f"{VD[lang]['work']} · 2022", 'infinited': f"{INF[lang]['work']} · 2021–2022",
-            'pro-surge-ja': f"{PS[lang]['work']} · 2023", 'col40-2018': t['soon']}[slug]
+            'pro-surge-ja': f"{PS[lang]['work']} · 2023", 'col40-2018': f"{COL[lang]['work']} · 2018"}[slug]
 
 
 def project(t, home, slug, cls='', sizes='(max-width: 760px) 100vw, 58vw'):
@@ -468,7 +469,7 @@ def project(t, home, slug, cls='', sizes='(max-width: 760px) 100vw, 58vw'):
     if slug in CARD_SHAPES:
         c, d = CARD_SHAPES[slug]
         shape = f'<svg class="card-shape" style="--client: {c}" viewBox="0 0 240 120" aria-hidden="true" focusable="false">{d}</svg>'
-    live = slug in CARD_SHAPES   # Colombia 4.0 has no case study yet: a card, not a link
+    live = slug in CARD_SHAPES
     open_, close = (f'<a class="project-link" href="{home}{slug}/">', '</a>') if live else ('<div class="project-link project-link--soon">', '</div>')
     arrow = f'<span class="card-go">{go("go--sun")}</span>' if live else ''
     return f'''
@@ -564,7 +565,7 @@ def work_tiles(t, home):
 
 
 from review import REVIEW, APPLIED
-from projects import VD, INF, PS, VD_DATA, VD_CHART, VD_SOURCE_URL
+from projects import VD, INF, PS, COL, VD_DATA, VD_CHART, VD_SOURCE_URL
 
 
 def mark_review(html):
@@ -963,6 +964,10 @@ SHAPE_PS = '''<svg class="cover-shape bars" viewBox="0 0 240 120" aria-hidden="t
           </svg>'''
 MARK_VD = '<svg class="mark mark--links" viewBox="0 0 40 24" aria-hidden="true" focusable="false"><path d="M6 20L20 6L34 20"/><circle cx="6" cy="20" r="4"/><circle cx="20" cy="6" r="5"/><circle cx="34" cy="20" r="4"/></svg>'
 MARK_INF = '<svg class="mark mark--stems" viewBox="0 0 40 24" aria-hidden="true" focusable="false"><rect x="4" y="14" width="7" height="14" rx="3.5"/><rect x="16.5" y="8" width="7" height="20" rx="3.5"/><rect x="29" y="2" width="7" height="26" rx="3.5"/></svg>'
+SHAPE_COL = '''<svg class="cover-shape gate" viewBox="0 0 240 120" aria-hidden="true" focusable="false">
+            <path class="w w1" d="M36 120A84 84 0 0 1 204 120H168A48 48 0 0 0 72 120Z"/><circle class="w w2" cx="120" cy="104" r="16"/>
+          </svg>'''
+MARK_COL = '<svg class="mark mark--gate" viewBox="0 0 40 24" aria-hidden="true" focusable="false"><path d="M4 24A16 16 0 0 1 36 24H29A9 9 0 0 0 11 24Z"/><circle cx="20" cy="21" r="3.2"/></svg>'
 MARK_PS = '<svg class="mark mark--bars" viewBox="0 0 40 24" aria-hidden="true" focusable="false"><path d="M6 24L17 0H24L13 24Z"/><path d="M19 24L30 0H37L26 24Z"/></svg>'
 
 
@@ -1134,6 +1139,44 @@ def ps_main(t, h):
         other_work(t, h, [('vende-digital', '', '(max-width: 760px) 100vw, 58vw'), ('infinited', 'project--narrow project--square', '(max-width: 760px) 100vw, 42vw')])
 
 
+# ---------- Colombia 4.0: the event as a gate where the creative industry meets technology; the arch
+# of the logo (and of Corferias, where it happened) frames it. Objectives, approach, the pieces, the crowd.
+def col_main(t, h):
+    c = COL[t['_lang']]; a = c['alts']
+    approach = '<div class="approach">' + ''.join(f'''
+            <div class="approach-row">
+              <h3 class="phase-title">{ph}</h3>
+              <ul>''' + ''.join(f'''
+                <li><h4>{ih}</h4><p>{ip}</p></li>''' for ih, ip in items) + '''
+              </ul>
+            </div>''' for ph, items in c['phases']) + '\n          </div>'
+    work = f'''<div class="gallery">
+            {fig('col40-phones', '', '(max-width: 760px) 100vw, 1320px', a['phones'])}
+            {fig('col40-post-videogames', 'g-4', '(max-width: 760px) 100vw, 33vw', a['videogames'])}
+            {fig('col40-post-regions', 'g-4', '(max-width: 760px) 100vw, 33vw', a['regions'])}
+            {fig('col40-post-security', 'g-4', '(max-width: 760px) 100vw, 33vw', a['security'])}
+            {fig('col40-badge', 'g-6', '(max-width: 760px) 100vw, 50vw', a['badge'])}
+            {fig('col40-stage', 'g-6', '(max-width: 760px) 100vw, 50vw', a['stage'])}
+            {fig('col40-talk', 'g-6', '(max-width: 760px) 100vw, 50vw', a['talk'])}
+            {fig('col40-venue', 'g-6', '(max-width: 760px) 100vw, 50vw', a['venue'])}
+          </div>'''
+    n = '62.000' if t['_lang'] == 'es' else '62,000'
+    figure = f'''{P.format('Colombia 4.0: cifra destacada tomada del texto publicado; "attendees" / "asistentes" es un rótulo nuevo')}
+          <p class="big-figure"><span class="big-figure-n">+{n}</span> <span class="big-figure-l">{c['attendees']}</span></p>'''
+    cover = f'<figure class="cover-shot">{pic("col40-night-arch", "(max-width: 760px) 100vw, 1320px", a["arch"], eager=True)}</figure>'
+    return f"{P.format('Colombia 4.0: textos en inglés tal como están publicados en Framer; español traducido; títulos de sección y textos alternativos nuevos')}" + \
+        case_cover(t, h, 'Colombia 4.0', SHAPE_COL, c['desc'], (c['year'], c['company'], t['r_dgd']), cover) + \
+        section('', 'col-obj', mark_head(t['c_obj'], 'col-obj', MARK_COL), objectives_html(c['obj'])) + \
+        section('', 'col-app', mark_head(c['approach'], 'col-app', MARK_COL), approach) + \
+        section('is-night tone-night', 'col-work', mark_head(c['work'], 'col-work', MARK_COL), work) + \
+        section('case-section--last', 'col-res', mark_head(t['ch_res'], 'col-res', MARK_COL), figure + results_block(t, c['results'])) + \
+        other_work(t, h, [('vende-digital', '', '(max-width: 760px) 100vw, 58vw'), ('infinited', 'project--narrow project--square', '(max-width: 760px) 100vw, 42vw')])
+
+
+def case_col(lang):
+    return case_shell(lang, 'col40-2018', lambda t: (COL[lang]['title'], COL[lang]['meta']), '#ff6a00', '#b34400', col_main)
+
+
 def case_vd(lang):
     return case_shell(lang, 'vende-digital', lambda t: (VD[lang]['title'], VD[lang]['meta']), '#ff00bc', '#2836d9', vd_main)
 
@@ -1199,13 +1242,13 @@ write('invest-in-bogota/index.html', case_iib('en'))
 write('es/invest-in-bogota/index.html', case_iib('es'))
 write('radio-a-domicilio/index.html', case_rad('en'))
 write('es/radio-a-domicilio/index.html', case_rad('es'))
-for slug, fn in (('vende-digital', case_vd), ('infinited', case_inf), ('pro-surge-ja', case_ps)):
+for slug, fn in (('vende-digital', case_vd), ('infinited', case_inf), ('pro-surge-ja', case_ps), ('col40-2018', case_col)):
     write(f'{slug}/index.html', fn('en'))
     write(f'es/{slug}/index.html', fn('es'))
 write('404.html', lost())
 print('built', ASSET_V, sorted(str(p.relative_to(OUT)) for p in OUT.rglob('*.html')))
 
-SLUGS = ['', 'invest-in-bogota/', 'radio-a-domicilio/', 'vende-digital/', 'infinited/', 'pro-surge-ja/']
+SLUGS = ['', 'invest-in-bogota/', 'radio-a-domicilio/', 'vende-digital/', 'infinited/', 'pro-surge-ja/', 'col40-2018/']
 urls = ''.join(f'''
   <url><loc>{BASE}{sl}</loc><xhtml:link rel="alternate" hreflang="en" href="{BASE}{sl}"/><xhtml:link rel="alternate" hreflang="es" href="{BASE}es/{sl}"/></url>
   <url><loc>{BASE}es/{sl}</loc><xhtml:link rel="alternate" hreflang="en" href="{BASE}{sl}"/><xhtml:link rel="alternate" hreflang="es" href="{BASE}es/{sl}"/></url>''' for sl in SLUGS)

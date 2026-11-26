@@ -1,7 +1,7 @@
 // Full-page reference captures with motion off, to compare before/after a refactor. Usage: node snap.js <outdir> [base]
 const { chromium } = require('playwright'); const fs = require('fs');
 const out = process.argv[2]; const base = process.argv[3] || 'http://127.0.0.1:8765/redesign/a-v3/';
-const pages = ['index.html', 'es/index.html', 'invest-in-bogota/index.html', 'radio-a-domicilio/index.html', 'vende-digital/index.html', 'infinited/index.html', 'pro-surge-ja/index.html', '404.html'];
+const pages = ['index.html', 'es/index.html', 'invest-in-bogota/index.html', 'radio-a-domicilio/index.html', 'vende-digital/index.html', 'infinited/index.html', 'pro-surge-ja/index.html', 'col40-2018/index.html', '404.html'];
 (async () => { fs.mkdirSync(out, { recursive: true }); const b = await chromium.launch();
   for (const w of [1440, 390]) { const ctx = await b.newContext({ viewport: { width: w, height: 900 }, reducedMotion: 'reduce' });
     await ctx.route(/framerusercontent|giphy/, r => r.abort()); await ctx.addInitScript(() => { Date = class extends Date { constructor(...a) { super(...(a.length ? a : [1790000000000])); } static now() { return 1790000000000; } }; });

@@ -559,5 +559,97 @@
    480,
    512
   ]
+ },
+ "uX9MGE1X55fUObPpZD6MFZaI2o.jpg": {
+  "name": "col40-night-arch",
+  "w": 1200,
+  "h": 801,
+  "sizes": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "au6T6ZLhoIK4fB6cIC7ODDSrZw8.png": {
+  "name": "col40-phones",
+  "w": 1920,
+  "h": 881,
+  "sizes": [
+   480,
+   960,
+   1600,
+   1920
+  ]
+ },
+ "9eQ461TViinDyxT9kj9m60SRRKc.jpg": {
+  "name": "col40-post-videogames",
+  "w": 1240,
+  "h": 1240,
+  "sizes": [
+   480,
+   960,
+   1240
+  ]
+ },
+ "AjHjelNPKqVnxVU116xtJFBER6I.jpg": {
+  "name": "col40-post-regions",
+  "w": 1920,
+  "h": 1920,
+  "sizes": [
+   480,
+   960,
+   1600,
+   1920
+  ]
+ },
+ "TfqdAM49uxin6phHV0lWHn1Jo4.jpg": {
+  "name": "col40-post-security",
+  "w": 1400,
+  "h": 1400,
+  "sizes": [
+   480,
+   960,
+   1400
+  ]
+ },
+ "uTcnbaVTcEGLfHPVp7z7On64gwA.png": {
+  "name": "col40-badge",
+  "w": 960,
+  "h": 881,
+  "sizes": [
+   480,
+   960
+  ]
+ },
+ "EGLc6VjDsgRKnE3DDq78ufnCU0.jpg": {
+  "name": "col40-stage",
+  "w": 1200,
+  "h": 801,
+  "sizes": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "p5ewqLR1TCdosPOytM1oHaZUse4.jpg": {
+  "name": "col40-talk",
+  "w": 1200,
+  "h": 801,
+  "sizes": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "Ps1A4ylfzxBLO8HkEi0yU7NU.png": {
+  "name": "col40-venue",
+  "w": 1920,
+  "h": 1174,
+  "sizes": [
+   480,
+   960,
+   1600,
+   1920
+  ]
  }
 }
